@@ -4,3 +4,5 @@ while variabel == True:
     print("Dankjewel")
 print("Kut olaf")
 print("Olaf is enge kasto!e")
+print("Olaf is enge kasto!e")
+print("Jengis")
