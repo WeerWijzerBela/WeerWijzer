@@ -17,3 +17,4 @@ def Zambretti(luchtdruk, luchtdruk_trend, seizoen):
     print("niks")
 
 print(CalcLuchtdrukZee(1013.25, 36, 21))
+# print(CalcLuchtdrukTrend(1013.25, 1013.25))
