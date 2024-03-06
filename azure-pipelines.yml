@@ -4,9 +4,11 @@ schedules:
   branches:
     include:
     - main
+    - feature/schedule-pipeline
 
 trigger:
 - main
+- feature/schedule-pipeline
 
 pool:
   vmImage: ubuntu-latest
