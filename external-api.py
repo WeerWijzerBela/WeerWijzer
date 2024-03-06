@@ -9,13 +9,13 @@ from dotenv import load_dotenv
 import os
 # import DB
 
-API_temp = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Apeldoorn/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json"
+# API_temp = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Apeldoorn/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json"
+# response = requests.request("GET", API_temp)
 
 load_dotenv()
 
 app = FastAPI()
 
-# response = requests.request("GET", API_temp)
 response = requests.request("GET", os.getenv("API_KEY"))
 if response.status_code != 200:
     print("Unexpected Status code: ", response.status_code)
@@ -66,3 +66,5 @@ for day in jsonData["days"]:
                                     f"{date_day_hour} values: temp: {hour_temp}, winddir: {hour_winddir}, pressure: {hour_pressure}"
                                 )
 
+
+#DATA KAN GEBRUIKT WORDEN VOOR BEREKENINGEN, MOET WEL BINNEN DE FOR LOOPS
