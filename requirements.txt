@@ -1,6 +1,2 @@
 requests==2.26.0
-pyodbc
-fastapi[all]
-uvicorn[standard]
-pydantic
-azure-identity
+

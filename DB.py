@@ -1,68 +1,101 @@
+# Description: This script establishes a connection to a MySQL database and performs the following operations:
+from dotenv import load_dotenv
+import mysql.connector as database
 import os
 
-import mysql.connector as database
 
-username = "doadmin"
+# Database connection parameters
+load_dotenv()
+username = os.environ.get("DB_USER")
+password = os.environ.get("DB_PASSWORD")
+host_db = os.environ.get("DB_HOST")
+port = os.environ.get("DB_PORT")
+db = os.environ.get("DB_NAME")
 
-password = "AVNS_Tl4BP3iZ00Ikk8Ix8DQ"
-
-host_db = "mysqldb-weerwijzer-do-user-15988447-0.c.db.ondigitalocean.com"
-
-port = "25060"
-
-db = "defaultdb"
-
-sslmode = "REQUIRED"
+if None in (username, password, host_db, port, db):
+    raise ValueError("One or more environment variables are not set.")
 
 
-# db = os.environ.get("db")
+config = {
+    'user': os.environ.get("DB_USER"),
+    'password': os.environ.get("DB_PASSWORD"),
+    'host': os.environ.get("DB_HOST"),
+    'port': os.environ.get("DB_PORT"),
+    'database': os.environ.get("DB_NAME"),
+}
 
-connection = database.connect(
-    user=username,
-    password=password,
-    host=host_db,
-    port=port,
-    database=db,)
+def connect_to_database():
+    """
+    Establishes a connection to the MySQL database.
+    """
+    try:
+        connection = database.connect(**config)
+        return connection
+    except database.Error as e:
+        print(f"Error connecting to MySQL database: {e}")
+        return None
 
-# Create a cursor
-cursor = connection.cursor() 
+def create_table(cursor):
+    """
+    Creates a table if it doesn't exist in the database.
+    """
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS weerwijzertable (     
+        id INT AUTO_INCREMENT PRIMARY KEY,     
+        winddirection VARCHAR(255),     
+        degrees INT,     
+        currentdate DATE
+    );
+    '''
+    try:
+        cursor.execute(create_table_query)
+        print("Table 'weerwijzertable' created successfully.")
+    except database.Error as e:
+        print(f"Error creating table: {e}")
 
-# Define the table creation SQL 
-# querycreate_table_query = ''' 
-#     CREATE TABLE IF NOT EXISTS weerwijzertable (     
-#         id INT AUTO_INCREMENT PRIMARY KEY,     
-#         winddirection VARCHAR(255),     
-#         degrees INT,     
-#         currentdate DATE ); '''
+def insert_data(cursor, connection):
+    """
+    Inserts sample data into the table.
+    """
+    insert_query = '''
+    INSERT INTO weerwijzertable (winddirection, degrees, currentdate) 
+    VALUES ('S', 36, '2022-10-10');
+    '''
+    try:
+        cursor.execute(insert_query)
+        connection.commit()
+        print("Data inserted successfully.")
+    except database.Error as e:
+        print(f"Error inserting data: {e}")
+        connection.rollback()
 
-# Execute the query to create the table
-# cursor.execute(querycreate_table_query) 
-# Commit the changes
-# connection.commit()
- # Close the cursor and connectionc
-# cursor.close() 
-# connection.close()
+def fetch_data(cursor):
+    """
+    Fetches all rows from the table and prints them.
+    """
+    table_name = 'weerwijzertable'
+    select_query = f'SELECT * FROM {table_name};'
+    try:
+        cursor.execute(select_query)
+        result = cursor.fetchall()
+        header = [desc[0] for desc in cursor.description]
+        print("\t".join(header))
+        for row in result:
+            print("\t".join(map(str, row)))
+    except database.Error as e:
+        print(f"Error fetching data: {e}")
 
-querycreate_table_query = '''
-insert INTO weerwijzertable (winddirection,degrees,currentdate) VALUES ('S', 36, '2022-10-10');
-'''
-# print(querycreate_table_query)
+def main():
+    connection = connect_to_database()
+    if connection:
+        try:
+            cursor = connection.cursor()
+            create_table(cursor)
+            insert_data(cursor, connection)
+            fetch_data(cursor)
+        finally:
+            cursor.close()
+            connection.close()
 
-cursor.execute(querycreate_table_query) 
-connection.commit()
-
-
-
-# Create a cursorcursor = connection.cursor() # Replace 'your_table_name' with the actual table name
-table_name = 'weerwijzertable'# Define the SELECT query to fetch all rows from the table
-select_query = f'SELECT * FROM {table_name};'
-# Execute the query
-cursor.execute(select_query) # Fetch all rows
-result = cursor.fetchall() # Print the table 
-header = [desc[0] for desc in cursor.description]
-# print("\t".join(header)) # Print each row
-for row in result:     
-    print("\t".join(map(str, row))) 
-# Close the cursor and connection
-cursor.close() 
-connection.close()
+if __name__ == "__main__":
+    main()
