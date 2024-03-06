@@ -20,34 +20,37 @@ if response.status_code != 200:
 
 # Parse the results as JSON
 jsonData = response.json()
-
-# print(jsonData)
-# Assigning unique variables to all the attributes of jsonData
 address = jsonData["address"]
-# datetime = jsonData["datetime"]
-# temp = jsonData["temp"]
-# humidity = jsonData["humidity"]
-# winddir = jsonData["winddir"]
-# pressure = jsonData["pressure"]
-# hours = jsonData["hours"]
-# days = jsonData["days"]
-# current = jsonData["current"]
 
 for day in jsonData["days"]:
-    date = datetime.strptime(day["datetime"], "%Y-%m-%d").date()
+    date_day = datetime.strptime(day["datetime"], "%Y-%m-%d").date()
     for day_data, value in day.items():
         match day_data:
             case "temp":
-                temp = value
+                day_temp = value
             case "humidity":
-                humidity = value
+                day_humidity = value
             case "winddir":
-                winddir = value
+                day_winddir = value
             case "pressure":
-                pressure = value
+                day_pressure = value
             case "hours":
-                print(
-                    f"{date} values: temp: {temp}, humidity: {humidity}, winddir: {winddir}, pressure: {pressure}"
-                )
-                # HIER VERDER UITBREIDEN NA CASE "HOURS" OM DE HOUR VALUE (i.e. 00:00) te bekijken, om te zetten naar day_hour en daar gegevens van ophalen
+                hoursLst = value
+                for hour in hoursLst:
+                    for hour_data, value in hour.items():
+                        match hour_data:
+                            case "datetime":
+                                date_hour = datetime.strptime(hour["datetime"], "%H:%M:%S").time()
+                                date_day_hour = datetime.combine(date_day, date_hour)
+                            case "temp":
+                                hour_temp = value
+                            case "humidity":
+                                hour_humidity = value
+                            case "winddir":
+                                hour_winddir = value
+                            case "pressure":
+                                hour_pressure = value
+                                print(
+                                    f"{date_day_hour} values: temp: {hour_temp}, humidity: {hour_humidity}, winddir: {hour_winddir}, pressure: {hour_pressure}"
+                                )
 
