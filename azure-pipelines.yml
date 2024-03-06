@@ -8,7 +8,7 @@ schedules:
 
 trigger:
 - main
-- features/external-api
+- features/*
 
 pool:
   vmImage: ubuntu-latest
