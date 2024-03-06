@@ -1,10 +1,10 @@
 schedules:
-- cron: '10 * * * *'
+- cron: '1 * * * *'
   displayName: runs every twenty minutes
   branches:
     include:
     - main
-    - feature/external-api
+    - feature/*
 
 trigger:
 - main
