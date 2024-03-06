@@ -4,11 +4,9 @@ schedules:
   branches:
     include:
     - main
-    - feature/*
 
 trigger:
 - main
-- feature/*
 
 pool:
   vmImage: ubuntu-latest
