@@ -1,6 +1,5 @@
 # Bron: https://github.com/sassoftware/iot-zambretti-weather-forcasting
 import math as m
-import requests
 def CalcLuchtdrukZee(luchtdruk, hoogte, temperatuur):
     '''Luchtdruk in mbar // Hoogte in meter // Temperatuur in graden Celsius'''
     return luchtdruk * (1 - (0.0065 * hoogte) / (temperatuur + (0.0065 * hoogte) + 273.15)) ** -5.257
@@ -54,7 +53,9 @@ def Zambretti(luchtdruk, vorige_luchtdruk, temperatuur, hoogtenap, windrichting)
         29: "Onrustig, korte mooi periodes",
         30: "Zeer onrustig, af en toe beter",
         31: "Stormachtig, mogelijk verbeterend",
-        32: "Stormachtig, veel regen"
+        32: "Stormachtig, veel regen",
+        888: "ERROR",
+        999: "Onbekend weertype, kan niet voorspeld worden."
     }
 
     if windrichting >= 135 and windrichting <= 225:
@@ -70,85 +71,16 @@ def Zambretti(luchtdruk, vorige_luchtdruk, temperatuur, hoogtenap, windrichting)
         z = 144 - 0.13 * luchtdruk
     elif trend == 1: # Constant
         z = 185 - 0.16 * luchtdruk
+    elif trend == 999: # Onbekend
+        z = 999
+    else: z = 888 # ERROR
 
     z = m.floor(z + zWind)
-
+    ## Hier moet z worden geruturned, en gestuurd worden naar de api
     return weertypen[int(z)]
 
 ############################################################################################################
 ##     Test                                                                                               ##
 ############################################################################################################
 
-############################################################################################################
-
-# z1 = "Settled Fine"
-# z2 = "Fine Weather"
-# z3 = "Fine, Becoming Less Settled"
-# z4 = "Fairly Fine, Showery Later"
-# z5 = "Showery, Becoming More Unsettled"
-# z6 = "Unsettled, Rain Later"
-# z7 = "Rain at Times, Worse Later"
-# z8 = "Rain at Times, Becoming Very Unsettled"
-# z9 = "Very Unsettled, Rain"
-#
-# z10 = "Settled Fine"
-# z11 = "Fine Weather"
-# z12 = "Fine, Possibly Showers"
-# z13 = "Fairly Fine, Showers Likely"
-# z14 = "Showery Bright Intervals"
-# z15 = "Changeable Some Rain"
-# z16 = "Unsettled, Rain at Times"
-# z17 = "Rain at Frequent Intervals"
-# z18 = "Very Unsettled, Rain"
-# z19 = "Stormy, Much Rain"
-#
-# z20 = "Settled Fine"
-# z21 = "Fine Weather"
-# z22 = "Becoming Fine"
-# z23 = "Fairly Fine, Improving"
-# z24 = "Fairly Fine, Possibly Showers Early"
-# z25 = "Showery Early, Improving"
-# z26 = "Changeable, Mending"
-# z27 = "Rather Unsettled Clearing Later"
-# z28 = "Unsettled, Probably Improving"
-# z29 = "Unsettled, Short Fine Intervals"
-# z30 = "Very Unsettled, Finer at Times"
-# z31 = "Stormy, Possibly Improving"
-# z32 = "Stormy, Much Rain"
-
-############################################################################################################
-
-# z1 = "kalm mooi weer"
-# z2 = "mooi weer"
-# z3 = "mooi, wordt minder kalm"
-# z4 = "redelijk mooi, later buien"
-# z5 = "buien, wordt onrustiger"
-# z6 = "onrustig, later regen"
-# z7 = "regen af en toe, later slechter"
-# z8 = "regen af en toe, wordt zeer onrustig"
-# z9 = "zeer onrustig, regen"
-#
-# z10 = "kalm mooi weer"
-# z11 = "mooi weer"
-# z12 = "mooi, mogelijk buien"
-# z13 = "redelijk mooi, waarschijnlijk buien"
-# z14 = "buien met opklaringen"
-# z15 = "veranderlijk, enkele regenbuien"
-# z16 = "onrustig, af en toe regen"
-# z17 = "regen met regelmatige tussenpozen"
-# z18 = "zeer onrustig, regen"
-# z19 = "stormachtig, veel regen"
-#
-# z20 = "kalm mooi weer"
-# z21 = "mooi weer"
-# z22 = "wordt mooi"
-# z23 = "redelijk mooi, verbetering"
-# z24 = "redelijk mooi, mogelijk buien vroeg"
-# z25 = "buien vroeg, verbetering"
-# z26 = "veranderlijk, wordt beter"
-# z27 = "tamelijk onrustig, later opklarend"
-# z28 = "onrustig, waarschijnlijk verbeterend"
-# z29 = "onrustig, korte mooi periodes"
-# z30 = "zeer onrustig, af en toe beter"
-# z31 = "stormachtig, mogelijk verbeterend"
-# z32 = "stormachtig, veel regen"
+print(Zambretti(1010, 1003, 21, 300, 320))

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weersvoorspelling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #huidigWeer, #weersverwachting {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #huidigWeerIcon, #weersverwachtingIcon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        #verwachtingContainer {
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 20px;
+        }
+
+        .uur {
+            display: inline-block;
+            width: 150px;
+            text-align: center;
+            margin-right: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="huidigWeer">
+        <h2>Huidige Weer</h2>
+        <div id="huidigWeerIcon">🌤️</div>
+        <p id="huidigWeerTemp">25°C</p>
+        <p id="huidigWeerTekst">Gedeeltelijk bewolkt</p>
+    </div>
+
+    <div id="weersverwachting">
+        <h2>24-uurs Weersverwachting</h2>
+        <div id="verwachtingContainer">
+            <div class="uur">
+                <div class="icon">🌧️</div>
+                <div>00:00</div>
+                <div>20°C</div>
+                <div>Regen</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌧️</div>
+                <div>01:00</div>
+                <div>20°C</div>
+                <div>Regen</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌧️</div>
+                <div>02:00</div>
+                <div>19°C</div>
+                <div>Regen</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌧️</div>
+                <div>03:00</div>
+                <div>19°C</div>
+                <div>Regen</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>04:00</div>
+                <div>18°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>05:00</div>
+                <div>18°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>06:00</div>
+                <div>17°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>07:00</div>
+                <div>17°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>08:00</div>
+                <div>16°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>09:00</div>
+                <div>16°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>10:00</div>
+                <div>16°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>11:00</div>
+                <div>17°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>12:00</div>
+                <div>18°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>13:00</div>
+                <div>19°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>14:00</div>
+                <div>20°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>15:00</div>
+                <div>21°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>16:00</div>
+                <div>21°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>17:00</div>
+                <div>22°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>18:00</div>
+                <div>22°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌤️</div>
+                <div>19:00</div>
+                <div>21°C</div>
+                <div>Zonnig</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>20:00</div>
+                <div>21°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>21:00</div>
+                <div>20°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>22:00</div>
+                <div>20°C</div>
+                <div>Bewolkt</div>
+            </div>
+            <div class="uur">
+                <div class="icon">🌥️</div>
+                <div>23:00</div>
+                <div>19°C</div>
+                <div>Bewolkt</div>
+            </div>
+        </div>
+    </div>
+
+    <button id="verwachtingSwitch">Toon 7-daagse Verwachting</button>
+
+    <script>
+        // JavaScript code om weer op te halen en weer te geven
+    </script>
+</body>
+</html>
+
