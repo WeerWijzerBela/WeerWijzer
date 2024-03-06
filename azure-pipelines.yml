@@ -4,11 +4,11 @@ schedules:
   branches:
     include:
     - main
-    - features/external-api
+    - feature/external-api
 
 trigger:
 - main
-- features/*
+- feature/*
 
 pool:
   vmImage: ubuntu-latest
