@@ -1,0 +1,8 @@
+DB_USER = doadmin
+DB_PASSWORD = AVNS_Tl4BP3iZ00Ikk8Ix8DQ
+DB_HOST = mysqldb-weerwijzer-do-user-15988447-0.c.db.ondigitalocean.com
+DB_PORT = 25060
+DB_NAME = defaultdb
+sslmode = REQUIRED
+
+API_KEY = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Apeldoorn/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json"
