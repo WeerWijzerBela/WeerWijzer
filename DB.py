@@ -133,38 +133,6 @@ def create_table_metingenuren(cursor):
     except database.Error as e:
         print(f"Error creating table: {e}")
 
-# def insert_data(cursor, connection):
-#     """
-#     Inserts sample data into the table.
-#     """
-#     insert_query = '''
-#     INSERT INTO weerwijzertable (winddirection, degrees, currentdate) 
-#     VALUES ('S', 36, '2022-10-10');
-#     '''
-#     try:
-#         cursor.execute(insert_query)
-#         connection.commit()
-#         print("Data inserted successfully.")
-#     except database.Error as e:
-#         print(f"Error inserting data: {e}")
-#         connection.rollback()
-
-# def fetch_data(cursor):
-#     """
-#     Fetches all rows from the table and prints them.
-#     """
-#     table_name = 'weerwijzertable'
-#     select_query = f'SELECT * FROM {table_name};'
-#     try:
-#         cursor.execute(select_query)
-#         result = cursor.fetchall()
-#         header = [desc[0] for desc in cursor.description]
-#         print("\t".join(header))
-#         for row in result:
-#             print("\t".join(map(str, row)))
-#     except database.Error as e:
-#         print(f"Error fetching data: {e}")
-
 def main():
     connection = connect_to_database()
     if connection:
