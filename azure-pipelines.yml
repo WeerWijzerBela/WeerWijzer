@@ -3,7 +3,8 @@ schedules:
   displayName: runs every twenty minutes
 
 trigger:
-- master
+- main
+- feature/*
 
 pool:
   vmImage: ubuntu-latest
