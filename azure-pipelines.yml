@@ -1,10 +1,14 @@
 schedules:
 - cron: '20 * * * *'
   displayName: runs every twenty minutes
+  branches:
+    include:
+    - main
+    - features/external-api
 
 trigger:
 - main
-- feature/*
+- features/external-api
 
 pool:
   vmImage: ubuntu-latest
