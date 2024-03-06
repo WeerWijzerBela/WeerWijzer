@@ -35,64 +35,113 @@ def connect_to_database():
         print(f"Error connecting to MySQL database: {e}")
         return None
 
-def create_table(cursor):
+def create_table_locaties(cursor):
     """
     Creates a table if it doesn't exist in the database.
     """
     create_table_query = '''
-    CREATE TABLE IF NOT EXISTS weerwijzertable (     
-        id INT AUTO_INCREMENT PRIMARY KEY,     
-        winddirection VARCHAR(255),     
-        degrees INT,     
-        currentdate DATE
+    CREATE TABLE IF NOT EXISTS Locaties (     
+        locatieId INT AUTO_INCREMENT PRIMARY KEY,     
+        locatie VARCHAR(255),
     );
     '''
     try:
         cursor.execute(create_table_query)
-        print("Table 'weerwijzertable' created successfully.")
+        print("Table 'Locatie' created successfully.")
     except database.Error as e:
         print(f"Error creating table: {e}")
 
-def insert_data(cursor, connection):
+def create_table_voorspellingen(cursor):
     """
-    Inserts sample data into the table.
+    Creates a table if it doesn't exist in the database.
     """
-    insert_query = '''
-    INSERT INTO weerwijzertable (winddirection, degrees, currentdate) 
-    VALUES ('S', 36, '2022-10-10');
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS voorspellingen (     
+        voorspellingId INT AUTO_INCREMENT PRIMARY KEY,     
+        locatieId INT,
+        datetime DATETIME,
+        currenttemp Decimal(5,2),
+        zWaarde INT,
+        FOREIGN KEY (locatieId) REFERENCES Locaties(locatieId)
+    );
     '''
     try:
-        cursor.execute(insert_query)
-        connection.commit()
-        print("Data inserted successfully.")
+        cursor.execute(create_table_query)
+        print("Table 'voorspellingen' created successfully.")
     except database.Error as e:
-        print(f"Error inserting data: {e}")
-        connection.rollback()
+        print(f"Error creating table: {e}")
 
-def fetch_data(cursor):
+def create_table_voorspellinguren(cursor):
     """
-    Fetches all rows from the table and prints them.
+    Creates a table if it doesn't exist in the database.
     """
-    table_name = 'weerwijzertable'
-    select_query = f'SELECT * FROM {table_name};'
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS voorspellinguren (     
+        voorspellingUrenId INT AUTO_INCREMENT PRIMARY KEY,     
+        voorspellingId INT,
+        datetime DATETIME,
+        temperature Decimal(5,2),
+        zWaarde INT,
+        FOREIGN KEY (voorspellingId) REFERENCES voorspellingen(voorspellingId)
+    );
+    '''
     try:
-        cursor.execute(select_query)
-        result = cursor.fetchall()
-        header = [desc[0] for desc in cursor.description]
-        print("\t".join(header))
-        for row in result:
-            print("\t".join(map(str, row)))
+        cursor.execute(create_table_query)
+        print("Table 'weervoorspellingen' created successfully.")
     except database.Error as e:
-        print(f"Error fetching data: {e}")
+        print(f"Error creating table: {e}")
+
+def create_table_metingen(cursor):
+    """
+    Creates a table if it doesn't exist in the database.
+    """
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS metingen (     
+        metingenId INT AUTO_INCREMENT PRIMARY KEY,     
+        locatieId INT,
+        datetime DATETIME,
+        currenttemp Decimal(5,2),
+        pressure Decimal(5,2),
+        winddirection VARCHAR(255),
+        FOREIGN KEY (locatieId) REFERENCES Locaties(locatieId)
+    );
+    '''
+    try:
+        cursor.execute(create_table_query)
+        print("Table 'metingen' created successfully.")
+    except database.Error as e:
+        print(f"Error creating table: {e}")
+
+def create_table_metingenuren(cursor):
+    """
+    Creates a table if it doesn't exist in the database.
+    """
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS metinguren (     
+        metingUrenId INT AUTO_INCREMENT PRIMARY KEY,     
+        metingenId INT,
+        datetime DATETIME,
+        Temperature Decimal(5,2),
+        pressure Decimal(5,2),
+        winddirection VARCHAR(255),
+        FOREIGN KEY (metingenId) REFERENCES metingen(metingenId)
+    );
+    '''
+    try:
+        cursor.execute(create_table_query)
+        print("Table 'metinguren' created successfully.")
+    except database.Error as e:
+        print(f"Error creating table: {e}")
 
 def main():
     connection = connect_to_database()
     if connection:
         try:
             cursor = connection.cursor()
-            create_table(cursor)
-            insert_data(cursor, connection)
-            fetch_data(cursor)
+            create_table_locaties(cursor)
+            create_table_voorspellingen(cursor)
+            create_table_metingen(cursor)
+            create_table_metingenuren(cursor)
         finally:
             cursor.close()
             connection.close()
