@@ -6,6 +6,9 @@ schedules:
     - feature/schedule-pipeline
   always: 'true'
 
+trigger:
+- feature/schedule-pipeline
+
 pool:
   vmImage: ubuntu-latest
 
