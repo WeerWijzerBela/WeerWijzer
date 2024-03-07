@@ -1,48 +1,35 @@
 from fastapi import FastAPI, HTTPException, Depends
-from fastapi.requests import Request
-from fastapi.responses import JSONResponse
 import requests
 import sys
-import json
 from datetime import datetime
 from dotenv import load_dotenv
-import os
-# import DB
 
 API_temp = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Apeldoorn/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json"
 response = requests.request("GET", API_temp)
-
 load_dotenv()
-
 app = FastAPI()
-
-# response = requests.request("GET", os.getenv("API_KEY"))
 if response.status_code != 200:
     print("Unexpected Status code: ", response.status_code)
     sys.exit()
 
-# Parse the results as JSON
 jsonData = response.json()
 address = jsonData["address"]
-for currentCondition_data, value in jsonData["currentConditions"].items():
-    match currentCondition_data:
-        case "datetime":
-            currentCondition_time = value
-        case "temp":
-            currentCondition_temp = value
-        case "winddir":
-            currentCondition_winddir = value
-        case "pressure":
-            currentCondition_pressure = value
-            print(
-                                    f"{currentCondition_time} values: temp: {currentCondition_temp}, winddir: {currentCondition_winddir}, pressure: {currentCondition_pressure}"
-                                )
-firstDay = True
+firstTime = True
 for day in jsonData["days"]:
     date_day = datetime.strptime(day["datetime"], "%Y-%m-%d").date()
-    if firstDay == True:
-        firstDay = datetime.combine(date_day, datetime.strptime(currentCondition_time, "%H:%M:%S").time())
-        print(firstDay)
+    if firstTime == True:
+        firstTime = False
+        for currentCondition_data, value in jsonData["currentConditions"].items():
+            match currentCondition_data:
+                case "datetime":
+                    currentCondition_time = datetime.combine(date_day, datetime.strptime(value, "%H:%M:%S").time())
+                case "temp":
+                    currentCondition_temp = value
+                case "winddir":
+                    currentCondition_winddir = value
+                case "pressure":
+                    currentCondition_pressure = value
+                    print(f"Current: {currentCondition_time} values: temp: {currentCondition_temp}, winddir: {currentCondition_winddir}, pressure: {currentCondition_pressure}")
     for day_data, value in day.items():
         match day_data:
             case "temp":
@@ -57,8 +44,8 @@ for day in jsonData["days"]:
                     for hour_data, value in hour.items():
                         match hour_data:
                             case "datetime":
-                                date_day_hour = datetime.combine(date_day, datetime.strptime(hour["datetime"], "%H:%M:%S").time())
-                                if date_day_hour < datetime.now():
+                                datetime = datetime.combine(date_day, datetime.strptime(hour["datetime"], "%H:%M:%S").time())
+                                if datetime <= currentCondition_time:
                                     break
                             case "temp":
                                 hour_temp = value
@@ -67,8 +54,5 @@ for day in jsonData["days"]:
                             case "pressure":
                                 hour_pressure = value
                                 print(
-                                    f"{date_day_hour} values: temp: {hour_temp}, winddir: {hour_winddir}, pressure: {hour_pressure}"
+                                    f"{datetime} values: temp: {hour_temp}, winddir: {hour_winddir}, pressure: {hour_pressure}"
                                 )
-
-
-#DATA KAN GEBRUIKT WORDEN VOOR BEREKENINGEN, MOET WEL BINNEN DE FOR LOOPS
