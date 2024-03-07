@@ -1,7 +1,7 @@
 import math as m
 import datetime
 
-def ZambrettiAPI(luchtdruk, vorige_luchtdruk, temperatuur, hoogtenap, windrichting):
+def Zambretti(luchtdruk, vorige_luchtdruk, temperatuur, hoogtenap, windrichting):
     '''Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Hoogte in meter // Windrichting in graden (0-360)'''
     # Luchtdruk omrekenen naar luchtdruk op zeeniveau
     luchtdruk = luchtdruk * (1 - (0.0065 * hoogtenap) / (temperatuur + (0.0065 * hoogtenap) + 273.15)) ** -5.257
@@ -37,5 +37,5 @@ def ZambrettiAPI(luchtdruk, vorige_luchtdruk, temperatuur, hoogtenap, windrichti
     z = m.floor(z + zWind)
     return z, trend, temperatuur
 
-
-print(ZambrettiAPI(1010, 1005, 20, 34, 180)) # 1010 mbar, 1005 mbar, 20 graden, 0 meter, 180 graden windrichting
+def postData():
+    '''Post data to the server'''
