@@ -1,12 +1,10 @@
 schedules:
-- cron: '*/5 * * * *'
-  displayName: runs every 5 minutes
+- cron: '*/10 * * * *'
+  displayName: runs every ten minutes
   branches:
     include:
     - feature/schedule-pipeline
   always: 'true'
-trigger:
-- feature/schedule-pipeline
 
 pool:
   vmImage: ubuntu-latest
