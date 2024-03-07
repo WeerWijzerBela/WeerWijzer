@@ -3,9 +3,11 @@ schedules:
   displayName: runs every ten minutes
   branches:
     include:
+    - main
     - feature/schedule-pipeline
 
 trigger:
+- main
 - feature/schedule-pipeline
 
 pool:
