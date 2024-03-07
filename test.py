@@ -16,14 +16,15 @@ def insert_data(cursor):
 
 
 def main():
-    connection = DB.connect_to_database()
-    if connection:
-        try:
-            cursor = connection.cursor()
-            insert_data(cursor)
-        finally:
-            cursor.close()
-            connection.close()
+    print("Hello, World!")
+    # connection = DB.connect_to_database()
+    # if connection:
+    #     try:
+    #         cursor = connection.cursor()
+    #         insert_data(cursor)
+    #     finally:
+    #         cursor.close()
+    #         connection.close()
 
 if __name__ == "__main__":
     main()
