@@ -1,13 +1,11 @@
 schedules:
-- cron: '*/10 * * * *'
-  displayName: runs every twenty minutes
+- cron: '*/5 * * * *
+  displayName: runs every ten minutes
   branches:
     include:
-    - main
     - feature/schedule-pipeline
 
 trigger:
-- main
 - feature/schedule-pipeline
 
 pool:
