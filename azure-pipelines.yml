@@ -17,8 +17,10 @@ stages:
   jobs:
   - job: Build
     steps:
-    - script: python -m pip install -r requirements.txt --user
-      displayName: 'install dependencies'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      displayName: 'Install dependencies'
     - script: python3 test.py
       displayName: 'Run Python script'
 
