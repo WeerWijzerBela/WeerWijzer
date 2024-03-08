@@ -4,7 +4,7 @@ schedules:
   branches:
     include:
     - feature/schedule-pipeline
-  always: 'true'
+  always: 'false'
 
 trigger:
 - feature/schedule-pipeline
