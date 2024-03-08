@@ -1,4 +1,3 @@
-from fastapi import FastAPI, HTTPException, Depends
 import requests
 import sys
 from datetime import datetime,date
