@@ -9,6 +9,7 @@ def insert_data(cursor):
     '''
     try:
         cursor.execute(insert_query)
+        cursor.commit()
         print("Data inserted successfully.")
     except DB.database.Error as e:
         print(f"Error inserting data: {e}")
