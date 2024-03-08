@@ -29,13 +29,14 @@ stages:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
       displayName: 'Install dependencies'
-    - env:
+    - script: |
+        python3 test.py
+      env:
         DB_HOST: $(db_host)
         DB_NAME: $(db_name)
         DB_PORT: $(db_port)
         DB_USER: $(db_user)
         DB_PASSWORD: $(db_pass)
-      script: python3 test.py
       displayName: 'Run Python script'
 
 # resources:
