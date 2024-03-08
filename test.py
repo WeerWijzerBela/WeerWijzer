@@ -9,7 +9,6 @@ def insert_data(cursor):
     '''
     try:
         cursor.execute(insert_query)
-        
         print("Data inserted successfully.")
     except DB.database.Error as e:
         print(f"Error inserting data: {e}")
@@ -22,8 +21,7 @@ def main():
     if connection:
         try:
             cursor = connection.cursor()
-            insert_data(cursor)
-            connection.commit()
+            # insert_data(cursor)
         finally:
             cursor.close()
             connection.close()
