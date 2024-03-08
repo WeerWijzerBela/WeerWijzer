@@ -1,15 +1,12 @@
 # Description: This script establishes a connection to a MySQL database and performs the following operations:
-from dotenv import load_dotenv
 import mysql.connector as database
 import os
 
-
 # Database connection parameters
-load_dotenv()
 username = os.environ.get("DB_USER")
 password = os.environ.get("DB_PASSWORD")
 host_db = os.environ.get("DB_HOST")
-port = int(os.environ.get("DB_PORT"))
+port = os.environ.get("DB_PORT")
 db = os.environ.get("DB_NAME")
 
 if None in (username, password, host_db, port, db):
