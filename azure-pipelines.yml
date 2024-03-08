@@ -12,7 +12,7 @@ variables:
   - name: db_name
     value: '${env:DB_NAME}'
   - name: db_port
-    value: '${env:DB_PORT}'
+    value: '25060'
   - name: db_user
     value: '${env:DB_USER}'
   - name: db_pass
