@@ -4,7 +4,15 @@ schedules:
   branches:
     include:
     - feature/schedule-pipeline
-  always: 'false'
+  always: 'true'
+
+variables: 
+  db_host: ${env:DB_HOST}
+  db_name: ${env:DB_NAME}
+  db_port: ${env:DB_PORT}
+  db_user: ${env:DB_USER}
+  db_pass: ${env:DB_PASSWORD}
+
 
 trigger:
 - feature/schedule-pipeline
@@ -21,7 +29,13 @@ stages:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
       displayName: 'Install dependencies'
-    - script: python3 test.py
+    - env:
+        DB_HOST: $(db_host)
+        DB_NAME: $(db_name)
+        DB_PORT: $(db_port)
+        DB_USER: $(db_user)
+        DB_PASSWORD: $(db_pass)
+      script: python3 test.py
       displayName: 'Run Python script'
 
 # resources:

@@ -5,7 +5,7 @@ def insert_data(cursor):
     Inserts data into the database.
     """
     insert_query = '''
-    INSERT INTO Locaties (locatie) VALUES ('Apeldoorn');
+    INSERT INTO Locaties (locatie) VALUES ('Maastricht');
     '''
     try:
         cursor.execute(insert_query)
@@ -17,14 +17,14 @@ def insert_data(cursor):
 
 def main():
     print("Hello, World!")
-    # connection = DB.connect_to_database()
-    # if connection:
-    #     try:
-    #         cursor = connection.cursor()
-    #         insert_data(cursor)
-    #     finally:
-    #         cursor.close()
-    #         connection.close()
+    connection = DB.connect_to_database()
+    if connection:
+        try:
+            cursor = connection.cursor()
+            insert_data(cursor)
+        finally:
+            cursor.close()
+            connection.close()
 
 if __name__ == "__main__":
     main()
