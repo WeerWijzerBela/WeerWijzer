@@ -19,7 +19,7 @@ def post_external_data():
         cursor.execute(insertMetingen)
         connection.commit()
         metingId = cursor.lastrowid
-        insertQuery = f"INSERT INTO metinguren (metingenId,datetime,temperature,pressure,winddirection)VALUES ('{metingId}', '{str(date.today())  + " " + jsonData["currentConditions"]["datetime"]}', {jsonData["currentConditions"]['temp']}, {jsonData["currentConditions"]['pressure']}, '{jsonData["currentConditions"]['winddir']}')"
+        insertQuery = f"INSERT INTO metinguren (metingenId,datetime,temperature,pressure,winddirection)VALUES ('{metingId}', '{str(date.today())  + " " + jsonData['currentConditions']['datetime']}', '{jsonData['currentConditions']['temp']}', '{jsonData['currentConditions']['pressure']}', '{jsonData['currentConditions']['winddir']}')"
         cursor.execute(insertQuery)
         connection.commit()
 
