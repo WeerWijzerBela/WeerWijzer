@@ -15,37 +15,18 @@ def post_external_data():
         jsonData = response.json()
         connection = DB.connect_to_database()
         cursor = connection.cursor()
-        insertMetingen = f"INSERT INTO metingen 
-                        (locatieId, 
-                         datetime) 
-                         VALUES (
-                            (SELECT locatieId FROM locaties WHERE locatie = '{locatie}'), 
-                            '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}')"
+        insertMetingen = f"INSERT INTO metingen (locatieId, datetime) VALUES ((SELECT locatieId FROM locaties WHERE locatie = '{locatie}'), '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}')"
         cursor.execute(insertMetingen)
         connection.commit()
         metingId = cursor.lastrowid
-        insertQuery = f"INSERT INTO metinguren 
-                        (metingenId, 
-                         datetime, 
-                         temperature, 
-                         pressure, 
-                         winddirection) 
-                         VALUES 
-                         ('{metingId}', '{str(date.today())  + " " + jsonData["currentConditions"]["datetime"]}', {jsonData["currentConditions"]['temp']}, {jsonData["currentConditions"]['pressure']}, '{jsonData["currentConditions"]['winddir']}')"
+        insertQuery = f"INSERT INTO metinguren (metingenId,datetime,temperature,pressure,winddirection)VALUES ('{metingId}', '{str(date.today())  + " " + jsonData["currentConditions"]["datetime"]}', {jsonData["currentConditions"]['temp']}, {jsonData["currentConditions"]['pressure']}, '{jsonData["currentConditions"]['winddir']}')"
         cursor.execute(insertQuery)
         connection.commit()
 
         for data in jsonData["days"]:
             for i in data['hours']:
                 i['datetime'] = data['datetime'] + ' ' + i['datetime']
-                insertMetingUren = f"INSERT INTO metinguren 
-                                (metingenId, 
-                                 datetime, 
-                                 temperature, 
-                                 pressure, 
-                                 winddirection) 
-                                 VALUES 
-                                 ('{metingId}', '{i['datetime']}', {i['temp']}, {i['pressure']}, '{i['winddir']}')"
+                insertMetingUren = f"INSERT INTO metinguren(metingenId,datetime,temperature,pressure,winddirection) VALUES ('{metingId}', '{i['datetime']}', {i['temp']}, {i['pressure']}, '{i['winddir']}')"
                 cursor.execute(insertMetingUren)
                 connection.commit()
     else:
