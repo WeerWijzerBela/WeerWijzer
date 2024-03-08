@@ -5,7 +5,7 @@ def insert_data(cursor):
     Inserts data into the database.
     """
     insert_query = '''
-    INSERT INTO Locaties (locatie) VALUES ('Maastricht');
+    INSERT INTO locaties (locatie) VALUES ('Maastricht');
     '''
     try:
         cursor.execute(insert_query)
