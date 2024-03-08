@@ -20,7 +20,7 @@ config = {
     'port': os.environ.get("DB_PORT"),
     'database': os.environ.get("DB_NAME"),
 }
-
+print(config)
 def connect_to_database():
     """
     Establishes a connection to the MySQL database.
