@@ -1,11 +1,12 @@
 import DB
+from datetime import date
 
 def insert_data(cursor):
     """
     Inserts data into the database.
     """
     insert_query = '''
-    INSERT INTO locaties (locatie) VALUES ('Maastricht');
+    INSERT INTO locaties (locatie) VALUES ('Apeldoorn');
     '''
     try:
         cursor.execute(insert_query)
@@ -21,10 +22,9 @@ def main():
     if connection:
         try:
             cursor = connection.cursor()
-            # insert_data(cursor)
+            insert_data(cursor)
+            connection.commit()
         finally:
             cursor.close()
             connection.close()
-
-if __name__ == "__main__":
-    main()
+print(date.today())

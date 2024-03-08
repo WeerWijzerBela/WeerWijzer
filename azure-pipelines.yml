@@ -22,7 +22,7 @@ stages:
         pip install -r requirements.txt
       displayName: 'Install dependencies'
     - script: |
-        python3 test.py
+        python3 metingen.py
       env:
         DB_HOST: ${env:DB_HOST}
         DB_NAME: ${env:DB_NAME}
