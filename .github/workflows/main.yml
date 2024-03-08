@@ -1,6 +1,8 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on:
+  branches:
+    - feature/schedule-pipeline
   schedule:
     - cron: "*/10 * * * *" # runs every ten minutes
 jobs:
