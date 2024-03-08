@@ -39,7 +39,7 @@ stages:
       env:
         DB_HOST: $[ variables['db_host'] ]
         DB_NAME: $[ variables['db_name'] ]
-        DB_PORT: $[ variables['db_port'] ]
+        DB_PORT: $[ int(variables['db_port']) ]
         DB_USER: $[ variables['db_user'] ]
         DB_PASSWORD: $[ variables['db_pass'] ]
       displayName: 'Run Python script'
