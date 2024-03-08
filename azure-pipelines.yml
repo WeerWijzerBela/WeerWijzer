@@ -6,19 +6,6 @@ schedules:
     - feature/schedule-pipeline
   always: 'true'
 
-variables: 
-  - name: db_host
-    value: '${env:DB_HOST}'
-  - name: db_name
-    value: '${env:DB_NAME}'
-  - name: db_port
-    value: '25060'
-  - name: db_user
-    value: '${env:DB_USER}'
-  - name: db_pass
-    value: '${env:DB_PASSWORD}'
-
-
 trigger:
 - feature/schedule-pipeline
 
@@ -37,11 +24,11 @@ stages:
     - script: |
         python3 test.py
       env:
-        DB_HOST: $[ variables['db_host'] ]
-        DB_NAME: $[ variables['db_name'] ]
-        DB_PORT: $[ int(variables['db_port']) ]
-        DB_USER: $[ variables['db_user'] ]
-        DB_PASSWORD: $[ variables['db_pass'] ]
+        DB_HOST: ${env:DB_HOST}
+        DB_NAME: ${env:DB_NAME}
+        DB_PORT: ${env:DB_PORT}
+        DB_USER: ${env:DB_USER}
+        DB_PASSWORD: ${env:DB_PASSWORD}
       displayName: 'Run Python script'
 
 # resources:
