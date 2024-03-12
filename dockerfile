@@ -8,7 +8,7 @@ LABEL maintainer = "Justin en Olaf"
 
 WORKDIR /usr/app/src
 
-COPY  test.py /.
+COPY  test.py .
 
-CMD ["python", "./test.py"]
+CMD ["python", "test.py"]
 
