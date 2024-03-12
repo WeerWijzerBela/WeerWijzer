@@ -3,11 +3,11 @@ schedules:
   displayName: runs every ten minutes
   branches:
     include:
-    - main
+    - master
   always: 'true'
 
 trigger:
-- main
+- master
 
 pool:
   vmImage: ubuntu-latest
