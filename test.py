@@ -17,7 +17,7 @@ def insert_data(cursor):
 
 
 def main():
-    print("Hello, World!")
+    
     connection = DB.connect_to_database()
     if connection:
         try:
@@ -27,4 +27,7 @@ def main():
         finally:
             cursor.close()
             connection.close()
+
+
 print(date.today())
+print("Hello, World!")
