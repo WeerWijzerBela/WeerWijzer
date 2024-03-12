@@ -1,11 +1,11 @@
 name: CICD Pipeline
 on:
-  workflow_run:
-    workflows: [Scheduled Pipeline]
-    types:
-      - completed
-    branches:
-      - feature/cicd-pipeline
+  # workflow_run:
+  #   workflows: [Scheduled Pipeline]
+  #   types:
+  #     - completed
+  #   branches:
+  #     - feature/cicd-pipeline
   push:
     branches:
       - feature/cicd-pipeline
@@ -28,4 +28,8 @@ jobs:
           pip install -r requirements.txt
           
       - name: Build Docker container
-        run: docker build -t my-cicd-pipeline:latest .
+        run: |
+          docker login registry.digitalocean.com 
+          -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
+          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+          docker push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
