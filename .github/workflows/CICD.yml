@@ -6,6 +6,9 @@ on:
       - completed
     branches:
       - feature/cicd-pipeline
+  push:
+    branches:
+      - feature/cicd-pipeline
 jobs:
   build:
     runs-on: ubuntu-latest
