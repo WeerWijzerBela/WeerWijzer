@@ -4,6 +4,8 @@ on:
     workflows: [Scheduled Pipeline]
     types:
       - completed
+    branches:
+      - feature/cicd-pipeline
 jobs:
   build:
     runs-on: ubuntu-latest
