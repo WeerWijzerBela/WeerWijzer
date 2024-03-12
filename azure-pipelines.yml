@@ -3,11 +3,11 @@ schedules:
   displayName: runs every ten minutes
   branches:
     include:
-    - feature/schedule-pipeline
+    - main
   always: 'true'
 
 trigger:
-- feature/schedule-pipeline
+- main
 
 pool:
   vmImage: ubuntu-latest
