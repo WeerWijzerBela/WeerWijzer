@@ -4,7 +4,7 @@ on:
     - cron: '*/10 * * * *'
   push:
     branches:
-      - master
+      - feature/cicd-pipeline
 
 jobs:
   build:
