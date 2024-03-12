@@ -1,4 +1,5 @@
-from datetime import date
 
-print(date.today())
+print("Starting script...")
 print("Hello, World!")
+print("Script completed.")
+
