@@ -26,7 +26,7 @@ def post_external_data():
         for data in jsonData["days"]:
             for i in data['hours']:
                 i['datetime'] = data['datetime'] + ' ' + i['datetime']
-                if i['datetime'] < str(date.today())  + ' ' + jsonData['currentConditions']['datetime']:
+                if i['datetime'] <= str(date.today())  + ' ' + jsonData['currentConditions']['datetime']:
                     continue
                 else:
                     insertMetingUren = f"INSERT INTO metinguren(metingenId,datetime,temperature,pressure,winddirection) VALUES ('{metingId}', '{i['datetime']}', {i['temp']}, {i['pressure']}, '{i['winddir']}')"
