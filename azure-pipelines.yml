@@ -1,19 +1,39 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+schedules:
+- cron: '*/10 * * * *'
+  displayName: runs every ten minutes
+  branches:
+    include:
+    - main
+  always: 'true'
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+- stage: Development
+  jobs:
+  - job: Build
+    steps:
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      displayName: 'Install dependencies'
+    - script: |
+        python3 metingen.py
+      env:
+        DB_HOST: ${env:DB_HOST}
+        DB_NAME: ${env:DB_NAME}
+        DB_PORT: ${env:DB_PORT}
+        DB_USER: ${env:DB_USER}
+        DB_PASSWORD: ${env:DB_PASSWORD}
+      displayName: 'Run Python script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+# resources:
+#   pipelines:
+#   - pipeline: mainpipeline # Name of the pipeline resource.
+#     source: security-lib-ci # The name of the pipeline referenced by this pipeline resource.
+#     trigger: 'true' 
+
