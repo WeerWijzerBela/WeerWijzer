@@ -4,7 +4,7 @@ on:
     - cron: '*/10 * * * *'
   push:
     branches:
-      - feature/schedule-pipeline
+      - master
 
 jobs:
   build:
@@ -31,4 +31,4 @@ jobs:
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: python test.py
+        run: python metingen.py
