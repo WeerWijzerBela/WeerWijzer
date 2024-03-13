@@ -49,7 +49,7 @@ jobs:
 
       - name: Start garbage collection
         run: |
-          doctl registry garbage-collection start --include-untagged-manifests registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline --force
+          doctl registry garbage-collection start --include-untagged-manifests my-cicd-pipeline --force
 
 
 ###
