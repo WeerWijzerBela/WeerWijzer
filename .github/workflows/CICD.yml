@@ -27,27 +27,27 @@ jobs:
 #          python -m pip install --upgrade pip
 #          pip install -r requirements.txt
           
-#      - name: Build Docker container
-#        run: |
-#          docker build -t my-cicd-pipeline:latest .
-#          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
-#          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-#          docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-      - name: Build Docker image
-        run: docker build --tag my-cicd-pipeline .
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ6ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ=
-#      - name: Login to DigitalOcean Container Registry
+      - name: Build Docker container
+        run: |
+          docker build -t my-cicd-pipeline:latest .
+          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ6ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ='
+          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+          docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+#      - name: Build Docker image
+#        run: docker build --tag my-cicd-pipeline .
+#      - name: Install doctl
+#        uses: digitalocean/action-doctl@v2
+#        with:dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243
+#          token: ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ6ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ=
+##      - name: Login to DigitalOcean Container Registry
+##        run:
+##          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
+#      - name: Log in to DO Container Registry
+#        run: doctl registry login --expiry-seconds 600
+#      - name: Tag image
 #        run:
-#          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
-      - name: Log in to DO Container Registry
-        run: doctl registry login --expiry-seconds 600
-      - name: Tag image
-        run:
-          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
-      - name: Push image to DO Container Registry
-        run: docker push push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
+#          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
+#      - name: Push image to DO Container Registry
+#        run: docker push push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
 
 
