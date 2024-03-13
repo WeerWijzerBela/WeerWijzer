@@ -50,5 +50,5 @@ jobs:
 #        run: docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
 
       - name: Push Docker image to DigitalOcean Container Registry
-        run: docker push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
+        run: docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
 
