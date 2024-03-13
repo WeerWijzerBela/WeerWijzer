@@ -1,30 +1,20 @@
-import DB
-from datetime import date
+import requests
+import logfiles
 
-def insert_data(cursor):
-    """
-    Inserts data into the database.
-    """
-    insert_query = '''
-    INSERT INTO locaties (locatie) VALUES ('Apeldoorn');
-    '''
+logfiles.basicConfig(level=logfiles.DEBUG)
+
+def get_data():
     try:
-        cursor.execute(insert_query)
-        print("Data inserted successfully.")
-    except DB.database.Error as e:
-        print(f"Error inserting data: {e}")
+        response = requests.get('http://example.com')
+        response.raise_for_status()
+        logfiles.info('Data opgehaald: %s', response.text)
+    except requests.exceptions.HTTPError as http_err:
+        logfiles.error('HTTP-fout opgetreden: %s', http_err)
+    except requests.exceptions.ConnectionError as conn_err:
+        logfiles.error('Verbindingsfout opgetreden: %s', conn_err)
+    except requests.exceptions.Timeout as timeout_err:
+        logfiles.error('Time-out opgetreden: %s', timeout_err)
+    except requests.exceptions.RequestException as req_err:
+        logfiles.error('Er is een fout opgetreden bij het verwerken van het verzoek: %s', req_err)
 
-
-
-def main():
-    print("Hello, World!")
-    connection = DB.connect_to_database()
-    if connection:
-        try:
-            cursor = connection.cursor()
-            insert_data(cursor)
-            connection.commit()
-        finally:
-            cursor.close()
-            connection.close()
-print(date.today())
+get_data()
