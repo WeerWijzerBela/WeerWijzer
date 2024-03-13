@@ -41,9 +41,13 @@ jobs:
         run: |
           docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
-      - name: Start garbage collection
+#      - name: Start garbage collection
+#        run: |
+#          doctl registry garbage-collection start --include-untagged-manifests registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline --force
+#
+      - name: Docker run
         run: |
-          doctl registry garbage-collection start --include-untagged-manifests registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline --force
+          docker run -d -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 
 ###
