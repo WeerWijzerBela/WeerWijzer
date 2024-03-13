@@ -8,4 +8,4 @@ for i in range(10):
         if datetime.now().hour >= int(datetime.strptime("16:00:00", "%H:%M:%S").strftime("%H")):
             print(i)
             continue
-    print("test")
+    print("testing")
