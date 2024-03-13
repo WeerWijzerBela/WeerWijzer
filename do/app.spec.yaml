@@ -2,7 +2,7 @@ alerts:
 - rule: DEPLOYMENT_FAILED
 - rule: DOMAIN_FAILED
 features:
-- buildpack-stack=python-3.10
+- buildpack-stack=ubuntu-22
 ingress:
   rules:
   - component:
@@ -24,6 +24,7 @@ services:
   http_port: 8080
   instance_count: 1
   instance_size_slug: basic-xxs
+  environment_slug: python
   name: web
 - http_port: 8080
   image:
