@@ -30,9 +30,10 @@ jobs:
       - name: Build Docker container
         run: |
           docker build -t my-cicd-pipeline:latest .
-          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ6ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ='
+          echo 'ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ6ZG9wX3YxXzFmMDY4MWEwNDZhZjVkOTQyZjIzNmMzM2JjNDBhY2E5Y2Y3MWZiODYzMzkwNDNkNjk4OGNiYTRiODM3ODRhMTQ=' | docker login -u 'olafmajoor@hotmail.com' --password-stdin registry.digitalocean.com
           docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
           docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+
 #      - name: Build Docker image
 #        run: docker build --tag my-cicd-pipeline .
 #      - name: Install doctl
