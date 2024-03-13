@@ -4,6 +4,6 @@ services:
   cicd-pipeline:
     build:
       context: .
-    image: python:latest
+    image: my-cicd-pipeline:latest
     container_name: CICD_Pipeline
     restart: always
