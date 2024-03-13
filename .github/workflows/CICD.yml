@@ -29,7 +29,7 @@ jobs:
           
       - name: Build Docker container
         run: |
-          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
           docker build -t my-cicd-pipeline:latest .
+          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
           docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-          docker push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+          docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
