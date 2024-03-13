@@ -39,7 +39,7 @@ jobs:
 
 
 
-##
+###
 #      ## Build docker image and pushing to digitalocean
 #      - name: Build container image
 #        run: docker build -t ${{ secrets.REGISTRY_NAME }}/python-example:$(echo $GITHUB_SHA | head -c7) .
