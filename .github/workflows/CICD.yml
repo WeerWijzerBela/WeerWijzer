@@ -27,9 +27,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: Build Docker container
-        run: |
-          docker build -t my-cicd-pipeline:latest .
+#      - name: Build Docker container
+#        run: |
+#          docker build -t my-cicd-pipeline:latest .
+#          docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
+#          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+#          docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DigitalOcean Container Registry
+        run:
           docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
-          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-          docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+
+      - name: Build Docker image
+        run: docker build --tag my-cicd-pipeline .
+
+      - name: Tag Docker image
+        run: docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
+
+      - name: Push Docker image to DigitalOcean Container Registry
+        run: docker push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
