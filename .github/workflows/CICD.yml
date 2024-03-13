@@ -38,12 +38,8 @@ jobs:
           docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 
-#      ## Installing doctl to interact with digitalocean services
-#      - name: Install doctl
-#        uses: digitalocean/action-doctl@v2
-#        with:
-#          token: dop_v1_aba381240fbbb6ff885304ce6b66e5de6b5d9aca00f9870bb251a1103f716ad0
-#
+
+##
 #      ## Build docker image and pushing to digitalocean
 #      - name: Build container image
 #        run: docker build -t ${{ secrets.REGISTRY_NAME }}/python-example:$(echo $GITHUB_SHA | head -c7) .
