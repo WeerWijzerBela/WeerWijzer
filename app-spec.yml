@@ -1,8 +1,0 @@
-name: urchin-app
-region: eur
-services:
-  - name: web
-    git:
-      repo_clone_url: https://github.com/digitalocean/sample-dockerfile.git
-      branch: feature/cicd-pipeline
-    dockerfile_path: dockerfile
