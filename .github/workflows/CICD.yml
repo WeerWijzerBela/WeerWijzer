@@ -30,13 +30,26 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: dop_v1_aba381240fbbb6ff885304ce6b66e5de6b5d9aca00f9870bb251a1103f716ad0
+
       - name: Build Docker container
         run: |
           docker build -t my-cicd-pipeline:latest .
-          echo 'dop_v1_aba381240fbbb6ff885304ce6b66e5de6b5d9aca00f9870bb251a1103f716ad0' | docker login -u 'olafmajoor@hotmail.com' --password-stdin registry.digitalocean.com
+
+      - name: Login to docker with docker_api
+        run: |
+         echo 'dop_v1_aba381240fbbb6ff885304ce6b66e5de6b5d9aca00f9870bb251a1103f716ad0' | docker login -u 'olafmajoor@hotmail.com' --password-stdin registry.digitalocean.com
+
+      - name: Tag the image
+        run: |
           docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+
+      - name: push the image to digital ocean container
+        run: |
           docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
+      - name: Start garbage collection
+        run: |
+          doctl registry garbage-collection start --include-untagged-manifests registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 
 ###
