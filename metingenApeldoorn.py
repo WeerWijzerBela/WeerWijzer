@@ -20,7 +20,11 @@ def post_external_data():
                 "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
             url_metingen = API + '/metingen'
-            response_metingen = requests.post(url_metingen, json=nieuwe_meting_data_metingen)
+            try:
+                response_metingen = requests.post(url_metingen, json=nieuwe_meting_data_metingen)
+            except requests.exceptions.RequestException as e:
+                logging.critical("Er is een fout opgetreden: %s", e)
+                sys.exit(1)
             if response_metingen.status_code != 201:
                 logging.error("Fout bij het verzenden van gegevens - /meting. Statuscode: %d", response_metingen.status_code)
                 sys.exit(1)
@@ -52,7 +56,11 @@ def post_external_data():
                 batch_size = 190
                 for i in range(0, len(nieuwe_metinguren), batch_size):
                     batch_data = nieuwe_metinguren[i:i + batch_size]
-                    response_batch = requests.post(url_metinguren, json=batch_data)
+                    try:
+                        response_batch = requests.post(url_metinguren, json=batch_data)
+                    except requests.exceptions.RequestException as e:
+                        logging.critical("Er is een fout opgetreden: %s", e)
+                        sys.exit(1)
                     if response_batch.status_code != 201:
                         logging.error("Fout bij het verzenden van batchgegevens - /metinguren. Statuscode: %d", response_batch.status_code)
                         sys.exit(1)
