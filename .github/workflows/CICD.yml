@@ -41,10 +41,11 @@ jobs:
           docker login registry.digitalocean.com -u 'olafmajoor@hotmail.com' -p 'dop_v1_ed4d6447a30f8c90c1b3d5af0ca69ee447bf0c968fd663de96d12c3d796f6243'
 
       - name: Build Docker image
-        run: docker build --tag philipMAC2/weerwijzer:test-1.0 .
+        run: docker build --tag my-cicd-pipeline .
 
 #      - name: Tag Docker image
 #        run: docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
 
-      - name: Push Docker image to Github
-        run: docker push philipMAC2/WeerWijzer:test-1.0
+      - name: Push Docker image to DigitalOcean Container Registry
+        run: docker push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline:latest
+
