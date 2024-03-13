@@ -6,9 +6,9 @@
 FROM python:latest
 LABEL maintainer = "Justin en Olaf"
 
-WORKDIR /usr/app/src
+WORKDIR ./
 
-COPY  test.py /.
+COPY  test.py ./
 
 CMD ["python", "test.py"]
 
