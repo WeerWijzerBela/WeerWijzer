@@ -29,38 +29,32 @@ jobs:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: dop_v1_452e5b3ececc676c731d199e6d9afda2a2613612f3cdfef97d0a0efd22f0a2ed
+          token: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker container
         run: |
           docker build -t my-cicd-pipeline:latest .
-          echo 'dop_v1_452e5b3ececc676c731d199e6d9afda2a2613612f3cdfef97d0a0efd22f0a2ed' | docker login -u 'olafmajoor@hotmail.com' --password-stdin registry.digitalocean.com
+          echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
           docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: push the image to digital ocean container
         run: |
           docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+      - name: Docker run
+        run: |
+            docker run registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 #      - name: Start garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline --force
 #
-      - name: Docker run
-        run: |
-          docker run registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+      
 
  ## docker run -d -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-
-###
-#      ## Build docker image and pushing to digitalocean
-#      - name: Build container image
-#        run: docker build -t ${{ secrets.REGISTRY_NAME }}/python-example:$(echo $GITHUB_SHA | head -c7) .
-#
-#      - name: Log in to DigitalOcean Container Registry with short-lived credentials
-#        run: doctl registry login --expiry-seconds 1200
-#
-#      - name: Push image to DigitalOcean Container Registry
-#        run: docker push ${{ secrets.REGISTRY_NAME }}/python-example:$(echo $GITHUB_SHA | head -c7)
 
 
       ## Deploying to kubernetes cluster
