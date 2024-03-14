@@ -34,8 +34,6 @@ jobs:
       - name: Build Docker container
         run: |
           docker build -t my-cicd-pipeline:latest .
-          echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
-          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
   run:
     needs: build
@@ -44,6 +42,8 @@ jobs:
     steps:
       - name: push the image to digital ocean container
         run: |
+          echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
+          docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
           docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
       - name: Docker run
         run: |
