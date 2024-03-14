@@ -46,7 +46,7 @@ jobs:
     steps:   
     - name: Docker run
       run: |
-            docker run registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+            docker run my-cicd-pipeline:latest
 
 #      - name: Start garbage collection
 #        run: |
