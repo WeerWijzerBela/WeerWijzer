@@ -38,6 +38,7 @@ jobs:
           docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
   run:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
