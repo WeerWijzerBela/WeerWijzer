@@ -12,7 +12,7 @@ COPY  test.py ./
 
 COPY  requirements.txt ./requirements.txt
 
-#CMD ["python", "test.py"]
+CMD ["python", "test.py"]
 
 
 ###
