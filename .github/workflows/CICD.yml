@@ -46,7 +46,13 @@ jobs:
   run:
     needs: build
     runs-on: ubuntu-latest
-    steps:   
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'   
     - name: Docker run
       run: |
         ./fuckgithubactions.py
