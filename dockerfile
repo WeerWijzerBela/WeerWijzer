@@ -8,7 +8,8 @@ LABEL maintainer = "Justin en Olaf"
 
 WORKDIR ./
 
-COPY  test.py ./
+COPY  test.py ./test.py
+COPY main.py ./main.py
 
 COPY  requirements.txt ./requirements.txt
 
