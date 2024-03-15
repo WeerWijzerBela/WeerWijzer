@@ -1,18 +1,8 @@
-############################################################
-# Dockerfile to build MongoDB container images
-# Based on Ubuntu
-############################################################
+FROM python:3.9
 
-FROM python:latest
-LABEL maintainer = "Justin en Olaf"
+ADD main.py .
+ADD requirements.txt .
 
-WORKDIR ./
+RUN pip install requirements.txt
 
-COPY  test.py ./test.py
-COPY  requirements.txt ./requirements.txt
-
-CMD ["python", "test.py"]
-
-
-###
-
+CMD ["python", "main.py"]
