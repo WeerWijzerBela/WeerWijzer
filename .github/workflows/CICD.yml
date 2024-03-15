@@ -55,7 +55,7 @@ jobs:
         python-version: '3.x'   
     - name: Docker run
       run: |
-        main.py
+        python main.py
         
 
 #      - name: Start garbage collection
