@@ -49,7 +49,7 @@ jobs:
     steps:   
     - name: Docker run
       run: |
-        main.py
+        ../main.py
         
 
 #      - name: Start garbage collection
