@@ -52,6 +52,11 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
+@app.get('/locaties')
+def get_locaties():
+    '''Returns all locaties'''
+    return "halowa"
+
 
 # ALLE ENDPOINTS
 ########################################################################################################################
