@@ -1,0 +1,15 @@
+name: weerwijzer
+region: eur
+services:
+  - name: weerwijzer
+    environment_slug: python
+    routes:
+      - path: /
+    build_command: python3 -m pip install -r requirements.txt
+    run_command: gunicorn -b 0.0.0.0:$PORT mijn_applicatie:app
+    envs:
+      - key: PYTHON_VERSION
+        scope: RUN_TIME
+        value: "3.8"
+    instance_count: 1
+    instance_size_slug: basic-xs
