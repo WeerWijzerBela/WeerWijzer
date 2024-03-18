@@ -34,9 +34,19 @@ jobs:
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
             docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
             docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-      - name: Docker run
-        run: |
-            docker run -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+#      - name: Docker run
+#        run: |
+#            docker run -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+
+      - name: Deploy to App Platform
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCKER_TOKEN }}
+          script: |
+              doctl apps create \
+                --spec ./app.yaml \
+                --auto-destroy \
+                --wait
  ## docker run -d -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 
