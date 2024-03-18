@@ -36,7 +36,7 @@ jobs:
             docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
       - name: Docker run
         run: |
-            docker run -p 8080:80 my-cicd-pipeline-image:latest
+            docker run -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
  ## docker run -d -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 
