@@ -1,5 +1,8 @@
+import requests
+from datetime import datetime, date, timedelta
+import sys
+from logfiles.log import logging
 
-print("Starting script...")
-print("Hello, World!")
-print("Script completed.")
+API = "http://localhost:8000/voorspellingen"
+
 
