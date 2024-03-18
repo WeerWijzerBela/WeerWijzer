@@ -6,4 +6,4 @@ WORKDIR ./
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "main.py"]
+CMD ["uvicorn", "WeerWijzerAPI:app --reload"]
