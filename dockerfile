@@ -4,6 +4,6 @@ ADD main.py .
 ADD requirements.txt .
 WORKDIR ./
 
-# RUN pip install requirements.txt --user
+RUN pip install -r requirements.txt
 
-# CMD ["python", "main.py"]
+CMD ["python", "main.py"]
