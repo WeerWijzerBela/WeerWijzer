@@ -4,8 +4,6 @@ from typing import List
 import DB
 
 app = FastAPI()
-
-
 # command to start: uvicorn WeerWijzerAPI:app --reload
 class WeerMeting(BaseModel):
     '''Klasse voor het aanmaken van een NieuweWeerMeting object.'''
@@ -35,21 +33,22 @@ class Voorspelling(BaseModel):
 
 class VoorspellingUren(BaseModel):
     '''Klasse voor het aanmaken van een VerwachtingUren object.'''
-    voorspellingId: int
     datetime: str
     temperature: float
     zWaarde: int
 
 
-def metinguren_uit_database_halens():
+def uren_uit_database_halens(location):
     '''Haal metingen uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            "SELECT * FROM metinguren WHERE metingenId = (SELECT MAX(m2.metingenId) FROM metinguren m2) ORDER BY metingUrenId ASC;")
+            f"SELECT * FROM {location}uren WHERE {location}enId = (SELECT MAX(m2.{location}enId) FROM {location}uren m2) ORDER BY {location}UrenId ASC;")
         metingen = cursor.fetchall()
         return metingen
+    except Exception:
+        connection.close()
     finally:
         connection.close()
 
@@ -57,11 +56,10 @@ def metinguren_uit_database_halens():
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
-
 @app.get('/metinguren', response_model=List[WeerMetingUren])
 def get_metingen():
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
-    metingen = metinguren_uit_database_halens()
+    metingen = uren_uit_database_halens('meting')
     weermetingen = []
     for meting in metingen:
         meting['datetime'] = str(meting['datetime'])
@@ -81,14 +79,11 @@ def create_meting(nieuwe_meting: WeerMeting):
             (nieuwe_meting.locatie, nieuwe_meting.datetime)
         )
         connection.commit()
-        nieuwe_meting_id = cursor.lastrowid
         return {
-            "metingId": nieuwe_meting_id,
             **nieuwe_meting.dict()
         }
-    except Exception as e:
+    except Exception:
         connection.close()
-        raise HTTPException(status_code=502, detail=f"Er is een fout opgetreden: {e}")
     finally:
         if connection.is_connected():
             connection.close()
@@ -102,7 +97,7 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
     try:
         cursor = connection.cursor()
         metingen_values = []
-        for meting in nieuwe_metingen:  # <-- Hier aangepast naar nieuwe_metingen
+        for meting in nieuwe_metingen:
             metingen_values.append((
                 meting.datetime, meting.temperature, meting.pressure, meting.winddirection
             ))
@@ -112,16 +107,15 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
             metingen_values
         )
         connection.commit()
-    except Exception as e:
+    except Exception:
         connection.close()
-        raise HTTPException(status_code=502, detail=f"Er is een fout opgetreden: {e}")
     finally:
         if connection.is_connected():
             connection.close()
             raise HTTPException(status_code=201)
 
 
-@app.delete("/deletemetingen")
+@app.delete("/metingen")
 def delete_metingen():
     '''Verwijder metingen en metinguren ouder dan 12 uur.'''
     connection = DB.connect_to_database()
@@ -140,9 +134,8 @@ def delete_metingen():
         cursor.execute("DELETE FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR")
         connection.commit()
         return {"detail": f"{len(old_measurement_ids)} metingen zijn verwijderd."}
-    except Exception as e:
+    except Exception:
         connection.close()
-        raise HTTPException(status_code=502, detail=f"Er is een fout opgetreden: {e}")
     finally:
         if connection.is_connected():
             connection.close()
@@ -150,20 +143,16 @@ def delete_metingen():
 
 
 ########################################################################################################################
-# LOCATIES ENDPOINTS
-
-@app.get('/locaties', response_model=List[Locatie])
-def get_locaties():
-    '''Haal alle locaties op uit de database en retourneer een lijst met Locatie objecten.'''
-    connection = DB.connect_to_database()
-    cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM locaties")
-    locaties = cursor.fetchall()
-    return locaties
-
-
-########################################################################################################################
 # VOORSPELLING / VOORSPELLINGEN ENDPOINTS
+@app.get('/voorspellinguren', response_model=List[VoorspellingUren])
+def get_voorspellingen():
+    '''Haal alle metingen op uit de database en converteer ze naar een lijst van voorspellinguren objecten.'''
+    voorspellingen = uren_uit_database_halens('voorspelling')
+    weervoorspelling = []
+    for voorspelling in voorspellingen:
+        voorspelling['datetime'] = str(voorspelling['datetime'])
+        weervoorspelling.append(VoorspellingUren(**voorspelling))
+    return weervoorspelling
 
 @app.post('/voorspellingen', response_model=Voorspelling)
 def create_voorspelling(nieuwe_voorspelling: Voorspelling):
@@ -180,9 +169,8 @@ def create_voorspelling(nieuwe_voorspelling: Voorspelling):
         return {
             **nieuwe_voorspelling.dict()
         }
-    except Exception as e:
+    except Exception:
         connection.close()
-        raise HTTPException(status_code=502, detail=f"Er is een fout opgetreden: {e}")
     finally:
         if connection.is_connected():
             connection.close()
@@ -198,18 +186,36 @@ def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]
         voorspellingen_values = []
         for voorspelling in nieuwe_voorspellingen:
             voorspellingen_values.append((
-                voorspelling.voorspellingId, voorspelling.datetime, voorspelling.temperature, voorspelling.zWaarde
+                voorspelling.datetime, voorspelling.temperature, voorspelling.zWaarde
             ))
         cursor.executemany(
-            "INSERT INTO voorspellinguren (voorspellingId, datetime, temperature, zWaarde) "
-            f"VALUES (%s, %s, %s, %s)",
+            "INSERT INTO voorspellinguren (voorspellingenId, datetime, temperature, zWaarde) "
+            f"VALUES ((SELECT voorspellingenId FROM voorspellingen ORDER BY voorspellingenId DESC LIMIT 1), %s, %s, %s)",
             voorspellingen_values
         )
         connection.commit()
-    except Exception as e:
+    except Exception:
         connection.close()
-        raise HTTPException(status_code=502, detail=f"Er is een fout opgetreden: {e}")
     finally:
         if connection.is_connected():
             connection.close()
             raise HTTPException(status_code=201)
+
+
+@app.delete("/voorspellingen")
+def delete_voorspellingen():
+    '''Verwijderen van voorspellingen en voorspellinguren behalve de meest recente.'''
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor()
+        cursor.execute("SELECT voorspellingenId FROM voorspellingen ORDER BY datetime DESC LIMIT 1")
+        latest_prediction_id = cursor.fetchone()[0]
+        cursor.execute("DELETE FROM voorspellinguren WHERE voorspellingenId != %s", (latest_prediction_id,))
+        cursor.execute("DELETE FROM voorspellingen WHERE voorspellingenId != %s", (latest_prediction_id,))
+        connection.commit()
+    except Exception:
+        connection.close()
+    finally:
+        if connection.is_connected():
+            connection.close()
+            raise HTTPException(status_code=202)
