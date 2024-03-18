@@ -1,3 +1,4 @@
+import random
 def print_board(board):
     for row in board:
         print(" | ".join(row))
@@ -37,8 +38,8 @@ def main():
 
         # Vraag om rij en kolom van de speler
         while True:
-            row = int(input("Kies een rij (1-3): ")) - 1
-            col = int(input("Kies een kolom (1-3): ")) - 1
+            row = random.randint(0, 2)
+            col = random.randint(0, 2)
             if 0 <= row < 3 and 0 <= col < 3 and board[row][col] == " ":
                 break
             print("Ongeldige invoer. Probeer opnieuw.")
