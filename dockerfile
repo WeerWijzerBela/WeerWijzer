@@ -5,5 +5,5 @@ ADD requirements.txt .
 WORKDIR ./
 
 RUN pip install -r requirements.txt
-EXPOSE 8000:80
+EXPOSE 8080
 CMD ["uvicorn", "WeerWijzerAPI:app"]
