@@ -1,9 +1,9 @@
 FROM python:3.9
 
-ADD main.py .
+ADD . .
 ADD requirements.txt .
 WORKDIR ./
 
 RUN pip install -r requirements.txt
 
-CMD ["uvicorn", "WeerWijzerAPI:app --reload"]
+CMD ["uvicorn", "WeerWijzerAPI:app"]
