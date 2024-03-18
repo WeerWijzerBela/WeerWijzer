@@ -6,7 +6,7 @@ services:
     routes:
       - path: /
     build_command: python3 -m pip install -r requirements.txt
-    run_command: gunicorn -b 0.0.0.0:$PORT mijn_applicatie:app
+    run_command: gunicorn -b 0.0.0.0:8080 my-cicd-pipeline:app
     envs:
       - key: PYTHON_VERSION
         scope: RUN_TIME
