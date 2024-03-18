@@ -38,15 +38,7 @@ jobs:
 #        run: |
 #            docker run -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
-      - name: Deploy to App Platform
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DOCKER_TOKEN }}
-          script: |
-              doctl apps create \
-                --spec ./app.yaml \
-                --auto-destroy \
-                --wait
+
  ## docker run -d -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
 
 
