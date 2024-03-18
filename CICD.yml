@@ -1,0 +1,69 @@
+name: CICD Pipeline
+on:
+  # workflow_run:
+  #   workflows: [Scheduled Pipeline]
+  #   types:
+  #     - completed
+  #   branches:
+  #     - feature/cicd-pipeline
+  push:
+    branches:
+      - feature/cicd-pipeline
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      # Installing doctl to interact with digitalocean services
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build Docker container
+        run: |
+          docker build -t my-cicd-pipeline:latest .
+      - name: push the image to digital ocean container
+        run: |
+            echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
+            docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+            docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+#      - name: Docker run
+#        run: |
+#            docker run -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+
+
+ ## docker run -d -p 8080:80 registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+
+
+#      - name: Start garbage collection
+#        run: |
+#          doctl registry garbage-collection start --include-untagged-manifests registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline --force
+#
+
+        
+
+
+      
+
+
+
+      ## Deploying to kubernetes cluster
+#      - name: Update deployment file
+#        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/python-example:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+#
+#      - name: Save DigitalOcean kubeconfig with short-lived credentials
+#        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
+#
+#      - name: Deploy to DigitalOcean Kubernetes
+#        run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yml
+#
+#      - name: Verify deployment
+#        run: kubectl rollout status deployment/python-example
+
