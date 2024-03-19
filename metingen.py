@@ -35,5 +35,3 @@ def post_external_data():
     else:
         print("Unexpected Status code: ", response.status_code)
         sys.exit()
-        
-post_external_data()

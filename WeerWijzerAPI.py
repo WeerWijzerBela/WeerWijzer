@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
+import metingen
+import time
 
 app = FastAPI()
 # command to start: uvicorn WeerWijzerAPI:app --reload
@@ -224,3 +226,10 @@ def delete_voorspellingen():
         if connection.is_connected():
             connection.close()
             raise HTTPException(status_code=202)
+        
+while True:
+    metingen.post_external_data()
+    print("Data gepost")
+    print("Wachten op volgende post")   
+    time.sleep(600)
+
