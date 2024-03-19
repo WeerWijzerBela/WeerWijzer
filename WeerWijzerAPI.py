@@ -38,13 +38,13 @@ class VoorspellingUren(BaseModel):
     zWaarde: int
 
 
-def uren_uit_database_halens(location):
+def uren_uit_database_halens(tabel, locatie):
     '''Haal metingen uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            f"SELECT * FROM {location}uren WHERE {location}enId = (SELECT MAX(m2.{location}enId) FROM {location}uren m2) ORDER BY {location}UrenId ASC;")
+            f"SELECT * FROM {tabel}uren WHERE {tabel}enId = (SELECT MAX(m2.{tabel}enId) FROM {tabel}uren m2) ORDER BY {tabel}UrenId ASC;")
         metingen = cursor.fetchall()
         return metingen
     except Exception:
@@ -56,10 +56,10 @@ def uren_uit_database_halens(location):
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
-@app.get('/metinguren', response_model=List[WeerMetingUren])
-def get_metingen():
+@app.get('/metinguren/{locatie}', response_model=List[WeerMetingUren])
+def get_metingen(locatie: str):
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
-    metingen = uren_uit_database_halens('meting')
+    metingen = uren_uit_database_halens('meting', locatie)
     weermetingen = []
     for meting in metingen:
         meting['datetime'] = str(meting['datetime'])
@@ -96,6 +96,7 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor()
+
         metingen_values = []
         for meting in nieuwe_metingen:
             metingen_values.append((
@@ -108,6 +109,7 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
         )
         connection.commit()
     except Exception:
+
         connection.close()
     finally:
         if connection.is_connected():
@@ -200,7 +202,6 @@ def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]
         if connection.is_connected():
             connection.close()
             raise HTTPException(status_code=201)
-
 
 @app.delete("/voorspellingen")
 def delete_voorspellingen():
