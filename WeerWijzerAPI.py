@@ -2,8 +2,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-import metingen
-import time
 
 app = FastAPI()
 # command to start: uvicorn WeerWijzerAPI:app --reload
@@ -38,7 +36,6 @@ class VoorspellingUren(BaseModel):
     datetime: str
     temperature: float
     zWaarde: int
-
 
 def uren_uit_database_halens(location):
     '''Haal metingen uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
@@ -227,9 +224,3 @@ def delete_voorspellingen():
             connection.close()
             raise HTTPException(status_code=202)
         
-# while True:
-#     metingen.post_external_data()
-#     print("Data gepost")
-#     print("Wachten op volgende post")   
-#     time.sleep(600)
-

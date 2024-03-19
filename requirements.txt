@@ -3,3 +3,4 @@ mysql-connector-python
 python-dotenv
 uvicorn
 fastapi[all]
+flake8
