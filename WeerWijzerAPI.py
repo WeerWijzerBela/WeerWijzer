@@ -37,21 +37,19 @@ class VoorspellingUren(BaseModel):
     temperature: float
     zWaarde: int
 
-
 def uren_uit_database_halens(tabel, locatie):
     '''Haal metingen uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            f"SELECT * FROM {tabel}uren WHERE {tabel}enId = (SELECT MAX(m2.{tabel}enId) FROM {tabel}uren m2) ORDER BY {tabel}UrenId ASC;")
+            f"SELECT mu.* FROM {tabel}uren AS mu JOIN {tabel}en AS m ON mu.{tabel}enId = m.{tabel}enId JOIN ( SELECT MAX({tabel}enId) AS max_{tabel}enId FROM {tabel}en AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = '{locatie}') AS max_{tabel}en ON m.{tabel}enId = max_{tabel}en.max_{tabel}enId ORDER BY mu.{tabel}UrenId ASC;")
         metingen = cursor.fetchall()
         return metingen
     except Exception:
         connection.close()
     finally:
         connection.close()
-
 
 # ALLE ENDPOINTS
 ########################################################################################################################
@@ -109,35 +107,35 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
         )
         connection.commit()
     except Exception:
-
         connection.close()
     finally:
         if connection.is_connected():
             connection.close()
             raise HTTPException(status_code=201)
 
-
-@app.delete("/metingen")
-def delete_metingen():
+@app.delete("/metingen/{locatie}")
+def delete_metingen(locatie: str):
     '''Verwijder metingen en metinguren ouder dan 12 uur.'''
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT COUNT(*) FROM metingen")
+        cursor.execute("SELECT locatieId FROM locaties WHERE locatie = %s", (locatie,))
+        locatieId = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM metingen WHERE locatieId = %s", (locatieId,))
         count = cursor.fetchone()[0]
         if count <= 1:
-            raise HTTPException(status_code=400,
-                                detail="Metingen verwijderen is niet mogelijk: Er is maar één meting opgeslagen.")
-        cursor.execute("SELECT metingenId FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR")
+            raise HTTPException(status_code=400, detail="Metingen verwijderen is niet mogelijk: Er is maar één meting opgeslagen.")
+        cursor.execute("SELECT metingenId FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR AND locatieId = %s", (locatieId,))
         old_measurement_ids = cursor.fetchall()
         for measurement_id_tuple in old_measurement_ids:
             measurement_id = measurement_id_tuple[0]
             cursor.execute("DELETE FROM metinguren WHERE metingenId = %s", (measurement_id,))
-        cursor.execute("DELETE FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR")
+        cursor.execute("DELETE FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR AND locatieId = %s", (locatieId,))
         connection.commit()
         return {"detail": f"{len(old_measurement_ids)} metingen zijn verwijderd."}
     except Exception:
         connection.close()
+        raise HTTPException(status_code=500)
     finally:
         if connection.is_connected():
             connection.close()
@@ -146,10 +144,10 @@ def delete_metingen():
 
 ########################################################################################################################
 # VOORSPELLING / VOORSPELLINGEN ENDPOINTS
-@app.get('/voorspellinguren', response_model=List[VoorspellingUren])
-def get_voorspellingen():
+@app.get('/voorspellinguren/{locatie}', response_model=List[VoorspellingUren])
+def get_voorspellingen(locatie: str):
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van voorspellinguren objecten.'''
-    voorspellingen = uren_uit_database_halens('voorspelling')
+    voorspellingen = uren_uit_database_halens('voorspelling', locatie)
     weervoorspelling = []
     for voorspelling in voorspellingen:
         voorspelling['datetime'] = str(voorspelling['datetime'])
@@ -178,7 +176,6 @@ def create_voorspelling(nieuwe_voorspelling: Voorspelling):
             connection.close()
             raise HTTPException(status_code=201)
 
-
 @app.post('/voorspellinguren', response_model=List[VoorspellingUren])
 def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]):
     '''Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten.'''
@@ -203,19 +200,28 @@ def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]
             connection.close()
             raise HTTPException(status_code=201)
 
-@app.delete("/voorspellingen")
-def delete_voorspellingen():
+@app.delete("/voorspellingen/{locatie}")
+def delete_voorspellingen(locatie: str):
     '''Verwijderen van voorspellingen en voorspellinguren behalve de meest recente.'''
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT voorspellingenId FROM voorspellingen ORDER BY datetime DESC LIMIT 1")
+        cursor.execute("SELECT locatieId FROM locaties WHERE locatie = %s", (locatie,))
+        locatieId = cursor.fetchone()[0]
+        print(locatieId)
+        cursor.execute("SELECT voorspellingenId FROM voorspellingen WHERE locatieId = %s ORDER BY datetime DESC LIMIT 1", (locatieId,))
         latest_prediction_id = cursor.fetchone()[0]
-        cursor.execute("DELETE FROM voorspellinguren WHERE voorspellingenId != %s", (latest_prediction_id,))
-        cursor.execute("DELETE FROM voorspellingen WHERE voorspellingenId != %s", (latest_prediction_id,))
+        cursor.execute("SELECT voorspellingenId FROM voorspellingen WHERE voorspellingenId != %s AND locatieId = %s", (latest_prediction_id, locatieId))
+        old_measurement_ids = cursor.fetchall()
+        for measurement_id_tuple in old_measurement_ids:
+            measurement_id = measurement_id_tuple[0]
+            cursor.execute("DELETE FROM voorspellinguren WHERE voorspellingenId = %s", (measurement_id,))
+        cursor.execute("DELETE FROM voorspellingen WHERE voorspellingenId != %s AND locatieId = %s", (latest_prediction_id, locatieId))
         connection.commit()
+        return {"detail": f"{len(old_measurement_ids)} voorspellingen zijn verwijderd voor {locatie}."}
     except Exception:
         connection.close()
+        raise HTTPException(status_code=500)
     finally:
         if connection.is_connected():
             connection.close()

@@ -28,7 +28,7 @@ def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
 
 def bereken_voorspellingen_uren(locatie):
     try:
-        url_meting = API + '/metinguren'
+        url_meting = API + f'/metinguren/{locatie}'
         response = requests.get(url_meting)
         response.raise_for_status()  # Raise an exception for non-200 status codes
         jsonData = response.json()
@@ -63,7 +63,7 @@ def bereken_voorspellingen_uren(locatie):
             response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude voorspellinguren
-        url_delete = API + '/voorspellingen'
+        url_delete = API + f'/voorspellingen/{locatie}'
         response_delete = requests.delete(url_delete)
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
     except Exception as e:
@@ -115,7 +115,7 @@ def post_weer_data(locatie):
             response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude metingen
-        url_metingen = API + '/metingen'
+        url_metingen = API + f'/metingen/{locatie}'
         response_delete = requests.delete(url_metingen)
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
 
@@ -128,4 +128,4 @@ def post_weer_data(locatie):
 
 if __name__ == "__main__":
     # Call your function here
-    post_weer_data("Apeldoorn")
+    post_weer_data("Amsterdam")
