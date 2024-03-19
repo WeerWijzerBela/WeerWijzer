@@ -28,7 +28,7 @@ def post_external_data():
         metingId = cursor.lastrowid
         insertQuery = f"INSERT INTO metinguren \
             (metingenId,datetime,temperature,pressure,winddirection)VALUES \
-            ('{metingId}', '{str(date.today())  + ' \
+            ('{metingId}', '{str(date.today()) + ' \
             ' + jsonData['currentConditions']['datetime']}', \
             '{jsonData['currentConditions']['temp']}',\
             '{jsonData['currentConditions']['pressure']}', \
@@ -39,14 +39,14 @@ def post_external_data():
         for data in jsonData["days"]:
             for i in data['hours']:
                 i['datetime'] = data['datetime'] + ' ' + i['datetime']
-                if i['datetime'] <= str(date.today())  + ' \
+                if i['datetime'] <= str(date.today()) + ' \
                       ' + jsonData['currentConditions']['datetime']:
                     continue
                 else:
                     insertMetingUren = f"INSERT INTO metinguren\
-                        (metingenId,datetime,temperature,pressure,winddirection) \
-                        VALUES ('{metingId}', '{i['datetime']}',\
-                        {i['temp']}, {i['pressure']}, '{i['winddir']}')"
+                    (metingenId,datetime,temperature,pressure,winddirection)\
+                    VALUES ('{metingId}', '{i['datetime']}',\
+                    {i['temp']}, {i['pressure']}, '{i['winddir']}')"
                     cursor.execute(insertMetingUren)
                     connection.commit()
     else:
