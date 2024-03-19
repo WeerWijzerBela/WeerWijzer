@@ -33,7 +33,7 @@ jobs:
             docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
       - name: run garbage collector
         run: |
-          yes | doctl registry garbage-collection start --include-untagged-manifests
+          yes | doctl registry garbage-collection start --include-untagged-manifests --force
 
 
         
