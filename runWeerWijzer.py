@@ -5,7 +5,7 @@ import sys
 from logfiles.log import logging
 import math as m
 
-API = "0.0.0.0:8000"
+API = "https://weerwijzer-api-93uo4.ondigitalocean.app"
 
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     '''Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)'''
