@@ -3,6 +3,7 @@ from runWeerWijzer import *
 
 
 
+
 class TestWeerberekenen:
     def test_zambretti(self):
         assert bereken_zambretti(1000, 990, 180) == 27
