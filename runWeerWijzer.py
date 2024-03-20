@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import requests
 from datetime import datetime, date, timedelta
 import sys
 from logfiles.log import logging
 import math as m
 
-API = "https://weerwijzer-api-93uo4.ondigitalocean.app/docs"
+API = "0.0.0.0:8000"
 
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     '''Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)'''
