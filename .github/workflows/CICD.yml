@@ -10,7 +10,7 @@ on:
     branches:
       - feature/cicd-pipeline
 jobs:
-  setup-tests:
+  setuptest:
     needs: setup
     runs-on: ubuntu-latest 
     steps:
