@@ -51,7 +51,7 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
-@app.get('/locaties', response_model=List[WeerMetingUren])
+@app.get('/locaties')
 def get_locaties():
     '''Returns all locaties'''
     return "halowa"
@@ -60,8 +60,8 @@ def get_locaties():
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
-@app.get('/metinguren', response_model=List[WeerMetingUren])
-def get_metingen():
+@app.get('/metinguren')
+def get_metingen() -> List[WeerMetingUren]:
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
     metingen = uren_uit_database_halens('meting')
     weermetingen = []
