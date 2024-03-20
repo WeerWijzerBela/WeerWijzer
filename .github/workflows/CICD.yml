@@ -31,7 +31,9 @@ jobs:
           pytest algoritmes_test.py
       - name: Run a test coverage
         run: | 
-          pytest --cov algoritmes_test.py
+          pytest --cov=algoritmes_test.py
+  
+
 
   build:
     needs: tests 
