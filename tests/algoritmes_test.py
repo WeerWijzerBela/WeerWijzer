@@ -5,7 +5,9 @@ import pytest
 # import sys
 # parent_path = Path(__file__).resolve().parents[1]
 # sys.path.append(str(parent_path))
-from runWeerWijzer import bereken_zambretti
+# from runWeerWijzer import bereken_zambretti
+from ..runWeerWijzer import *
+
 
 
 class TestWeerberekenen:
