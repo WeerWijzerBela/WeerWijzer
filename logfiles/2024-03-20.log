@@ -1,0 +1,8 @@
+2024-03-20 15:24:46,778 - DEBUG - Starting new HTTPS connection (1): weather.visualcrossing.com:443
+2024-03-20 15:24:47,638 - DEBUG - https://weather.visualcrossing.com:443 "GET /VisualCrossingWebServices/rest/services/timeline/Apeldoorn/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json HTTP/1.1" 200 2104
+2024-03-20 15:24:47,642 - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-03-20 15:24:51,734 - CRITICAL - Er is een fout opgetreden: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /metingen (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F61E6D1B80>: Failed to establish a new connection: [WinError 10061] Kan geen verbinding maken omdat de doelcomputer de verbinding actief heeft geweigerd'))
+2024-03-20 16:01:32,304 - DEBUG - Starting new HTTPS connection (1): weather.visualcrossing.com:443
+2024-03-20 16:01:33,094 - DEBUG - https://weather.visualcrossing.com:443 "GET /VisualCrossingWebServices/rest/services/timeline/Apeldoorn/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json HTTP/1.1" 200 2081
+2024-03-20 16:01:33,097 - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-03-20 16:01:37,202 - CRITICAL - Er is een fout opgetreden: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /metingen (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000011BD943A150>: Failed to establish a new connection: [WinError 10061] Kan geen verbinding maken omdat de doelcomputer de verbinding actief heeft geweigerd'))
