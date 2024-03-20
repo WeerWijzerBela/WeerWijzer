@@ -129,3 +129,4 @@ def post_weer_data(locatie):
 if __name__ == "__main__":
     # Call your function here
     post_weer_data("Amsterdam")
+    post_weer_data("Apeldoorn")

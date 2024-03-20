@@ -1,10 +1,20 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 import DB
 
-app = FastAPI()
-# command to start: uvicorn WeerWijzerAPI:app --reload
+app = FastAPI()     # command to start: uvicorn WeerWijzerAPI:app --reload
+
+# CORS-instellingen
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class WeerMeting(BaseModel):
     '''Klasse voor het aanmaken van een NieuweWeerMeting object.'''
     locatie: str
@@ -94,7 +104,6 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor()
-
         metingen_values = []
         for meting in nieuwe_metingen:
             metingen_values.append((
