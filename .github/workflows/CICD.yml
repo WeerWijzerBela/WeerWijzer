@@ -26,6 +26,9 @@ jobs:
       - name: Run linting
         run: |
           flake8 ./metingen.py
+      - name: Run a test
+        run: |
+          pytest algoritmes_test.py
 
   build:
     needs: tests 
