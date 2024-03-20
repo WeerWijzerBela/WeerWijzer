@@ -4,5 +4,4 @@ python-dotenv
 uvicorn
 fastapi[all]
 flake8
-pytest
 pytest-cov
