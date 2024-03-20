@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 import DB
 
 app = FastAPI()     # command to start: uvicorn WeerWijzerAPI:app --reload
@@ -46,20 +46,9 @@ class VoorspellingUren(BaseModel):
     datetime: str
     temperature: float
     zWaarde: int
+    beschrijving: Optional[str] = None
+    sneeuw: Optional[bool] = None
 
-def uren_uit_database_halens(tabel, locatie):
-    '''Haal metingen uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
-    connection = DB.connect_to_database()
-    try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            f"SELECT mu.* FROM {tabel}uren AS mu JOIN {tabel}en AS m ON mu.{tabel}enId = m.{tabel}enId JOIN ( SELECT MAX({tabel}enId) AS max_{tabel}enId FROM {tabel}en AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = '{locatie}') AS max_{tabel}en ON m.{tabel}enId = max_{tabel}en.max_{tabel}enId ORDER BY mu.{tabel}UrenId ASC;")
-        metingen = cursor.fetchall()
-        return metingen
-    except Exception:
-        connection.close()
-    finally:
-        connection.close()
 
 # ALLE ENDPOINTS
 ########################################################################################################################
@@ -67,13 +56,20 @@ def uren_uit_database_halens(tabel, locatie):
 @app.get('/metinguren/{locatie}', response_model=List[WeerMetingUren])
 def get_metingen(locatie: str):
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
-    metingen = uren_uit_database_halens('meting', locatie)
-    weermetingen = []
-    for meting in metingen:
-        meting['datetime'] = str(meting['datetime'])
-        weermetingen.append(WeerMetingUren(**meting))
-    return weermetingen
-
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = %s) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;", (locatie,))
+        metingen = cursor.fetchall()
+        weermetingen = []
+        for meting in metingen:
+            meting['datetime'] = str(meting['datetime'])
+            weermetingen.append(WeerMetingUren(**meting))
+        return weermetingen
+    except Exception:
+        connection.close()
+    finally:
+        connection.close()
 
 @app.post('/metingen', response_model=WeerMeting)
 def create_meting(nieuwe_meting: WeerMeting):
@@ -156,12 +152,20 @@ def delete_metingen(locatie: str):
 @app.get('/voorspellinguren/{locatie}', response_model=List[VoorspellingUren])
 def get_voorspellingen(locatie: str):
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van voorspellinguren objecten.'''
-    voorspellingen = uren_uit_database_halens('voorspelling', locatie)
-    weervoorspelling = []
-    for voorspelling in voorspellingen:
-        voorspelling['datetime'] = str(voorspelling['datetime'])
-        weervoorspelling.append(VoorspellingUren(**voorspelling))
-    return weervoorspelling
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT vu.*, z.beschrijving, CASE WHEN vu.temperature <= -5 THEN TRUE ELSE FALSE END AS sneeuw FROM voorspellinguren AS vu JOIN voorspellingen AS v ON vu.voorspellingenId = v.voorspellingenId JOIN (SELECT MAX(voorspellingenId) AS max_voorspellingenId FROM voorspellingen AS v JOIN locaties AS l ON v.locatieId = l.locatieId WHERE l.locatie = %s) AS max_voorspellingen ON v.voorspellingenId = max_voorspellingen.max_voorspellingenId JOIN zWaarden AS z ON vu.zWaarde = z.zWaarde ORDER BY vu.voorspellingUrenId ASC;", (locatie,))
+        voorspellingen = cursor.fetchall()
+        weervoorspelling = []
+        for voorspelling in voorspellingen:
+            voorspelling['datetime'] = str(voorspelling['datetime'])
+            weervoorspelling.append(VoorspellingUren(**voorspelling))
+        return weervoorspelling
+    except Exception:
+        connection.close()
+    finally:
+        connection.close()
 
 @app.post('/voorspellingen', response_model=Voorspelling)
 def create_voorspelling(nieuwe_voorspelling: Voorspelling):
@@ -228,6 +232,65 @@ def delete_voorspellingen(locatie: str):
         cursor.execute("DELETE FROM voorspellingen WHERE voorspellingenId != %s AND locatieId = %s", (latest_prediction_id, locatieId))
         connection.commit()
         return {"detail": f"{len(old_measurement_ids)} voorspellingen zijn verwijderd voor {locatie}."}
+    except Exception:
+        connection.close()
+        raise HTTPException(status_code=500)
+    finally:
+        if connection.is_connected():
+            connection.close()
+            raise HTTPException(status_code=202)
+
+########################################################################################################################
+# LOCATIES ENDPOINTS
+
+@app.get('/locaties', response_model=List[Locatie])
+def get_locaties():
+    '''Haal alle locaties op uit de database en converteer ze naar een lijst van Locatie objecten.'''
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM locaties")
+        locaties = cursor.fetchall()
+        locatie = []
+        for loc in locaties:
+            locatie.append(Locatie(**loc))
+        return locatie
+    except Exception:
+        connection.close()
+    finally:
+        connection.close()
+
+@app.post('/locaties', response_model=Locatie)
+def create_locatie(nieuwe_locatie: Locatie):
+    '''Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object.'''
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "INSERT INTO locaties (locatie) "
+            "VALUES (%s)",
+            (nieuwe_locatie.locatie,)
+        )
+        connection.commit()
+        return {
+            **nieuwe_locatie.dict()
+        }
+    except Exception:
+        connection.close()
+    finally:
+        if connection.is_connected():
+            connection.close()
+            raise HTTPException(status_code=201)
+
+@app.delete("/locaties/{locatie}")
+def delete_locatie(locatie: str):
+    '''Verwijder een locatie uit de database.'''
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM locaties WHERE locatie = %s", (locatie,))
+        connection.commit()
+        return {"detail": f"Locatie {locatie} is verwijderd."}
     except Exception:
         connection.close()
         raise HTTPException(status_code=500)

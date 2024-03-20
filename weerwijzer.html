@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weersvoorspelling</title>
+    <style>
+        /* Algemene stijlen */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Stijlen voor de weersvoorspellingscontainer */
+        #weer-container {
+            position: relative; /* Zorgt ervoor dat de positie van de datum container relatief is aan deze div */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto; /* Horizontale scrollbar toevoegen */
+        }
+
+
+        /* Stijlen voor de datumcontainer */
+        #datum-container {
+            position: sticky; /* Maak plakken aan de bovenkant */
+            top: 0; /* Plak de container aan de bovenkant */
+            background-color: #fff; /* Zorg ervoor dat de achtergrond wit is */
+            z-index: 1; /* Zorg ervoor dat de datumcontainer boven de scrollbar staat */
+            padding: 10px 20px; /* Voeg wat ruimte toe rondom de datum */
+        }
+
+        /* Stijlen voor de titel */
+        #stad-titel {
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Stijlen voor de dropdown */
+        #locatie-select {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Stijlen voor de knoppen */
+        .knop {
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .knop:hover {
+            background-color: #0056b3;
+        }
+
+        /* Stijlen voor de weersvoorspellingsitems */
+        #weer-voorspellingen {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 10px; /* Om ervoor te zorgen dat de inhoud niet aan de onderkant van de scrollbar wordt afgesneden */
+        }
+
+        .weer-item {
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-right: 10px;
+            text-align: center; /* Horizontaal centreren */
+        }
+
+        .weer-item strong {
+            color: #333;
+            display: block; /* Zorg ervoor dat de datum boven de tijd wordt weergegeven */
+        }
+
+        .weer-item p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px; /* Maak de tekst kleiner */
+        }
+
+        /* Stijlen voor feedback */
+        #feedback {
+            margin-top: 10px;
+            color: #000000;
+        }
+
+        /* Stijlen voor de afbeeldingen */
+        .navbar {
+            background-color: #007bff; /* Blauwe achtergrondkleur */
+            color: #fff; /* Witte tekstkleur */
+            padding: 10px 20px; /* Ruimte rondom de tekst */
+        }
+
+        .navbar-brand a {
+            color: #fff; /* Witte tekstkleur voor de link */
+            text-decoration: none; /* Geen onderstreping voor de link */
+            font-size: 20px; /* Grootte van de tekst */
+            font-weight: bold; /* Vetgedrukte tekst */
+        }
+
+    </style>
+</head>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="#">WeerWijzer.nl</a>
+    </div>
+</nav>
+<body>
+<div id="weer-container">
+    <h2 id="stad-titel">WeerWijzer.nl Weersvoorspelling voor Apeldoorn</h2>
+    <select id="locatie-select">
+        <option value="Apeldoorn">Apeldoorn</option>
+        <option value="Amsterdam">Amsterdam</option>
+    </select>
+    <div id="datum-container"></div>
+    <div id="weer-voorspellingen">
+        <!-- Hier wordt de weersvoorspellingsinformatie ingevoegd -->
+    </div>
+    <div id="feedback"></div>
+    <button class="knop" id="terug-btn" style="display: none;">Terug</button>
+    <button class="knop" id="volgende-dag-btn" style="display: none;">Volgende Dag</button>
+</div>
+
+<script>
+    // JavaScript om de weersvoorspelling op te halen en weer te geven
+    const apiUrl = 'http://127.0.0.1:8000/voorspellinguren/';
+    let currentDayIndex = 0;
+    let currentCity = 'Apeldoorn';
+
+    // Functie om de weersvoorspelling voor de huidige dag op te halen en weer te geven
+    async function getWeatherForecast(location, dayIndex) {
+        try {
+            const response = await fetch(apiUrl + location);
+            const data = await response.json();
+            const weatherForecastContainer = document.getElementById('weer-voorspellingen');
+            const currentDate = new Date(data[0].datetime);
+            currentDate.setDate(currentDate.getDate() + dayIndex); // Verplaats naar de juiste dag
+
+            // Wis eerst de inhoud van de container
+            weatherForecastContainer.innerHTML = '';
+            document.getElementById('stad-titel').innerText = `Weersvoorspelling voor ${currentCity}`;
+            document.getElementById('feedback').innerText = ''; // Wis eventuele feedback
+
+            // Voeg de datum bovenaan toe
+            const dateHeader = document.getElementById('datum-container');
+
+            // Formatteer de datum naar Nederlandse notatie
+            const formattedDate = currentDate.toLocaleDateString('nl-NL', {
+                weekday: 'long', // Volledige naam van de dag van de week
+                day: 'numeric', // Dag van de maand
+                month: 'long', // Volledige naam van de maand
+                year: 'numeric' // Jaar
+            });
+
+            dateHeader.innerHTML = `<strong>${formattedDate}</strong>`;
+
+
+            // Filter de voorspellingen voor de huidige dag
+            const currentDayForecasts = data.filter(item => {
+                const itemDate = new Date(item.datetime);
+                return itemDate.getDate() === currentDate.getDate() &&
+                    itemDate.getMonth() === currentDate.getMonth() &&
+                    itemDate.getFullYear() === currentDate.getFullYear();
+            });
+
+            if (currentDayForecasts.length === 0) {
+                document.getElementById('feedback').innerText = 'Geen voorspellingen beschikbaar voor deze dag.';
+                return;
+            }
+
+            // Loop door de ontvangen data en voeg elk item toe aan de HTML
+            currentDayForecasts.forEach(item => {
+                const weerItem = document.createElement('div');
+                weerItem.classList.add('weer-item');
+                const time = new Date(item.datetime).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+
+                let imageFileName;
+                if (item.zWaarde == 1 || item.zWaarde == 2 || item.zWaarde == 3 || item.zWaarde == 10 || item.zWaarde == 11 || item.zWaarde == 20 || item.zWaarde == 21 || item.zWaarde == 22) {
+                    imageFileName = `pictures/1.png`;
+                } else if (item.zWaarde == 4 || item.zWaarde == 12 || item.zWaarde == 13 || item.zWaarde == 23 || item.zWaarde == 24) {
+                    imageFileName = `pictures/2.png`;
+                } else if (item.temperature <= -5 && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
+                    imageFileName = `pictures/5.png`;
+                } else if (item.temperature <= -5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
+                    imageFileName = `pictures/6.png`;
+                } else if (item.temperature > -5 && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
+                    imageFileName = `pictures/3.png`;
+                } else if (item.temperature <= 5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
+                    imageFileName = `pictures/4.png`;
+                } else {
+                    imageFileName = `pictures/999.png`;
+                }
+
+
+                weerItem.innerHTML = `
+                        <strong>${time}</strong>
+                        <img src="${imageFileName}" alt="Weerbeeld" title="${item.beschrijving}">
+                        <strong>${item.temperature}°C</strong>
+                    `;
+                weatherForecastContainer.appendChild(weerItem);
+            });
+
+            // Toon de knoppen als er voorspellingen zijn
+            document.getElementById('terug-btn').style.display = 'inline-block';
+            document.getElementById('volgende-dag-btn').style.display = 'inline-block';
+        } catch (error) {
+            console.error('Er is een fout opgetreden bij het ophalen van de weersvoorspelling:', error);
+            document.getElementById('feedback').innerText = 'Er is een fout opgetreden bij het ophalen van de weersvoorspelling.';
+        }
+    }
+
+    // Functie om naar de volgende dag te gaan en de weersvoorspellingen opnieuw te laden
+    document.getElementById('volgende-dag-btn').addEventListener('click', function () {
+        currentDayIndex++;
+        getWeatherForecast(currentCity, currentDayIndex);
+    });
+
+    // Functie om naar de vorige dag te gaan en de weersvoorspellingen opnieuw te laden
+    document.getElementById('terug-btn').addEventListener('click', function () {
+        currentDayIndex--;
+        getWeatherForecast(currentCity, currentDayIndex);
+    });
+
+    // Functie om de weersvoorspellingen voor de opgegeven stad te laden
+    document.getElementById('locatie-select').addEventListener('change', function (event) {
+        currentCity = event.target.value;
+        currentDayIndex = 0; // Reset de dag
+        getWeatherForecast(currentCity, currentDayIndex);
+    });
+    // Roep de functie op bij het laden van de pagina
+    window.onload = () => getWeatherForecast(currentCity, currentDayIndex); // Standaardlocatie instellen bij het laden van de pagina
+</script>
+</body>
+</html>
+
