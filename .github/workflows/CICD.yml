@@ -1,14 +1,11 @@
 name: CICD Pipeline
 on:
-  # workflow_run:
-  #   workflows: [Scheduled Pipeline]
-  #   types:
-  #     - completed
-  #   branches:
-  #     - feature/cicd-pipeline
   push:
     branches:
       - feature/cicd-pipeline
+  # pull_request:
+  #   branches:
+  #     - master
 jobs:
   setup-test:
     runs-on: ubuntu-latest 
