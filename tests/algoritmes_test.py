@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 parent_path = Path(__file__).resolve().parents[1]
 sys.path.append(str(parent_path))
-from runWeerWijzer import *
+from runWeerWijzer import bereken_zambretti
 
 
 
