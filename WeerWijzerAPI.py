@@ -51,7 +51,7 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
-@app.get('/locaties')
+@app.get('/locaties', response_model=List[WeerMetingUren])
 def get_locaties():
     '''Returns all locaties'''
     return "halowa"
