@@ -1,14 +1,14 @@
-import unittest
+import pytest
 from runWeerWijzer import *
 
 
-class TestWeerberekenen(unittest.TestCase):
+class TestWeerberekenen:
     def test_zambretti(self):
-        self.assertEqual(bereken_zambretti(1000, 990, 180), 27)
+        assert bereken_zambretti(1000, 990, 180) == 27
 
     def test_zambretti_onvoorspelbaar(self):
-        self.assertEqual(bereken_zambretti(945, 940, 180), 5)
+        assert bereken_zambretti(945, 940, 180) == 5
 
 
 if __name__ == "__main__":
-    unittest.main()
+    pytest.main()
