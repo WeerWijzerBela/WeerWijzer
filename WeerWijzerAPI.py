@@ -2,9 +2,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-from flask import Flask
-
-
 
 
 app = FastAPI()
@@ -55,26 +52,11 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
-app = Flask(__name__)
 @app.get('/')
 def get_locaties():
-    return """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Hello World</title>
-        </head>
-        <body>
-            <h1>Hello, world!</h1>
-            <p>This is a simple HTML page served by Flask.</p>
-        </body>
-        </html>
-        """
+    return "Halowa"
 
-if __name__ == '__main__':
-    app.run()
+
 
 # ALLE ENDPOINTS
 ########################################################################################################################
