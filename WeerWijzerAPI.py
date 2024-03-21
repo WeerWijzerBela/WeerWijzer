@@ -55,8 +55,8 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
-appTest = Flask(__name__)
-@appTest.get('/')
+app = Flask(__name__)
+@app.get('/')
 def get_locaties():
     return """
         <!DOCTYPE html>
@@ -74,7 +74,7 @@ def get_locaties():
         """
 
 if __name__ == '__main__':
-    appTest.run()
+    app.run()
 
 # ALLE ENDPOINTS
 ########################################################################################################################
