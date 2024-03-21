@@ -2,9 +2,9 @@ name: Scheduled Pipeline
 on:
   # schedule:
   #   - cron: '*/10 * * * *'
-  push:
-    branches:
-      - feature/cicd-pipeline
+#  push:
+#    branches:
+#      - feature/cicd-pipeline
 jobs:
   build:
     runs-on: ubuntu-latest
