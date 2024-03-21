@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
+from flask import Flask
 
 
 app = FastAPI()
@@ -52,6 +53,8 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
+appTest = Flask(__name__)
+
 @app.get('/')
 def get_locaties():
     '''Returns all locaties'''
@@ -76,7 +79,8 @@ def get_locaties():
         </body> 
     </html>"""
     print(htmlTrippleQuoted)
-
+if __name__ == '__main__':
+    appTest.run(debug=True)
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
