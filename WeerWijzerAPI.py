@@ -56,7 +56,8 @@ def get_locaties():
     '''Returns all locaties'''
     with open('index.html', 'r') as file:
         html_content = file.read()
-    return html_content
+        file.write(html_content)
+
 
 
 # ALLE ENDPOINTS
