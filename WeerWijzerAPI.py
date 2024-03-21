@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-from bs4 import BeautifulSoup
+from django.shortcuts import render
+
 
 
 app = FastAPI()
@@ -56,12 +57,31 @@ def uren_uit_database_halens(location):
 @app.get('/')
 def get_locaties():
     '''Returns all locaties'''
-    '''Returns all locaties'''
-    with open("index.html") as fp:
-        soup = BeautifulSoup(fp, 'html.parser')
+    htmlTrippleQuoted = """ 
+    <html> 
+        <head> 
+            <script> 
+                 function f1() { 
+                     return "hello"; 
+                 } 
+            </script> 
+            <style> 
+                div { 
+                    background-color: #FFFF00; 
+                } 
+            </style> 
+        </head> 
+        <body> 
+            <div id='title'> 
+                <a href='/' onclick='f1();'>Title</a> 
+            </div> 
+        </body> 
+    </html>"""
 
-    html = soup.prettify()
-    return html
+    def show_html(request):
+        with open('index.html', 'r') as file:
+            html_content = file.read()
+        return render(request, 'index.html', {'html_content': html_content})
 
 # ALLE ENDPOINTS
 ########################################################################################################################

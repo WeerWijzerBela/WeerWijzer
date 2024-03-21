@@ -5,4 +5,4 @@ uvicorn
 fastapi[all]
 flake8
 pytest-cov
-beautifulsoup4
+django-shortcuts
