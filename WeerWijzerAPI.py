@@ -64,8 +64,8 @@ def index():
     # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
     #run(host='localhost', port=8000)
     #file = codecs.open("index.html", 'r', "utf-8")
-    webbrowser.open("index.html")
-
+    www = webbrowser.open("index.html")
+    return www
     # Hier geef je een HTML-bestand terug of voer je andere acties uit
 
 # ALLE ENDPOINTS
