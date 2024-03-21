@@ -65,7 +65,7 @@ def index():
     #run(host='localhost', port=8000)
     #file = codecs.open("index.html", 'r', "utf-8")
     www = webbrowser.open("index.html")
-    return www
+    print(www)
     # Hier geef je een HTML-bestand terug of voer je andere acties uit
 
 # ALLE ENDPOINTS
