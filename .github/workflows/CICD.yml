@@ -59,6 +59,7 @@ jobs:
       - name: Run garbage collection
         run: |
           doctl registry garbage-collection start --include-untagged-manifests --force
+          
 
 
         
