@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
+from bottle import route, run, static_file
+
 
 
 app = FastAPI()
@@ -52,10 +54,17 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
-@app.get('/')
-def get_locaties():
-    return "Halowa"
+# @app.get('/')
+# def get_locaties():
+#     return "Halowa"
 
+@route('/')
+def index():
+    # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
+    #run(host='localhost', port=8000)
+
+    # Hier geef je een HTML-bestand terug of voer je andere acties uit
+    return static_file("index.html", root=".")
 
 
 # ALLE ENDPOINTS
