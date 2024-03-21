@@ -5,5 +5,4 @@ uvicorn
 fastapi[all]
 flake8
 pytest-cov
-django[all]
-
+flask[all]
