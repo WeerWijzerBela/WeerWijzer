@@ -65,7 +65,7 @@ def index():
     #run(host='localhost', port=8000)
     file = codecs.open("index.html", 'r', "utf-8")
 
-    print(file.read())
+    return file.read()
 
     # Hier geef je een HTML-bestand terug of voer je andere acties uit
 
