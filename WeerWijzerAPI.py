@@ -83,6 +83,7 @@ def get_locaties():
             html_content = file.read()
         return render(request, 'index.html', {'html_content': html_content})
 
+
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
