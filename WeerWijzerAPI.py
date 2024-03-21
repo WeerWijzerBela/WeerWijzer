@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
+import os
 
 app = FastAPI()
 # command to start: uvicorn WeerWijzerAPI:app --reload
@@ -54,9 +55,7 @@ def uren_uit_database_halens(location):
 @app.get('/')
 def get_locaties():
     '''Returns all locaties'''
-    with open('index.html', 'r') as file:
-        html_content = file.read()
-        file.write(html_content)
+    os.startfile("index.html")
 
 
 

@@ -5,3 +5,4 @@ uvicorn
 fastapi[all]
 flake8
 pytest-cov
+os
