@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-import subprocess
 
 
 app = FastAPI()
@@ -56,7 +55,27 @@ def uren_uit_database_halens(location):
 @app.get('/')
 def get_locaties():
     '''Returns all locaties'''
-    subprocess.Popen("index.html")
+    htmlTrippleQuoted = """ 
+    <html> 
+        <head> 
+            <script> 
+                 function f1() { 
+                     return "hello"; 
+                 } 
+            </script> 
+            <style> 
+                div { 
+                    background-color: #FFFF00; 
+                } 
+            </style> 
+        </head> 
+        <body> 
+            <div id='title'> 
+                <a href='/' onclick='f1();'>Title</a> 
+            </div> 
+        </body> 
+    </html>"""
+    print(htmlTrippleQuoted)
 
 # ALLE ENDPOINTS
 ########################################################################################################################
