@@ -54,7 +54,9 @@ def uren_uit_database_halens(location):
 @app.get('/')
 def get_locaties():
     '''Returns all locaties'''
-    return "halowa"
+    with open('index.html', 'r') as file:
+        html_content = file.read()
+    return html_content
 
 
 # ALLE ENDPOINTS
