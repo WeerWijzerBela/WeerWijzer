@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-import webbrowser
-import codecs
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 
 
@@ -58,14 +58,15 @@ def uren_uit_database_halens(location):
 # @app.get('/')
 # def get_locaties():
 #     return "Halowa"
-
-@app.get('/')
+app.mount("/static", StaticFiles(directory="static"), name="static")
+@app.get('/',response_class=HTMLResponse)
 def index():
     # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
     #run(host='localhost', port=8000)
     #file = codecs.open("index.html", 'r', "utf-8")
-    www = webbrowser.open("index.html")
-    print(www)
+    with open("templates/index.html", "r") as file:
+        html_content = file.read()
+    return html_content
     # Hier geef je een HTML-bestand terug of voer je andere acties uit
 
 # ALLE ENDPOINTS
@@ -234,4 +235,4 @@ def delete_voorspellingen():
         if connection.is_connected():
             connection.close()
             raise HTTPException(status_code=202)
-        
+
