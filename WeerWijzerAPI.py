@@ -58,7 +58,6 @@ def uren_uit_database_halens(location):
 # @app.get('/')
 # def get_locaties():
 #     return "Halowa"
-app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get('/')
 def index() -> HTMLResponse:
     # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
