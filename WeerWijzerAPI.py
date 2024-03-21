@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 
 
 
@@ -59,13 +59,11 @@ def uren_uit_database_halens(location):
 # def get_locaties():
 #     return "Halowa"
 @app.get('/')
-def index() -> HTMLResponse:
+def index():
     # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
     #run(host='localhost', port=8000)
     #file = codecs.open("index.html", 'r', "utf-8")
-    with open("templates/index.html", "r") as file:
-        html_content = file.read()
-    return html_content
+    return FileResponse("templates/index.html")
     # Hier geef je een HTML-bestand terug of voer je andere acties uit
 
 # ALLE ENDPOINTS
