@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-from django.shortcuts import HttpResponse
+from django.http import HttpResponse
 
 
 
