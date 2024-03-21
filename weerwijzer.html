@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weersvoorspelling</title>
+    <title>WeerWijzer</title>
     <style>
         /* Algemene stijlen */
         body {
@@ -125,15 +125,13 @@
 </head>
 <nav class="navbar">
     <div class="navbar-brand">
-        <a href="#">WeerWijzer.nl</a>
+        <a href="#">WeerWijzer</a>
     </div>
 </nav>
 <body>
 <div id="weer-container">
-    <h2 id="stad-titel">WeerWijzer.nl Weersvoorspelling voor Apeldoorn</h2>
+    <h2 id="stad-titel"></h2>
     <select id="locatie-select">
-        <option value="Apeldoorn">Apeldoorn</option>
-        <option value="Amsterdam">Amsterdam</option>
     </select>
     <div id="datum-container"></div>
     <div id="weer-voorspellingen">
@@ -146,14 +144,44 @@
 
 <script>
     // JavaScript om de weersvoorspelling op te halen en weer te geven
-    const apiUrl = 'http://127.0.0.1:8000/voorspellinguren/';
+    const apiUrl = 'http://127.0.0.1:8000';
     let currentDayIndex = 0;
-    let currentCity = 'Apeldoorn';
+
+    // Functie om de locaties op te halen en toe te voegen aan de dropdown
+    async function getLocations() {
+        try {
+            const response = await fetch(apiUrl + '/locaties');
+            const data = await response.json();
+            const locationSelect = document.getElementById('locatie-select');
+
+            // Wis eerst alle opties uit de dropdown
+            locationSelect.innerHTML = '';
+
+            // Voeg elke locatie toe als een optie in de dropdown
+            data.forEach((location, index) => {
+                const option = document.createElement('option');
+                option.value = location.locatie;
+                option.textContent = location.locatie;
+                locationSelect.appendChild(option);
+
+                // Als het de eerste locatie is, stel currentCity in op de waarde van deze locatie
+                if (index === 0) {
+                    currentCity = location.locatie;
+                }
+            });
+
+            // Roep de weersvoorspellingen op voor de standaardlocatie bij het laden van de pagina
+            getWeatherForecast(currentCity, currentDayIndex);
+        } catch (error) {
+            console.error('Er is een fout opgetreden bij het ophalen van de locaties:', error);
+            document.getElementById('feedback').innerText = 'Er is een fout opgetreden bij het ophalen van de locaties.';
+        }
+    }
 
     // Functie om de weersvoorspelling voor de huidige dag op te halen en weer te geven
     async function getWeatherForecast(location, dayIndex) {
         try {
-            const response = await fetch(apiUrl + location);
+            const response = await fetch(apiUrl + '/voorspellinguren/' + location);
             const data = await response.json();
             const weatherForecastContainer = document.getElementById('weer-voorspellingen');
             const currentDate = new Date(data[0].datetime);
@@ -202,13 +230,13 @@
                     imageFileName = `pictures/1.png`;
                 } else if (item.zWaarde == 4 || item.zWaarde == 12 || item.zWaarde == 13 || item.zWaarde == 23 || item.zWaarde == 24) {
                     imageFileName = `pictures/2.png`;
-                } else if (item.temperature <= -5 && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
+                } else if (item.sneeuw == true && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
                     imageFileName = `pictures/5.png`;
-                } else if (item.temperature <= -5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
+                } else if (item.sneeuw == true && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
                     imageFileName = `pictures/6.png`;
-                } else if (item.temperature > -5 && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
+                } else if (item.sneeuw == false && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
                     imageFileName = `pictures/3.png`;
-                } else if (item.temperature <= 5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
+                } else if (item.sneeuw == false <= 5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
                     imageFileName = `pictures/4.png`;
                 } else {
                     imageFileName = `pictures/999.png`;
@@ -251,7 +279,7 @@
         getWeatherForecast(currentCity, currentDayIndex);
     });
     // Roep de functie op bij het laden van de pagina
-    window.onload = () => getWeatherForecast(currentCity, currentDayIndex); // Standaardlocatie instellen bij het laden van de pagina
+    window.onload = getLocations;
 </script>
 </body>
 </html>
