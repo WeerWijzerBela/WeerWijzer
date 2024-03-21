@@ -58,7 +58,7 @@ def uren_uit_database_halens(location):
 # def get_locaties():
 #     return "Halowa"
 
-@route('/')
+@app.get('/')
 def index():
     # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
     #run(host='localhost', port=8000)
