@@ -49,9 +49,9 @@ jobs:
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
             docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
             docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-      - name: run garbage collector
-        run: |
-          yes | doctl registry garbage-collection start --include-untagged-manifests --force
+#      - name: run garbage collector
+#        run: |
+#          yes | doctl registry garbage-collection start --include-untagged-manifests --force
 
 
         
