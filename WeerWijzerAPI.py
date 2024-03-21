@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import DB
-import os
+import subprocess
+
 
 app = FastAPI()
 # command to start: uvicorn WeerWijzerAPI:app --reload
@@ -55,9 +56,7 @@ def uren_uit_database_halens(location):
 @app.get('/')
 def get_locaties():
     '''Returns all locaties'''
-    os.startfile("index.html")
-
-
+    subprocess.Popen("index.html")
 
 # ALLE ENDPOINTS
 ########################################################################################################################
