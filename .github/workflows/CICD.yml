@@ -49,13 +49,13 @@ jobs:
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
             docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
             docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-      - name: Check for active garbage collection tasks
-        run: |
-          active_gc_tasks=$(doctl registry garbage-collection list --format ID,Status --no-header | grep -c "Active")
-          if [ "$active_gc_tasks" -gt 0 ]; then
-            echo "Er zijn nog actieve garbage collection-taken. Wacht tot deze zijn voltooid voordat je een nieuwe taak start."
-            exit 1
-          fi
+      # - name: Check for active garbage collection tasks
+      #   run: |
+      #     active_gc_tasks=$(doctl registry garbage-collection list --format ID,Status --no-header | grep -c "Active")
+      #     if [ "$active_gc_tasks" -gt 0 ]; then
+      #       echo "Er zijn nog actieve garbage collection-taken. Wacht tot deze zijn voltooid voordat je een nieuwe taak start."
+      #       exit 1
+      #     fi
       - name: Run garbage collection
         run: |
           doctl registry garbage-collection start --include-untagged-manifests --force
