@@ -75,7 +75,7 @@ def get_locaties():
             </div> 
         </body> 
     </html>"""
-    print(htmlTrippleQuoted)
+    return htmlTrippleQuoted
 
 # ALLE ENDPOINTS
 ########################################################################################################################
