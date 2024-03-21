@@ -71,8 +71,8 @@ def get_metingen() -> List[WeerMetingUren]:
     return weermetingen
 
 
-@app.post('/metingen', response_model=WeerMeting)
-def create_meting(nieuwe_meting: WeerMeting):
+@app.post('/metingen')
+def create_meting(nieuwe_meting: WeerMeting) -> List[WeerMeting]:
     '''Voeg een nieuwe meting toe aan de database en retourneer een NieuweWeerMeting object.'''
     connection = DB.connect_to_database()
     try:
@@ -94,8 +94,8 @@ def create_meting(nieuwe_meting: WeerMeting):
             raise HTTPException(status_code=201)
 
 
-@app.post('/metinguren', response_model=List[WeerMetingUren])
-def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]):
+@app.post('/metinguren')
+def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren]) -> List[WeerMetingUren]:
     '''Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten.'''
     connection = DB.connect_to_database()
     try:
@@ -148,8 +148,8 @@ def delete_metingen():
 
 ########################################################################################################################
 # VOORSPELLING / VOORSPELLINGEN ENDPOINTS
-@app.get('/voorspellinguren', response_model=List[VoorspellingUren])
-def get_voorspellingen():
+@app.get('/voorspellinguren')
+def get_voorspellingen() -> List[VoorspellingUren]:
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van voorspellinguren objecten.'''
     voorspellingen = uren_uit_database_halens('voorspelling')
     weervoorspelling = []
@@ -158,8 +158,8 @@ def get_voorspellingen():
         weervoorspelling.append(VoorspellingUren(**voorspelling))
     return weervoorspelling
 
-@app.post('/voorspellingen', response_model=Voorspelling)
-def create_voorspelling(nieuwe_voorspelling: Voorspelling):
+@app.post('/voorspellingen')
+def create_voorspelling(nieuwe_voorspelling: Voorspelling) -> Voorspelling:
     '''Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object.'''
     connection = DB.connect_to_database()
     try:
@@ -181,8 +181,8 @@ def create_voorspelling(nieuwe_voorspelling: Voorspelling):
             raise HTTPException(status_code=201)
 
 
-@app.post('/voorspellinguren', response_model=List[VoorspellingUren])
-def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]):
+@app.post('/voorspellinguren')
+def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]) -> List[VoorspellingUren]:
     '''Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten.'''
     connection = DB.connect_to_database()
     try:
