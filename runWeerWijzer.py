@@ -5,9 +5,7 @@ import sys
 from logfiles.log import logging
 import math as m
 import os
-import hashlib
-from dotenv import load_dotenv
-load_dotenv()
+
 
 API = "https://weerwijzer-api-93uo4.ondigitalocean.app"
 API_KEY = os.environ.get("API_KEY")

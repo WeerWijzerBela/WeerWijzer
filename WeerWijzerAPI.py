@@ -1,19 +1,13 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from logfiles.log import logging
 import DB
 import os
-import hashlib
-from dotenv import load_dotenv
-load_dotenv()
 
 API_KEY = os.environ.get("API_KEY")
-from fastapi.responses import FileResponse
-
-
-
 
 app = FastAPI()
 app.add_middleware(
@@ -64,11 +58,16 @@ def verify_api_key(api_key: str = None):
         raise HTTPException(status_code=403, detail="Ongeldige API-sleutel")
     return True
 
+@app.get('/')
+def index():
+    # Print de html pagina
+    return FileResponse("templates/weerwijzer.html")
+
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
-@app.get('/metinguren/{locatie}', response_model=List[WeerMetingUren])
-def get_metingen(locatie: str):
+@app.get('/metinguren/{locatie}')
+def get_metingen(locatie: str) -> List[WeerMetingUren]:
     '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
     connection = DB.connect_to_database()
     try:
@@ -87,26 +86,6 @@ def get_metingen(locatie: str):
         logging.error(f"[API] %s: Er is een fout opgetreden bij get-request metinguren/{locatie}", e)
     finally:
         connection.close()
-
-
-@app.get('/')
-def index():
-    # Print de html pagina
-    return FileResponse("templates/index.html")
-
-# ALLE ENDPOINTS
-########################################################################################################################
-# METINGEN / METINGUREN ENDPOINTS
-@app.get('/metinguren')
-def get_metingen() -> List[WeerMetingUren]:
-    '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
-    metingen = uren_uit_database_halens('meting')
-    weermetingen = []
-    for meting in metingen:
-        meting['datetime'] = str(meting['datetime'])
-        weermetingen.append(WeerMetingUren(**meting))
-    return weermetingen
-
 
 @app.post('/metingen')
 def create_meting(nieuwe_meting: WeerMeting, key: str = Depends(verify_api_key)) -> List[WeerMeting]:
@@ -309,8 +288,8 @@ def delete_voorspellingen(locatie: str, key: str = Depends(verify_api_key)):
 ########################################################################################################################
 # LOCATIES ENDPOINTS
 
-@app.get('/locaties', response_model=List[Locatie])
-def get_locaties():
+@app.get('/locaties')
+def get_locaties() -> List[Locatie]:
     '''Haal alle locaties op uit de database en converteer ze naar een lijst van Locatie objecten.'''
     connection = DB.connect_to_database()
     try:
@@ -328,8 +307,8 @@ def get_locaties():
         connection.close()
 
 
-@app.post('/locaties', response_model=Locatie)
-def create_locatie(nieuwe_locatie: Locatie, key: str = Depends(verify_api_key)):
+@app.post('/locaties')
+def create_locatie(nieuwe_locatie: Locatie, key: str = Depends(verify_api_key)) -> Locatie:
     '''Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object.'''
     connection = DB.connect_to_database()
     try:
