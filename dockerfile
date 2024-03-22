@@ -2,6 +2,7 @@
 FROM python:3.9
 #copies everything to the working directory
 COPY . .
+COPY ./templates/pictures /templates/pictures
 #copies the requirements.txt file to the working directory
 ADD requirements.txt .
 #sets the working directory
