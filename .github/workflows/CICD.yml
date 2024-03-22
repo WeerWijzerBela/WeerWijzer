@@ -64,6 +64,9 @@ jobs:
           cd .github/workflows
           chmod +x bash.sh
           ./bash.sh   
+          if [ "$run_gc" = true ]; then
+            doctl registry garbage-collection start --include-untagged-manifests --force
+          fi
           
 
 
