@@ -12,3 +12,4 @@ fi
 if [ "$run_gc" = "true" ]; then
     doctl registry garbage-collection start --include-untagged-manifests --force
 fi
+
