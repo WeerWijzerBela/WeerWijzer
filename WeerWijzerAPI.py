@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
 from logfiles.log import logging
@@ -368,8 +369,9 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
             connection.commit()
             connection.close()
 
+app.mount("templates/pictures", StaticFiles(directory="Server"), name="Static")
 @app.get('/images/{image}')
 def get_images(image: int):
     '''Haal alle images op.'''
-    t = FileResponse("templates/pictures/%s.png",(image))
-    return 2
+
+    return FileResponse("templates/pictures/%s.png",(image))
