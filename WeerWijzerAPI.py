@@ -6,6 +6,8 @@ from typing import List, Optional
 from logfiles.log import logging
 import DB
 import os
+from io import BytesIO
+from PIL import Image
 
 
 app = FastAPI()
@@ -51,10 +53,6 @@ class VoorspellingUren(BaseModel):
     beschrijving: Optional[str] = None
     sneeuw: Optional[bool] = None
 
-class Image(BaseModel):
-    '''Klasse voor het aanmaken van een Locatie object.'''
-    imageId: int
-    image: int
 
 def verify_api_key(api_key: str = None):
     if api_key is None or api_key != API_KEY:
@@ -373,14 +371,20 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
             connection.close()
 
 @app.get('/images/{image}')
-def get_images(image: int) -> Image:
+def get_images(image: int):
     '''Haal alle images op uit de database en converteer ze naar een lijst van Image objecten.'''
     connection = DB.connect_to_database()
     try:
         cursor = connection.cursor()
-        cursor.execute(f"SELECT image FROM images where imageId = {image};")
-        image = cursor.fetchone()
-        return image
+        cursor.execute("SELECT image FROM images where imageId = %s;",(image))
+        image_data = cursor.fetchone()
+        image = Image.open(BytesIO(image_data))
+
+        img_byte_array = BytesIO()
+        image.save(img_byte_array, format="PNG")
+        img_byte_array.seek(0)
+
+        return img_byte_array.getvalue()
     except Exception as e:
         connection.close()
         logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /images.", e)
