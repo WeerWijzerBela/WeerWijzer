@@ -52,6 +52,11 @@ class VoorspellingUren(BaseModel):
     beschrijving: Optional[str] = None
     sneeuw: Optional[bool] = None
 
+class Image(BaseModel):
+    '''Klasse voor het aanmaken van een Locatie object.'''
+    imageId: int
+    image: str
+
 def verify_api_key(api_key: str = None):
     if api_key is None or api_key != API_KEY:
         logging.warning("[API] 403: Request met een ongeldige API-sleutel.")
@@ -367,3 +372,19 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
         if connection.is_connected():
             connection.commit()
             connection.close()
+
+@app.get('/images/{image}')
+def get_images(image: str) -> Image:
+    '''Haal alle images op uit de database en converteer ze naar een lijst van Image objecten.'''
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM images where imageId = {image};")
+        image = cursor.fetchone()
+
+        return image
+    except Exception as e:
+        connection.close()
+        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /images.", e)
+    finally:
+        connection.close()

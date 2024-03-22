@@ -227,30 +227,30 @@
 
                 let imageFileName;
                 if (item.zWaarde == 1 || item.zWaarde == 2 || item.zWaarde == 3 || item.zWaarde == 10 || item.zWaarde == 11 || item.zWaarde == 20 || item.zWaarde == 21 || item.zWaarde == 22) {
-                    imageFileName = `/templates/pictures/1.png`;
+                    imageFileName = `images/1`;
                 } else if (item.zWaarde == 4 || item.zWaarde == 12 || item.zWaarde == 13 || item.zWaarde == 23 || item.zWaarde == 24) {
-                    imageFileName = `2.png`;
+                    imageFileName = `images/2`;
                 } else if (item.sneeuw == true && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
-                    imageFileName = `5.png`;
+                    imageFileName = `images/5`;
                 } else if (item.sneeuw == true && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
-                    imageFileName = `6.png`;
+                    imageFileName = `images/6`;
                 } else if (item.sneeuw == false && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
-                    imageFileName = `3.png`;
+                    imageFileName = `images/3`;
                 } else if (item.sneeuw == false <= 5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
-                    imageFileName = `4.png`;
+                    imageFileName = `images/4`;
                 } else {
-                    imageFileName = `999.png`;
+                    imageFileName = `images/7`;
                 }
 
 
                 weerItem.innerHTML = `
                         <strong>${time}</strong>
-                        <img src="/templates/pictures/1.png" alt="Weerbeeld" title="${item.beschrijving}">
+                        <img src="images/1" alt="Weerbeeld" title="${item.beschrijving}">
                         <img src="./pictures/2.png" alt="Weerbeeld" title="${item.beschrijving}">
                         <img src="./3.png" alt="Weerbeeld" title="${item.beschrijving}">
                         <img src="4.png" alt="Weerbeeld" title="${item.beschrijving}">
                         <img src="@/templates/pictures/5.png" alt="Weerbeeld" title="${item.beschrijving}">
-                        <img src="~/templates/pictures/6.png" alt="Weerbeeld" title="${item.beschrijving}">
+                        <img src="${imageFileName}" alt="Weerbeeld" title="${item.beschrijving}">
                         <strong>${item.temperature}°C</strong>
                     `;
                 weatherForecastContainer.appendChild(weerItem);
