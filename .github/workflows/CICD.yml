@@ -63,8 +63,8 @@ jobs:
         run: |
           cd .github/workflows
           chmod +x bash.sh
-          ./bash.sh   
-          if [ "$run_gc" = true ]; then
+          run_gc_output=$(./bash.sh)
+          if [ "$run_gc_output" = "true" ]; then
             doctl registry garbage-collection start --include-untagged-manifests --force
           fi
           
