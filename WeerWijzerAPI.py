@@ -382,7 +382,7 @@ def get_images(image: int):
 
     connection = DB.connect_to_database()
     try:
-        cursor = connection.cursor(dictionary=True)
+        cursor = connection.cursor()
         cursor.execute("SELECT image FROM image where imageId = %s;", (image,))
         image = cursor.fetchone()
 
