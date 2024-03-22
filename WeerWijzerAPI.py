@@ -7,7 +7,6 @@ from logfiles.log import logging
 import DB
 import os
 
-API_KEY = os.environ.get("API_KEY")
 
 app = FastAPI()
 app.add_middleware(
@@ -55,7 +54,7 @@ class VoorspellingUren(BaseModel):
 class Image(BaseModel):
     '''Klasse voor het aanmaken van een Locatie object.'''
     imageId: int
-    image: str
+    image: int
 
 def verify_api_key(api_key: str = None):
     if api_key is None or api_key != API_KEY:
@@ -374,14 +373,13 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
             connection.close()
 
 @app.get('/images/{image}')
-def get_images(image: str) -> Image:
+def get_images(image: int) -> Image:
     '''Haal alle images op uit de database en converteer ze naar een lijst van Image objecten.'''
     connection = DB.connect_to_database()
     try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM images where imageId = {image};")
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT image FROM images where imageId = {image};")
         image = cursor.fetchone()
-
         return image
     except Exception as e:
         connection.close()
