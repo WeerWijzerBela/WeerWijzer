@@ -386,7 +386,7 @@ def get_images(image: int):
         cursor.execute("SELECT image FROM images where imageId = %s;", (image,))
         image = cursor.fetchone()
         image_blob = image[0]
-        return Response(content=image_blob, media_type="image/png")
+        return FileResponse(image_blob, media_type="image/png")
     except Exception as e:
         connection.close()
         logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /locaties.", e)
