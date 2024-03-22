@@ -369,9 +369,14 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
             connection.commit()
             connection.close()
 
-app.mount("templates/pictures", StaticFiles(directory="templates/pictures"), name="images")
+# app.mount("templates/pictures", StaticFiles(directory="templates/pictures"), name="images")
+# @app.get('/images/{image}')
+# def get_images(image: int):
+#     '''Haal alle images op.'''
+#
+#     return FileResponse("templates/pictures/%s.png",(image))
+app.mount("/images", StaticFiles(directory="templates/pictures"), name="static")
 @app.get('/images/{image}')
-def get_images(image: int):
-    '''Haal alle images op.'''
-
-    return FileResponse("templates/pictures/%s.png",(image))
+def get_images(image: str):
+    '''Haal een specifieke afbeelding op.'''
+    return FileResponse(f"templates/pictures/{image}.png")
