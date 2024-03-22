@@ -9,6 +9,6 @@ else
   run_gc=false
 fi
 
-if [ "$run_gc_output" = "true" ]; then
+if [ "$run_gc" = "true" ]; then
     doctl registry garbage-collection start --include-untagged-manifests --force
 fi
