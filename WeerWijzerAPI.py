@@ -6,8 +6,6 @@ from typing import List, Optional
 from logfiles.log import logging
 import DB
 import os
-from io import BytesIO
-from PIL import Image
 
 
 app = FastAPI()
@@ -371,22 +369,7 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
             connection.close()
 
 @app.get('/images/{image}')
-def get_images(image: int):
-    '''Haal alle images op uit de database en converteer ze naar een lijst van Image objecten.'''
-    connection = DB.connect_to_database()
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT image FROM images where imageId = %s;",(image))
-        image_data = cursor.fetchone()
-        image = Image.open(BytesIO(image_data))
+def get_images(image: int) -> FileResponse:
+    '''Haal alle images op.'''
 
-        img_byte_array = BytesIO()
-        image.save(img_byte_array, format="PNG")
-        img_byte_array.seek(0)
-
-        return img_byte_array.getvalue()
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /images.", e)
-    finally:
-        connection.close()
+    return FileResponse("templates/pictures/%s.png",(image))
