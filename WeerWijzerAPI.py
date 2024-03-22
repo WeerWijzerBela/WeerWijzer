@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -375,8 +375,20 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
 #     '''Haal alle images op.'''
 #
 #     return FileResponse("templates/pictures/%s.png",(image))
-app.mount("/images", StaticFiles(directory="templates/pictures"), name="static")
+
 @app.get('/images/{image}')
-def get_images(image: str):
+def get_images(image: int):
     '''Haal een specifieke afbeelding op.'''
-    return FileResponse(f"templates/pictures/{image}.png")
+
+    connection = DB.connect_to_database()
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT image FROM image where imageId = %s;", (image,))
+        image = cursor.fetchone()
+
+        return Response(content=image, media_type="image/png")
+    except Exception as e:
+        connection.close()
+        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /locaties.", e)
+    finally:
+        connection.close()
