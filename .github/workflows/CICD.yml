@@ -61,8 +61,8 @@ jobs:
 #          doctl registry garbage-collection start --include-untagged-manifests --force
       - name: Check for active garbage collection tasks
         run: |
-          chmod +x scripts/bash.sh
-          ./scripts/bash.sh   
+          chmod +x bash.sh
+          ./bash.sh   
           
 
 
