@@ -8,7 +8,7 @@ on:
   #     - master
 jobs:
   setup-test:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -20,16 +20,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      # - name: Run linting
-      #   run: |
-      #     flake8 ./metingen.py
+      - name: Run linting
+        run: |
+          flake8 ./metingen.py
       - name: Run a test with coverage
         run: | 
           pytest --cov
 
   build:
     needs: setup-test
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -57,21 +57,11 @@ jobs:
 #      - name: Run garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
-      # - name: Check for active garbage collection tasks
-      #   run: |
-      #     cd .github/workflows
-      #     chmod +x bash.sh
-      #     ./bash.sh
-          
-
-
-        
-
-
-
-      
-
-
+      - name: Check for active garbage collection tasks
+        run: |
+          cd .github/workflows
+          chmod +x bash.sh
+          ./bash.sh
 
       ## Deploying to kubernetes cluster
 #      - name: Update deployment file
@@ -85,4 +75,3 @@ jobs:
 #
 #      - name: Verify deployment
 #        run: kubectl rollout status deployment/python-example
-
