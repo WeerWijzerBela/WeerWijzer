@@ -369,7 +369,7 @@ def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
             connection.close()
 
 @app.get('/images/{image}')
-def get_images(image: int) -> FileResponse:
+def get_images(image: int):
     '''Haal alle images op.'''
-
-    return FileResponse("templates/pictures/%s.png",(image))
+    t = FileResponse("templates/pictures/%s.png",(image))
+    return 2
