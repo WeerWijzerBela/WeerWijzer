@@ -1,7 +1,7 @@
 #uses the python 3.9 image
 FROM python:3.9
 #copies everything to the working directory
-ADD . .
+COPY . .
 #copies the requirements.txt file to the working directory
 ADD requirements.txt .
 #sets the working directory
