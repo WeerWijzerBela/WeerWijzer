@@ -57,11 +57,11 @@ jobs:
 #      - name: Run garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
-      - name: Check for active garbage collection tasks
-        run: |
-          cd .github/workflows
-          chmod +x bash.sh
-          ./bash.sh
+      # - name: Check for active garbage collection tasks
+      #   run: |
+      #     cd .github/workflows
+      #     chmod +x bash.sh
+      #     ./bash.sh
           
 
 

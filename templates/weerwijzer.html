@@ -144,13 +144,13 @@
 
 <script>
     // JavaScript om de weersvoorspelling op te halen en weer te geven
-    const apiUrl = 'weerwijzer-belastingdienst.nl';
+    const apiUrl = '/';
     let currentDayIndex = 0;
 
     // Functie om de locaties op te halen en toe te voegen aan de dropdown
     async function getLocations() {
         try {
-            const response = await fetch(apiUrl + '/locaties');
+            const response = await fetch(apiUrl + 'locaties');
             const data = await response.json();
             const locationSelect = document.getElementById('locatie-select');
 
@@ -181,7 +181,7 @@
     // Functie om de weersvoorspelling voor de huidige dag op te halen en weer te geven
     async function getWeatherForecast(location, dayIndex) {
         try {
-            const response = await fetch(apiUrl + '/voorspellinguren/' + location);
+            const response = await fetch(apiUrl + 'voorspellinguren/' + location);
             const data = await response.json();
             const weatherForecastContainer = document.getElementById('weer-voorspellingen');
             const currentDate = new Date(data[0].datetime);
