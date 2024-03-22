@@ -41,6 +41,11 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DOCKER_TOKEN }}
+      - name: Cancel garbage tasks
+        run: |
+          cd .github/workflows
+          chmod +x stop.sh
+          ./stop.sh
       - name: Build Docker container
         run: |
           docker build -t my-cicd-pipeline:latest .
@@ -49,14 +54,14 @@ jobs:
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
             docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
             docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-      - name: Run garbage collection
-        run: |
-          doctl registry garbage-collection start --include-untagged-manifests --force
-#      - name: Check for active garbage collection tasks
+#      - name: Run garbage collection
 #        run: |
-#          cd .github/workflows
-#          chmod +x bash.sh
-#          ./bash.sh
+#          doctl registry garbage-collection start --include-untagged-manifests --force
+      - name: Check for active garbage collection tasks
+        run: |
+          cd .github/workflows
+          chmod +x bash.sh
+          ./bash.sh
           
 
 
