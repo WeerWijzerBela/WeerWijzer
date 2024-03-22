@@ -55,16 +55,11 @@ def uren_uit_database_halens(location):
     finally:
         connection.close()
 
-# @app.get('/')
-# def get_locaties():
-#     return "Halowa"
+
 @app.get('/')
 def index():
-    # Hier kan je extra logica toevoegen voordat de webserver start, indien nodig
-    #run(host='localhost', port=8000)
-    #file = codecs.open("index.html", 'r', "utf-8")
+    # Print de html pagina
     return FileResponse("templates/index.html")
-    # Hier geef je een HTML-bestand terug of voer je andere acties uit
 
 # ALLE ENDPOINTS
 ########################################################################################################################
