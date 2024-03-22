@@ -61,6 +61,7 @@ jobs:
 #          doctl registry garbage-collection start --include-untagged-manifests --force
       - name: Check for active garbage collection tasks
         run: |
+          cd .github/workflows
           chmod +x bash.sh
           ./bash.sh   
           
