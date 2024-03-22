@@ -43,7 +43,6 @@ jobs:
           token: ${{ secrets.DOCKER_TOKEN }}
       - name: Cancel garbage tasks
         run: |
-          cd .github/workflows
           chmod +x stop.sh
           ./stop.sh
       - name: Build Docker container
