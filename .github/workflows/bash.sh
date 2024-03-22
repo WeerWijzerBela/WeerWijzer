@@ -8,3 +8,7 @@ else
   echo "Er zijn nog actieve garbage collection-taken. Wacht tot deze zijn voltooid voordat je een nieuwe taak start."
   run_gc=false
 fi
+
+if [ "$run_gc_output" = "true" ]; then
+    doctl registry garbage-collection start --include-untagged-manifests --force
+fi
