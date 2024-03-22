@@ -4,8 +4,14 @@ from datetime import datetime, date, timedelta
 import sys
 from logfiles.log import logging
 import math as m
+import os
+import hashlib
+from dotenv import load_dotenv
+load_dotenv()
 
 API = "https://weerwijzer-api-93uo4.ondigitalocean.app"
+API_KEY = os.environ.get("API_KEY")
+
 
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     '''Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)'''
@@ -29,7 +35,7 @@ def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
 
 def bereken_voorspellingen_uren(locatie):
     try:
-        url_meting = API + '/metinguren'
+        url_meting = API + f'/metinguren/{locatie}?api_key={API_KEY}'
         response = requests.get(url_meting)
         response.raise_for_status()  # Raise an exception for non-200 status codes
         jsonData = response.json()
@@ -52,11 +58,11 @@ def bereken_voorspellingen_uren(locatie):
             "locatie": locatie,
             "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
-        url_voorspellingen = API + '/voorspellingen'
+        url_voorspellingen = API + f'/voorspellingen?api_key={API_KEY}'
         response_metingen = requests.post(url_voorspellingen, json=nieuwe_voorspelling)
         response_metingen.raise_for_status()  # Raise an exception for non-200 status codes
 
-        url_voorspellingen_uren = API + '/voorspellinguren'
+        url_voorspellingen_uren = API + f'/voorspellinguren?api_key={API_KEY}'
         batch_size = 193
         for i in range(0, len(zambrettiList), batch_size):
             batch_data = zambrettiList[i:i + batch_size]
@@ -64,11 +70,11 @@ def bereken_voorspellingen_uren(locatie):
             response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude voorspellinguren
-        url_delete = API + '/voorspellingen'
+        url_delete = API + f'/voorspellingen/{locatie}?api_key={API_KEY}'
         response_delete = requests.delete(url_delete)
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
     except Exception as e:
-        logging.critical("Er is een fout opgetreden: %s", e)
+        logging.error("[run] Er is een fout opgetreden: %s", e)
         sys.exit(1)
 
 def post_weer_data(locatie):
@@ -82,7 +88,7 @@ def post_weer_data(locatie):
             "locatie": locatie,
             "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
-        url_metingen = API + '/metingen'
+        url_metingen = API + f'/metingen?api_key={API_KEY}'
         response_metingen = requests.post(url_metingen, json=nieuwe_meting_data_metingen)
         response_metingen.raise_for_status()  # Raise an exception for non-200 status codes
 
@@ -108,7 +114,7 @@ def post_weer_data(locatie):
                     "pressure": i['pressure'],
                     "winddirection": i['winddir']
                 })
-        url_metinguren = API + '/metinguren'
+        url_metinguren = API + f'/metinguren?api_key={API_KEY}'
         batch_size = 190
         for i in range(0, len(nieuwe_metinguren), batch_size):
             batch_data = nieuwe_metinguren[i:i + batch_size]
@@ -116,7 +122,7 @@ def post_weer_data(locatie):
             response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude metingen
-        url_metingen = API + '/metingen'
+        url_metingen = API + f'/metingen/{locatie}?api_key={API_KEY}'
         response_delete = requests.delete(url_metingen)
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
 
@@ -124,9 +130,11 @@ def post_weer_data(locatie):
         bereken_voorspellingen_uren(locatie)
 
     except Exception as e:
-        logging.critical("Er is een fout opgetreden: %s", e)
+        logging.error("[run] Er is een fout opgetreden: %s", e)
         sys.exit(1)
 
 if __name__ == "__main__":
     # Call your function here
+    post_weer_data("Amsterdam")
     post_weer_data("Apeldoorn")
+    post_weer_data("Amersfoort")

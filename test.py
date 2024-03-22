@@ -8,3 +8,4 @@ def index():
 
     print(file.read())
     # webbrowser.open("index.html")
+
