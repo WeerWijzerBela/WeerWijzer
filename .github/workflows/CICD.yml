@@ -63,6 +63,7 @@ jobs:
           chmod +x bash.sh
           ./bash.sh
 
+
       ## Deploying to kubernetes cluster
 #      - name: Update deployment file
 #        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/python-example:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
