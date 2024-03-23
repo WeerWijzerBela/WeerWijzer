@@ -64,7 +64,7 @@ jobs:
           ./bash.sh
 
 
-      ## Deploying to kubernetes cluster
+      ## Deploying to kubernetes cluster (nog doen: load balancer)
 #      - name: Update deployment file
 #        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/python-example:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 #
