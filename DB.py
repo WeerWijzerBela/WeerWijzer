@@ -1,147 +1,90 @@
-# Description: This script establishes a connection to a MySQL database and performs the following operations:
-import mysql.connector as database
+from sqlalchemy import (
+    create_engine,
+    Column,
+    Integer,
+    String,
+    DateTime,
+    ForeignKey,
+    DECIMAL,
+    VARCHAR,
+)
+from sqlalchemy.orm import declarative_base, sessionmaker, DeclarativeBase
+from datetime import datetime
 import os
+from dotenv import load_dotenv
+from fastapi import FastAPI, Depends
 
-# Database connection parameters
-username = os.environ.get("DB_USER")
-password = os.environ.get("DB_PASSWORD")
-host_db = os.environ.get("DB_HOST")
-port = os.environ.get("DB_PORT")
-db = os.environ.get("DB_NAME")
+load_dotenv()
 
-if None in (username, password, host_db, port, db):
-    raise ValueError("One or more environment variables are not set.")
+DB_URL = (
+    f"mysql+mysqlconnector://{os.environ.get("DB_USER")}:{os.environ.get("DB_PASSWORD")}@{os.environ.get("DB_HOST")}:{os.environ.get("DB_PORT")}/{os.environ.get("DB_NAME")}?auth_plugin="
+)
+testing_DB_URL = "sqlite:///:memory:"
+
+engine = create_engine(DB_URL, echo=True)
+SessionLocal = sessionmaker(bind=engine)
+
+class Base(DeclarativeBase):
+    pass
+
+class Metingen(Base):
+    __tablename__ = "metingen"
+    metingenId = Column(Integer, primary_key=True, autoincrement=True)
+    locatieId = Column(Integer, ForeignKey("locaties.locatieId"))
+    datetime = Column(DateTime)
 
 
-config = {
-    'user': os.environ.get("DB_USER"),
-    'password': os.environ.get("DB_PASSWORD"),
-    'host': os.environ.get("DB_HOST"),
-    'port': os.environ.get("DB_PORT"),
-    'database': os.environ.get("DB_NAME"),
-}
+class MetingUren(Base):
+    __tablename__ = "metinguren"
+    metingUrenId = Column(Integer, primary_key=True, autoincrement=True)
+    metingenId = Column(Integer, ForeignKey("metingen.metingenId"))
+    datetime = Column(DateTime)
+    temperature = Column(DECIMAL(5, 2))
+    pressure = Column(DECIMAL(5, 2))
+    winddirection = Column(VARCHAR(255))
 
-def connect_to_database():
-    """
-    Establishes a connection to the MySQL database.
-    """
+
+class Locaties(Base):
+    __tablename__ = "locaties"
+    locatieId = Column(Integer, primary_key=True, autoincrement=True)
+    locatie = Column(VARCHAR(255))
+
+
+class Voorspellingen(Base):
+    __tablename__ = "voorspellingen"
+    voorspellingId = Column(Integer, primary_key=True, autoincrement=True)
+    locatieId = Column(Integer, ForeignKey("locaties.locatieId"))
+    datetime = Column(DateTime)
+    currenttemp = Column(DECIMAL(5, 2))
+    zWaarde = Column(Integer)
+
+
+class VoorspellingUren(Base):
+    __tablename__ = "voorspellinguren"
+    voorspellingUrenId = Column(Integer, primary_key=True, autoincrement=True)
+    voorspellingId = Column(Integer, ForeignKey("voorspellingen.voorspellingId"))
+    datetime = Column(DateTime)
+    temperature = Column(DECIMAL(5, 2))
+    zWaarde = Column(Integer)
+
+@app.on_event("startup")
+async def startup():
+    Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
+
+SessionLocal().add(eerste_meting)
+
+
+def get_db():
+    db = SessionLocal()
     try:
-        connection = database.connect(**config)
-        return connection
-    except database.Error as e:
-        print(f"Error connecting to MySQL database: {e}")
-        return None
+        yield db
+    finally:
+        db.close()
 
-def create_table_locaties(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS Locaties (     
-        locatieId INT AUTO_INCREMENT PRIMARY KEY,     
-        locatie VARCHAR(255),
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'Locatie' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
 
-def create_table_voorspellingen(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS voorspellingen (     
-        voorspellingId INT AUTO_INCREMENT PRIMARY KEY,     
-        locatieId INT,
-        datetime DATETIME,
-        currenttemp Decimal(5,2),
-        zWaarde INT,
-        FOREIGN KEY (locatieId) REFERENCES Locaties(locatieId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'voorspellingen' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
-
-def create_table_voorspellinguren(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS voorspellinguren (     
-        voorspellingUrenId INT AUTO_INCREMENT PRIMARY KEY,     
-        voorspellingId INT,
-        datetime DATETIME,
-        temperature Decimal(5,2),
-        zWaarde INT,
-        FOREIGN KEY (voorspellingId) REFERENCES voorspellingen(voorspellingId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'weervoorspellingen' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
-
-def create_table_metingen(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS metingen (     
-        metingenId INT AUTO_INCREMENT PRIMARY KEY,     
-        locatieId INT,
-        datetime DATETIME,
-        currenttemp Decimal(5,2),
-        pressure Decimal(5,2),
-        winddirection VARCHAR(255),
-        FOREIGN KEY (locatieId) REFERENCES Locaties(locatieId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'metingen' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
-
-def create_table_metingenuren(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS metinguren (     
-        metingUrenId INT AUTO_INCREMENT PRIMARY KEY,     
-        metingenId INT,
-        datetime DATETIME,
-        Temperature Decimal(5,2),
-        pressure Decimal(5,2),
-        winddirection VARCHAR(255),
-        FOREIGN KEY (metingenId) REFERENCES metingen(metingenId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'metinguren' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
-
-def main():
-    connection = connect_to_database()
-    if connection:
-        try:
-            cursor = connection.cursor()
-            create_table_locaties(cursor)
-            create_table_voorspellingen(cursor)
-            create_table_metingen(cursor)
-            create_table_metingenuren(cursor)
-        finally:
-            cursor.close()
-            connection.close()
-
-if __name__ == "__main__":
-    main()
+# @app.post("/items")
+# def create_item(item: ItemCreate, db: session = Depends(get_db)) -> Item:
+#     db_item = DBItem(**item.model_dump())
+#     db.add(db_item)
+#     return Item(**db_item.__dict__)

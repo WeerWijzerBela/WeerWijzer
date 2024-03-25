@@ -1,0 +1,1969 @@
+2024-03-24 15:00:47,859 - INFO - SELECT DATABASE()
+2024-03-24 15:00:47,859 - INFO - [raw sql] {}
+2024-03-24 15:00:48,257 - INFO - SELECT @@sql_mode
+2024-03-24 15:00:48,257 - INFO - [raw sql] {}
+2024-03-24 15:00:48,453 - INFO - SELECT @@lower_case_table_names
+2024-03-24 15:00:48,454 - INFO - [raw sql] {}
+2024-03-24 15:00:48,656 - INFO - BEGIN (implicit)
+2024-03-24 15:00:48,770 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 15:00:48,771 - INFO - [raw sql] {}
+2024-03-24 15:00:49,189 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 15:00:49,191 - INFO - [raw sql] {}
+2024-03-24 15:00:49,392 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 15:00:49,393 - INFO - [raw sql] {}
+2024-03-24 15:00:49,592 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 15:00:49,592 - INFO - [raw sql] {}
+2024-03-24 15:00:49,803 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 15:00:49,804 - INFO - [raw sql] {}
+2024-03-24 15:00:50,002 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 15:00:50,003 - INFO - [raw sql] {}
+2024-03-24 15:00:50,104 - INFO - COMMIT
+2024-03-24 15:01:50,764 - ERROR - [API] cannot access local variable 'meting' where it is not associated with a value: Er is een fout opgetreden bij het toevoegen van nieuwe metinguren.
+2024-03-24 15:03:43,650 - INFO - SELECT DATABASE()
+2024-03-24 15:03:43,650 - INFO - [raw sql] {}
+2024-03-24 15:03:44,031 - INFO - SELECT @@sql_mode
+2024-03-24 15:03:44,032 - INFO - [raw sql] {}
+2024-03-24 15:03:44,251 - INFO - SELECT @@lower_case_table_names
+2024-03-24 15:03:44,252 - INFO - [raw sql] {}
+2024-03-24 15:03:44,444 - INFO - BEGIN (implicit)
+2024-03-24 15:03:44,539 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 15:03:44,540 - INFO - [raw sql] {}
+2024-03-24 15:03:44,734 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 15:03:44,735 - INFO - [raw sql] {}
+2024-03-24 15:03:44,927 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 15:03:44,928 - INFO - [raw sql] {}
+2024-03-24 15:03:45,121 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 15:03:45,121 - INFO - [raw sql] {}
+2024-03-24 15:03:45,310 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 15:03:45,311 - INFO - [raw sql] {}
+2024-03-24 15:03:45,500 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 15:03:45,500 - INFO - [raw sql] {}
+2024-03-24 15:03:45,597 - INFO - COMMIT
+2024-03-24 15:03:56,013 - INFO - BEGIN (implicit)
+2024-03-24 15:03:56,112 - INFO - INSERT INTO metinguren ("metingenId", datetime, temperature, pressure, winddirection) VALUES ((SELECT metingen."metingenId" 
+FROM metingen ORDER BY metingen."metingenId" DESC), %(datetime)s, %(temperature)s, %(pressure)s, %(winddirection)s)
+2024-03-24 15:03:56,113 - INFO - [generated in 0.09728s] {'datetime': datetime.datetime(2024, 3, 24, 14, 3, 53, 401000, tzinfo=TzInfo(UTC)), 'temperature': 0.0, 'pressure': 0.0, 'winddirection': 0.0}
+2024-03-24 15:03:56,230 - ERROR - [API] (mysql.connector.errors.IntegrityError) 1048 (23000): Column 'metingenId' cannot be null
+[SQL: INSERT INTO metinguren ("metingenId", datetime, temperature, pressure, winddirection) VALUES ((SELECT metingen."metingenId" 
+FROM metingen ORDER BY metingen."metingenId" DESC), %(datetime)s, %(temperature)s, %(pressure)s, %(winddirection)s)]
+[parameters: {'datetime': datetime.datetime(2024, 3, 24, 14, 3, 53, 401000, tzinfo=TzInfo(UTC)), 'temperature': 0.0, 'pressure': 0.0, 'winddirection': 0.0}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj): Er is een fout opgetreden bij het toevoegen van nieuwe metinguren.
+2024-03-24 15:03:56,231 - INFO - ROLLBACK
+2024-03-24 15:05:41,340 - INFO - SELECT DATABASE()
+2024-03-24 15:05:41,340 - INFO - [raw sql] {}
+2024-03-24 15:05:41,732 - INFO - SELECT @@sql_mode
+2024-03-24 15:05:41,733 - INFO - [raw sql] {}
+2024-03-24 15:05:41,920 - INFO - SELECT @@lower_case_table_names
+2024-03-24 15:05:41,920 - INFO - [raw sql] {}
+2024-03-24 15:05:42,109 - INFO - BEGIN (implicit)
+2024-03-24 15:05:42,202 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 15:05:42,202 - INFO - [raw sql] {}
+2024-03-24 15:05:42,397 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 15:05:42,397 - INFO - [raw sql] {}
+2024-03-24 15:05:42,587 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 15:05:42,587 - INFO - [raw sql] {}
+2024-03-24 15:05:42,777 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 15:05:42,777 - INFO - [raw sql] {}
+2024-03-24 15:05:42,967 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 15:05:42,967 - INFO - [raw sql] {}
+2024-03-24 15:05:43,157 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 15:05:43,158 - INFO - [raw sql] {}
+2024-03-24 15:05:43,253 - INFO - COMMIT
+2024-03-24 15:05:52,436 - INFO - BEGIN (implicit)
+2024-03-24 15:05:52,539 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-24 15:05:52,540 - INFO - [generated in 0.09743s] {}
+2024-03-24 15:05:52,738 - INFO - INSERT INTO metinguren ("metingenId", datetime, temperature, pressure, winddirection) VALUES (%(metingenId)s, %(datetime)s, %(temperature)s, %(pressure)s, %(winddirection)s)
+2024-03-24 15:05:52,739 - INFO - [generated in 0.09561s] {'metingenId': None, 'datetime': datetime.datetime(2024, 3, 24, 14, 5, 49, 793000, tzinfo=TzInfo(UTC)), 'temperature': 0.0, 'pressure': 0.0, 'winddirection': 0.0}
+2024-03-24 15:05:52,836 - ERROR - [API] (mysql.connector.errors.IntegrityError) 1048 (23000): Column 'metingenId' cannot be null
+[SQL: INSERT INTO metinguren ("metingenId", datetime, temperature, pressure, winddirection) VALUES (%(metingenId)s, %(datetime)s, %(temperature)s, %(pressure)s, %(winddirection)s)]
+[parameters: {'metingenId': None, 'datetime': datetime.datetime(2024, 3, 24, 14, 5, 49, 793000, tzinfo=TzInfo(UTC)), 'temperature': 0.0, 'pressure': 0.0, 'winddirection': 0.0}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj): Er is een fout opgetreden bij het toevoegen van nieuwe metinguren.
+2024-03-24 15:05:52,838 - INFO - ROLLBACK
+2024-03-24 15:32:01,263 - INFO - SELECT DATABASE()
+2024-03-24 15:32:01,264 - INFO - [raw sql] {}
+2024-03-24 15:32:01,656 - INFO - SELECT @@sql_mode
+2024-03-24 15:32:01,657 - INFO - [raw sql] {}
+2024-03-24 15:32:01,854 - INFO - SELECT @@lower_case_table_names
+2024-03-24 15:32:01,854 - INFO - [raw sql] {}
+2024-03-24 15:32:02,052 - INFO - BEGIN (implicit)
+2024-03-24 15:32:02,152 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 15:32:02,153 - INFO - [raw sql] {}
+2024-03-24 15:32:02,352 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 15:32:02,353 - INFO - [raw sql] {}
+2024-03-24 15:32:02,552 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 15:32:02,553 - INFO - [raw sql] {}
+2024-03-24 15:32:02,752 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 15:32:02,753 - INFO - [raw sql] {}
+2024-03-24 15:32:02,953 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 15:32:02,953 - INFO - [raw sql] {}
+2024-03-24 15:32:03,151 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 15:32:03,151 - INFO - [raw sql] {}
+2024-03-24 15:32:03,253 - INFO - COMMIT
+2024-03-24 15:32:03,456 - INFO - BEGIN (implicit)
+2024-03-24 15:32:03,559 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 15:32:03,560 - INFO - [generated in 0.09913s] {}
+2024-03-24 15:32:03,801 - INFO - INSERT INTO metingen ("locatieId", datetime) VALUES (%(locatieId)s, %(datetime)s)
+2024-03-24 15:32:03,802 - INFO - [generated in 0.09874s] {'locatieId': 1, 'datetime': datetime.datetime(2024, 3, 24, 15, 32, 3, 448774)}
+2024-03-24 15:32:03,964 - INFO - ROLLBACK
+2024-03-24 15:32:38,812 - INFO - SELECT DATABASE()
+2024-03-24 15:32:38,814 - INFO - [raw sql] {}
+2024-03-24 15:32:39,193 - INFO - SELECT @@sql_mode
+2024-03-24 15:32:39,193 - INFO - [raw sql] {}
+2024-03-24 15:32:39,385 - INFO - SELECT @@lower_case_table_names
+2024-03-24 15:32:39,386 - INFO - [raw sql] {}
+2024-03-24 15:32:39,578 - INFO - BEGIN (implicit)
+2024-03-24 15:32:39,674 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 15:32:39,675 - INFO - [raw sql] {}
+2024-03-24 15:32:39,868 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 15:32:39,869 - INFO - [raw sql] {}
+2024-03-24 15:32:40,063 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 15:32:40,063 - INFO - [raw sql] {}
+2024-03-24 15:32:40,256 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 15:32:40,257 - INFO - [raw sql] {}
+2024-03-24 15:32:40,451 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 15:32:40,452 - INFO - [raw sql] {}
+2024-03-24 15:32:40,645 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 15:32:40,646 - INFO - [raw sql] {}
+2024-03-24 15:32:40,745 - INFO - COMMIT
+2024-03-24 15:32:40,946 - INFO - BEGIN (implicit)
+2024-03-24 15:32:41,047 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 15:32:41,047 - INFO - [generated in 0.09591s] {}
+2024-03-24 15:32:41,242 - INFO - INSERT INTO metingen ("locatieId", datetime) VALUES (%(locatieId)s, %(datetime)s)
+2024-03-24 15:32:41,243 - INFO - [generated in 0.09510s] {'locatieId': 1, 'datetime': datetime.datetime(2024, 3, 24, 15, 32, 40, 937348)}
+2024-03-24 15:32:41,380 - INFO - ROLLBACK
+2024-03-24 15:35:26,397 - INFO - SELECT DATABASE()
+2024-03-24 15:35:26,399 - INFO - [raw sql] {}
+2024-03-24 15:35:26,789 - INFO - SELECT @@sql_mode
+2024-03-24 15:35:26,790 - INFO - [raw sql] {}
+2024-03-24 15:35:26,987 - INFO - SELECT @@lower_case_table_names
+2024-03-24 15:35:26,988 - INFO - [raw sql] {}
+2024-03-24 15:35:27,187 - INFO - BEGIN (implicit)
+2024-03-24 15:35:27,287 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 15:35:27,288 - INFO - [raw sql] {}
+2024-03-24 15:35:27,489 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 15:35:27,490 - INFO - [raw sql] {}
+2024-03-24 15:35:27,691 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 15:35:27,692 - INFO - [raw sql] {}
+2024-03-24 15:35:27,892 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 15:35:27,893 - INFO - [raw sql] {}
+2024-03-24 15:35:28,088 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 15:35:28,089 - INFO - [raw sql] {}
+2024-03-24 15:35:28,290 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 15:35:28,291 - INFO - [raw sql] {}
+2024-03-24 15:35:28,393 - INFO - COMMIT
+2024-03-24 15:35:28,596 - INFO - BEGIN (implicit)
+2024-03-24 15:35:28,699 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 15:35:28,700 - INFO - [generated in 0.10027s] {}
+2024-03-24 15:35:28,901 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (%(metingenId)s, %(locatieId)s, %(datetime)s)
+2024-03-24 15:35:28,902 - INFO - [generated in 0.09863s] [{'metingenId': 1, 'locatieId': 1, 'datetime': datetime.datetime(2024, 3, 24, 15, 35, 28, 588284)}, {'metingenId': 2, 'locatieId': 2, 'datetime': datetime.datetime(2024, 3, 24, 15, 35, 28, 588284)}]
+2024-03-24 15:35:29,043 - INFO - ROLLBACK
+2024-03-24 16:02:42,131 - INFO - BEGIN (implicit)
+2024-03-24 16:02:42,132 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:02:42,132 - INFO - [raw sql] ()
+2024-03-24 16:02:42,132 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:02:42,132 - INFO - [raw sql] ()
+2024-03-24 16:02:42,132 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:02:42,132 - INFO - [raw sql] ()
+2024-03-24 16:02:42,132 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:02:42,132 - INFO - [raw sql] ()
+2024-03-24 16:02:42,132 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:02:42,132 - INFO - [raw sql] ()
+2024-03-24 16:02:42,132 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:02:42,132 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:02:42,133 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:02:42,133 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:02:42,133 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:02:42,133 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:02:42,133 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:02:42,133 - INFO - [raw sql] ()
+2024-03-24 16:02:42,133 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:02:42,133 - INFO - [no key 0.00005s] ()
+2024-03-24 16:02:42,134 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:02:42,134 - INFO - [no key 0.00006s] ()
+2024-03-24 16:02:42,134 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:02:42,134 - INFO - [no key 0.00007s] ()
+2024-03-24 16:02:42,134 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:02:42,134 - INFO - [no key 0.00005s] ()
+2024-03-24 16:02:42,134 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:02:42,134 - INFO - [no key 0.00004s] ()
+2024-03-24 16:02:42,135 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:02:42,135 - INFO - [no key 0.00004s] ()
+2024-03-24 16:02:42,135 - INFO - COMMIT
+2024-03-24 16:02:42,136 - INFO - BEGIN (implicit)
+2024-03-24 16:02:42,138 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:02:42,138 - INFO - [generated in 0.00012s] ()
+2024-03-24 16:02:42,139 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:02:42,139 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:02:42.135243'), (2, 2, '2024-03-24 16:02:42.135243')]
+2024-03-24 16:02:42,140 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:02:42,140 - INFO - [generated in 0.00010s] ()
+2024-03-24 16:02:42,141 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:02:42,141 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:02:42.135243', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:02:42.135243', 10.0, 1003.0, 200)]
+2024-03-24 16:02:42,141 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:02:42,141 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:02:42,142 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:02:42,142 - INFO - [generated in 0.00006s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:02:42,143 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:02:42,143 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:02:42,143 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:02:42,143 - INFO - [generated in 0.00007s] [(1, 1, '2024-03-24 16:02:42.135243'), (2, 2, '2024-03-24 16:02:42.135243')]
+2024-03-24 16:02:42,144 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:02:42,144 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:02:42,144 - INFO - ROLLBACK
+2024-03-24 16:03:48,626 - INFO - BEGIN (implicit)
+2024-03-24 16:03:48,626 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:03:48,626 - INFO - [raw sql] ()
+2024-03-24 16:03:48,626 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:03:48,626 - INFO - [raw sql] ()
+2024-03-24 16:03:48,626 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:03:48,626 - INFO - [raw sql] ()
+2024-03-24 16:03:48,626 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:03:48,626 - INFO - [raw sql] ()
+2024-03-24 16:03:48,626 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:03:48,626 - INFO - [raw sql] ()
+2024-03-24 16:03:48,626 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:03:48,626 - INFO - [raw sql] ()
+2024-03-24 16:03:48,626 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:03:48,627 - INFO - [raw sql] ()
+2024-03-24 16:03:48,627 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:03:48,627 - INFO - [raw sql] ()
+2024-03-24 16:03:48,627 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:03:48,627 - INFO - [raw sql] ()
+2024-03-24 16:03:48,627 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:03:48,627 - INFO - [raw sql] ()
+2024-03-24 16:03:48,627 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:03:48,627 - INFO - [raw sql] ()
+2024-03-24 16:03:48,627 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:03:48,627 - INFO - [raw sql] ()
+2024-03-24 16:03:48,627 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:03:48,627 - INFO - [no key 0.00004s] ()
+2024-03-24 16:03:48,628 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:03:48,628 - INFO - [no key 0.00006s] ()
+2024-03-24 16:03:48,628 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:03:48,628 - INFO - [no key 0.00004s] ()
+2024-03-24 16:03:48,628 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:03:48,628 - INFO - [no key 0.00004s] ()
+2024-03-24 16:03:48,628 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:03:48,628 - INFO - [no key 0.00004s] ()
+2024-03-24 16:03:48,629 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:03:48,629 - INFO - [no key 0.00010s] ()
+2024-03-24 16:03:48,629 - INFO - COMMIT
+2024-03-24 16:03:48,630 - INFO - BEGIN (implicit)
+2024-03-24 16:03:48,632 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:03:48,632 - INFO - [generated in 0.00008s] ()
+2024-03-24 16:03:48,632 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:03:48,632 - INFO - [generated in 0.00008s] [(1, 1, '2024-03-24 16:03:48.629334'), (2, 2, '2024-03-24 16:03:48.629334')]
+2024-03-24 16:03:48,633 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:03:48,633 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:03:48,634 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:03:48,634 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:03:48.629334', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:03:48.629334', 10.0, 1003.0, 200)]
+2024-03-24 16:03:48,635 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:03:48,635 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:03:48,635 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:03:48,635 - INFO - [generated in 0.00007s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:03:48,636 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:03:48,636 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:03:48,636 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:03:48,636 - INFO - [generated in 0.00007s] [(1, 1, '2024-03-24 16:03:48.629334'), (2, 2, '2024-03-24 16:03:48.629334')]
+2024-03-24 16:03:48,637 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:03:48,637 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:03:48,638 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:03:48,638 - INFO - [generated in 0.00014s] [(1, 1, '2024-03-24 16:03:48.629334', 12.0, 15), (2, 2, '2024-03-24 16:03:48.629334', 10.0, 15)]
+2024-03-24 16:03:48,638 - INFO - COMMIT
+2024-03-24 16:04:51,685 - INFO - SELECT DATABASE()
+2024-03-24 16:04:51,686 - INFO - [raw sql] {}
+2024-03-24 16:04:52,063 - INFO - SELECT @@sql_mode
+2024-03-24 16:04:52,064 - INFO - [raw sql] {}
+2024-03-24 16:04:52,254 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:04:52,255 - INFO - [raw sql] {}
+2024-03-24 16:04:52,447 - INFO - BEGIN (implicit)
+2024-03-24 16:04:52,543 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:04:52,544 - INFO - [raw sql] {}
+2024-03-24 16:04:52,737 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:04:52,738 - INFO - [raw sql] {}
+2024-03-24 16:04:52,934 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:04:52,935 - INFO - [raw sql] {}
+2024-03-24 16:04:53,127 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:04:53,127 - INFO - [raw sql] {}
+2024-03-24 16:04:53,322 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:04:53,323 - INFO - [raw sql] {}
+2024-03-24 16:04:53,515 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:04:53,516 - INFO - [raw sql] {}
+2024-03-24 16:04:53,615 - INFO - COMMIT
+2024-03-24 16:04:53,814 - INFO - BEGIN (implicit)
+2024-03-24 16:04:53,917 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:04:53,917 - INFO - [generated in 0.09813s] {}
+2024-03-24 16:04:54,150 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (%(metingenId)s, %(locatieId)s, %(datetime)s)
+2024-03-24 16:04:54,150 - INFO - [generated in 0.09536s] [{'metingenId': 1, 'locatieId': 1, 'datetime': datetime.datetime(2024, 3, 24, 16, 4, 53, 807436)}, {'metingenId': 2, 'locatieId': 2, 'datetime': datetime.datetime(2024, 3, 24, 16, 4, 53, 807436)}]
+2024-03-24 16:04:54,247 - INFO - ROLLBACK
+2024-03-24 16:08:28,000 - INFO - SELECT DATABASE()
+2024-03-24 16:08:28,000 - INFO - [raw sql] {}
+2024-03-24 16:08:28,407 - INFO - SELECT @@sql_mode
+2024-03-24 16:08:28,407 - INFO - [raw sql] {}
+2024-03-24 16:08:28,611 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:08:28,612 - INFO - [raw sql] {}
+2024-03-24 16:08:28,814 - INFO - BEGIN (implicit)
+2024-03-24 16:08:28,917 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:08:28,918 - INFO - [raw sql] {}
+2024-03-24 16:08:29,122 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:08:29,123 - INFO - [raw sql] {}
+2024-03-24 16:08:29,328 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:08:29,329 - INFO - [raw sql] {}
+2024-03-24 16:08:29,531 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:08:29,531 - INFO - [raw sql] {}
+2024-03-24 16:08:29,738 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:08:29,739 - INFO - [raw sql] {}
+2024-03-24 16:08:29,945 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:08:29,945 - INFO - [raw sql] {}
+2024-03-24 16:08:30,048 - INFO - COMMIT
+2024-03-24 16:08:57,619 - INFO - SELECT DATABASE()
+2024-03-24 16:08:57,620 - INFO - [raw sql] {}
+2024-03-24 16:08:58,013 - INFO - SELECT @@sql_mode
+2024-03-24 16:08:58,013 - INFO - [raw sql] {}
+2024-03-24 16:08:58,208 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:08:58,209 - INFO - [raw sql] {}
+2024-03-24 16:08:58,410 - INFO - BEGIN (implicit)
+2024-03-24 16:08:58,512 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:08:58,512 - INFO - [raw sql] {}
+2024-03-24 16:08:58,707 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:08:58,708 - INFO - [raw sql] {}
+2024-03-24 16:08:58,906 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:08:58,906 - INFO - [raw sql] {}
+2024-03-24 16:08:59,104 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:08:59,104 - INFO - [raw sql] {}
+2024-03-24 16:08:59,303 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:08:59,303 - INFO - [raw sql] {}
+2024-03-24 16:08:59,503 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:08:59,504 - INFO - [raw sql] {}
+2024-03-24 16:08:59,605 - INFO - COMMIT
+2024-03-24 16:08:59,803 - INFO - BEGIN (implicit)
+2024-03-24 16:08:59,903 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:08:59,904 - INFO - [generated in 0.09904s] {}
+2024-03-24 16:09:00,118 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:09:00,119 - INFO - [generated in 0.09959s] {}
+2024-03-24 16:09:00,359 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (%(metingenId)s, %(locatieId)s, %(datetime)s)
+2024-03-24 16:09:00,359 - INFO - [generated in 0.09856s] [{'metingenId': 1, 'locatieId': 1, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712)}, {'metingenId': 2, 'locatieId': 2, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712)}]
+2024-03-24 16:09:00,666 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:09:00,667 - INFO - [generated in 0.09792s] {}
+2024-03-24 16:09:00,873 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (%(metingUrenId)s, %(metingenId)s, %(datetime)s, %(temperature)s, %(pressure)s, %(winddirection)s)
+2024-03-24 16:09:00,874 - INFO - [generated in 0.09926s] [{'metingUrenId': 1, 'metingenId': 1, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712), 'temperature': 12, 'pressure': 1008, 'winddirection': 180}, {'metingUrenId': 2, 'metingenId': 2, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712), 'temperature': 10, 'pressure': 1003, 'winddirection': 200}]
+2024-03-24 16:09:01,082 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:09:01,082 - INFO - [generated in 0.10301s] {}
+2024-03-24 16:09:01,283 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (%(locatieId)s, %(locatie)s)
+2024-03-24 16:09:01,284 - INFO - [generated in 0.09876s] [{'locatieId': 1, 'locatie': 'Apeldoorn'}, {'locatieId': 2, 'locatie': 'Amersfoort'}]
+2024-03-24 16:09:01,486 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:09:01,487 - INFO - [generated in 0.09851s] {}
+2024-03-24 16:09:01,781 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (%(voorspellingenId)s, %(locatieId)s, %(datetime)s)
+2024-03-24 16:09:01,781 - INFO - [generated in 0.09756s] [{'voorspellingenId': 1, 'locatieId': 1, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712)}, {'voorspellingenId': 2, 'locatieId': 2, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712)}]
+2024-03-24 16:09:01,979 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:09:01,979 - INFO - [generated in 0.09922s] {}
+2024-03-24 16:09:02,180 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (%(voorspellingUrenId)s, %(voorspellingenId)s, %(datetime)s, %(temperature)s, %(zWaarde)s)
+2024-03-24 16:09:02,181 - INFO - [generated in 0.09837s] [{'voorspellingUrenId': 1, 'voorspellingenId': 1, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712), 'temperature': 12, 'zWaarde': 15}, {'voorspellingUrenId': 2, 'voorspellingenId': 2, 'datetime': datetime.datetime(2024, 3, 24, 16, 9, 0, 7712), 'temperature': 10, 'zWaarde': 15}]
+2024-03-24 16:09:02,279 - INFO - COMMIT
+2024-03-24 16:09:02,496 - INFO - BEGIN (implicit)
+2024-03-24 16:09:02,595 - INFO - SET FOREIGN_KEY_CHECKS = 1;
+2024-03-24 16:09:02,596 - INFO - [generated in 0.09958s] {}
+2024-03-24 16:09:02,696 - INFO - ROLLBACK
+2024-03-24 16:09:54,972 - INFO - BEGIN (implicit)
+2024-03-24 16:09:54,972 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:09:54,972 - INFO - [raw sql] ()
+2024-03-24 16:09:54,972 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:09:54,972 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:09:54,973 - INFO - [raw sql] ()
+2024-03-24 16:09:54,973 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:09:54,974 - INFO - [no key 0.00004s] ()
+2024-03-24 16:09:54,974 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:09:54,974 - INFO - [no key 0.00010s] ()
+2024-03-24 16:09:54,974 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:09:54,974 - INFO - [no key 0.00005s] ()
+2024-03-24 16:09:54,974 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:09:54,974 - INFO - [no key 0.00004s] ()
+2024-03-24 16:09:54,975 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:09:54,975 - INFO - [no key 0.00004s] ()
+2024-03-24 16:09:54,975 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:09:54,975 - INFO - [no key 0.00003s] ()
+2024-03-24 16:09:54,975 - INFO - COMMIT
+2024-03-24 16:09:54,975 - INFO - BEGIN (implicit)
+2024-03-24 16:09:54,976 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:09:54,976 - INFO - [generated in 0.00008s] ()
+2024-03-24 16:13:54,096 - INFO - BEGIN (implicit)
+2024-03-24 16:13:54,096 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:13:54,096 - INFO - [raw sql] ()
+2024-03-24 16:13:54,096 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:13:54,097 - INFO - [raw sql] ()
+2024-03-24 16:13:54,097 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:13:54,097 - INFO - [raw sql] ()
+2024-03-24 16:13:54,097 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:13:54,097 - INFO - [raw sql] ()
+2024-03-24 16:13:54,097 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:13:54,097 - INFO - [raw sql] ()
+2024-03-24 16:13:54,097 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:13:54,097 - INFO - [raw sql] ()
+2024-03-24 16:13:54,097 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:13:54,097 - INFO - [no key 0.00004s] ()
+2024-03-24 16:13:54,097 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:13:54,097 - INFO - [no key 0.00006s] ()
+2024-03-24 16:13:54,098 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:13:54,099 - INFO - [no key 0.00104s] ()
+2024-03-24 16:13:54,099 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:13:54,099 - INFO - [no key 0.00005s] ()
+2024-03-24 16:13:54,099 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:13:54,099 - INFO - [no key 0.00004s] ()
+2024-03-24 16:13:54,099 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:13:54,099 - INFO - [no key 0.00004s] ()
+2024-03-24 16:13:54,099 - INFO - COMMIT
+2024-03-24 16:13:54,099 - INFO - BEGIN (implicit)
+2024-03-24 16:13:54,100 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:13:54,100 - INFO - [generated in 0.00005s] ()
+2024-03-24 16:15:12,593 - INFO - SELECT DATABASE()
+2024-03-24 16:15:12,594 - INFO - [raw sql] {}
+2024-03-24 16:15:12,973 - INFO - SELECT @@sql_mode
+2024-03-24 16:15:12,974 - INFO - [raw sql] {}
+2024-03-24 16:15:13,164 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:15:13,165 - INFO - [raw sql] {}
+2024-03-24 16:15:13,355 - INFO - BEGIN (implicit)
+2024-03-24 16:15:13,449 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:15:13,449 - INFO - [raw sql] {}
+2024-03-24 16:15:13,640 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:15:13,640 - INFO - [raw sql] {}
+2024-03-24 16:15:13,831 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:15:13,832 - INFO - [raw sql] {}
+2024-03-24 16:15:14,023 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:15:14,024 - INFO - [raw sql] {}
+2024-03-24 16:15:14,217 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:15:14,218 - INFO - [raw sql] {}
+2024-03-24 16:15:14,411 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:15:14,412 - INFO - [raw sql] {}
+2024-03-24 16:15:14,511 - INFO - COMMIT
+2024-03-24 16:15:14,702 - INFO - BEGIN (implicit)
+2024-03-24 16:15:14,799 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:15:14,799 - INFO - [generated in 0.09541s] {}
+2024-03-24 16:15:15,005 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:15:15,005 - INFO - [generated in 0.09808s] {}
+2024-03-24 16:15:15,247 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:15:15,248 - INFO - [generated in 0.09494s] {}
+2024-03-24 16:15:15,446 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:15:15,447 - INFO - [generated in 0.09555s] {}
+2024-03-24 16:15:15,648 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:15:15,649 - INFO - [generated in 0.09432s] {}
+2024-03-24 16:15:15,853 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:15:15,853 - INFO - [generated in 0.09645s] {}
+2024-03-24 16:15:15,956 - INFO - COMMIT
+2024-03-24 16:15:16,148 - INFO - BEGIN (implicit)
+2024-03-24 16:15:16,244 - INFO - SET FOREIGN_KEY_CHECKS = 1;
+2024-03-24 16:15:16,245 - INFO - [generated in 0.09576s] {}
+2024-03-24 16:15:16,341 - INFO - ROLLBACK
+2024-03-24 16:15:58,719 - INFO - SELECT DATABASE()
+2024-03-24 16:15:58,720 - INFO - [raw sql] {}
+2024-03-24 16:15:59,103 - INFO - SELECT @@sql_mode
+2024-03-24 16:15:59,104 - INFO - [raw sql] {}
+2024-03-24 16:15:59,297 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:15:59,298 - INFO - [raw sql] {}
+2024-03-24 16:15:59,489 - INFO - BEGIN (implicit)
+2024-03-24 16:15:59,587 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:15:59,587 - INFO - [raw sql] {}
+2024-03-24 16:15:59,781 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:15:59,781 - INFO - [raw sql] {}
+2024-03-24 16:15:59,975 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:15:59,976 - INFO - [raw sql] {}
+2024-03-24 16:16:00,168 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:16:00,169 - INFO - [raw sql] {}
+2024-03-24 16:16:00,362 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:16:00,363 - INFO - [raw sql] {}
+2024-03-24 16:16:00,553 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:16:00,553 - INFO - [raw sql] {}
+2024-03-24 16:16:00,649 - INFO - COMMIT
+2024-03-24 16:16:00,840 - INFO - BEGIN (implicit)
+2024-03-24 16:16:00,935 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:16:00,936 - INFO - [generated in 0.09480s] {}
+2024-03-24 16:16:01,139 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:16:01,139 - INFO - [generated in 0.09630s] {}
+2024-03-24 16:16:01,351 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:16:01,351 - INFO - [generated in 0.09397s] {}
+2024-03-24 16:16:01,551 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:16:01,552 - INFO - [generated in 0.09676s] {}
+2024-03-24 16:16:01,753 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:16:01,754 - INFO - [generated in 0.09576s] {}
+2024-03-24 16:16:01,950 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:16:01,950 - INFO - [generated in 0.09391s] {}
+2024-03-24 16:16:02,050 - INFO - COMMIT
+2024-03-24 16:16:02,240 - INFO - BEGIN (implicit)
+2024-03-24 16:16:02,338 - INFO - SET FOREIGN_KEY_CHECKS = 1;
+2024-03-24 16:16:02,338 - INFO - [generated in 0.09671s] {}
+2024-03-24 16:16:02,433 - INFO - ROLLBACK
+2024-03-24 16:16:47,569 - INFO - BEGIN (implicit)
+2024-03-24 16:16:47,569 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,570 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:16:47,570 - INFO - [raw sql] ()
+2024-03-24 16:16:47,571 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:16:47,571 - INFO - [raw sql] ()
+2024-03-24 16:16:47,571 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:16:47,571 - INFO - [raw sql] ()
+2024-03-24 16:16:47,571 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:16:47,571 - INFO - [raw sql] ()
+2024-03-24 16:16:47,571 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:16:47,571 - INFO - [raw sql] ()
+2024-03-24 16:16:47,571 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:16:47,571 - INFO - [no key 0.00004s] ()
+2024-03-24 16:16:47,572 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:16:47,572 - INFO - [no key 0.00011s] ()
+2024-03-24 16:16:47,572 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:16:47,572 - INFO - [no key 0.00007s] ()
+2024-03-24 16:16:47,572 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:16:47,572 - INFO - [no key 0.00005s] ()
+2024-03-24 16:16:47,572 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:16:47,572 - INFO - [no key 0.00005s] ()
+2024-03-24 16:16:47,573 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:16:47,573 - INFO - [no key 0.00011s] ()
+2024-03-24 16:16:47,573 - INFO - COMMIT
+2024-03-24 16:16:47,573 - INFO - BEGIN (implicit)
+2024-03-24 16:16:47,573 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:16:47,573 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:17:13,169 - INFO - BEGIN (implicit)
+2024-03-24 16:17:13,170 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:17:13,170 - INFO - [raw sql] ()
+2024-03-24 16:17:13,170 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:17:13,170 - INFO - [raw sql] ()
+2024-03-24 16:17:13,170 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:17:13,170 - INFO - [raw sql] ()
+2024-03-24 16:17:13,170 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:17:13,170 - INFO - [raw sql] ()
+2024-03-24 16:17:13,170 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:17:13,170 - INFO - [raw sql] ()
+2024-03-24 16:17:13,170 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:17:13,170 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:17:13,171 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:17:13,171 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:17:13,171 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:17:13,171 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:17:13,171 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:17:13,171 - INFO - [raw sql] ()
+2024-03-24 16:17:13,171 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:17:13,171 - INFO - [no key 0.00004s] ()
+2024-03-24 16:17:13,172 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:17:13,172 - INFO - [no key 0.00010s] ()
+2024-03-24 16:17:13,172 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:17:13,172 - INFO - [no key 0.00005s] ()
+2024-03-24 16:17:13,172 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:17:13,172 - INFO - [no key 0.00004s] ()
+2024-03-24 16:17:13,172 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:17:13,172 - INFO - [no key 0.00004s] ()
+2024-03-24 16:17:13,173 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:17:13,173 - INFO - [no key 0.00005s] ()
+2024-03-24 16:17:13,173 - INFO - COMMIT
+2024-03-24 16:17:13,173 - INFO - BEGIN (implicit)
+2024-03-24 16:17:13,173 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:17:13,173 - INFO - [generated in 0.00005s] ()
+2024-03-24 16:18:10,140 - INFO - BEGIN (implicit)
+2024-03-24 16:18:10,140 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:18:10,140 - INFO - [raw sql] ()
+2024-03-24 16:18:10,140 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:18:10,140 - INFO - [raw sql] ()
+2024-03-24 16:18:10,140 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:18:10,140 - INFO - [raw sql] ()
+2024-03-24 16:18:10,140 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:18:10,140 - INFO - [raw sql] ()
+2024-03-24 16:18:10,140 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:18:10,140 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:18:10,141 - INFO - [raw sql] ()
+2024-03-24 16:18:10,141 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:18:10,141 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:10,142 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:18:10,142 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:10,142 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:18:10,142 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:10,142 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:18:10,142 - INFO - [no key 0.00003s] ()
+2024-03-24 16:18:10,142 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:18:10,142 - INFO - [no key 0.00003s] ()
+2024-03-24 16:18:10,142 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:18:10,142 - INFO - [no key 0.00003s] ()
+2024-03-24 16:18:10,142 - INFO - COMMIT
+2024-03-24 16:18:10,144 - INFO - BEGIN (implicit)
+2024-03-24 16:18:10,145 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:18:10,145 - INFO - [generated in 0.00009s] ()
+2024-03-24 16:18:10,146 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:18:10,146 - INFO - [generated in 0.00014s] [(1, 1, '2024-03-24 16:18:10.142982'), (2, 2, '2024-03-24 16:18:10.142982')]
+2024-03-24 16:18:10,147 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:18:10,147 - INFO - [generated in 0.00013s] ()
+2024-03-24 16:18:10,148 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:18:10,148 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:18:10.142982', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:18:10.142982', 10.0, 1003.0, 200)]
+2024-03-24 16:18:10,149 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:18:10,149 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:18:10,149 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:18:10,149 - INFO - [generated in 0.00006s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:18:10,150 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:18:10,150 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:18:10,150 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:18:10,150 - INFO - [generated in 0.00007s] [(1, 1, '2024-03-24 16:18:10.142982'), (2, 2, '2024-03-24 16:18:10.142982')]
+2024-03-24 16:18:10,151 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:18:10,151 - INFO - [generated in 0.00009s] ()
+2024-03-24 16:18:10,152 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:18:10,152 - INFO - [generated in 0.00012s] [(1, 1, '2024-03-24 16:18:10.142982', 12.0, 15), (2, 2, '2024-03-24 16:18:10.142982', 10.0, 15)]
+2024-03-24 16:18:10,152 - INFO - COMMIT
+2024-03-24 16:18:39,843 - INFO - BEGIN (implicit)
+2024-03-24 16:18:39,844 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,844 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,844 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,844 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,844 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,844 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,844 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:18:39,844 - INFO - [raw sql] ()
+2024-03-24 16:18:39,845 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:18:39,845 - INFO - [raw sql] ()
+2024-03-24 16:18:39,845 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:18:39,845 - INFO - [raw sql] ()
+2024-03-24 16:18:39,845 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:18:39,845 - INFO - [raw sql] ()
+2024-03-24 16:18:39,845 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:18:39,845 - INFO - [raw sql] ()
+2024-03-24 16:18:39,845 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:18:39,845 - INFO - [raw sql] ()
+2024-03-24 16:18:39,845 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:18:39,845 - INFO - [no key 0.00005s] ()
+2024-03-24 16:18:39,846 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:18:39,846 - INFO - [no key 0.00010s] ()
+2024-03-24 16:18:39,846 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:18:39,846 - INFO - [no key 0.00006s] ()
+2024-03-24 16:18:39,846 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:18:39,846 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:39,847 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:18:39,847 - INFO - [no key 0.00018s] ()
+2024-03-24 16:18:39,847 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:18:39,847 - INFO - [no key 0.00005s] ()
+2024-03-24 16:18:39,847 - INFO - COMMIT
+2024-03-24 16:18:52,891 - INFO - BEGIN (implicit)
+2024-03-24 16:18:52,891 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:18:52,891 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,892 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:18:52,892 - INFO - [raw sql] ()
+2024-03-24 16:18:52,893 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:18:52,893 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:52,893 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:18:52,893 - INFO - [no key 0.00006s] ()
+2024-03-24 16:18:52,893 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:18:52,893 - INFO - [no key 0.00006s] ()
+2024-03-24 16:18:52,894 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:18:52,894 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:52,894 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:18:52,894 - INFO - [no key 0.00004s] ()
+2024-03-24 16:18:52,894 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:18:52,894 - INFO - [no key 0.00003s] ()
+2024-03-24 16:18:52,894 - INFO - COMMIT
+2024-03-24 16:18:52,895 - INFO - BEGIN (implicit)
+2024-03-24 16:18:52,897 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:18:52,897 - INFO - [generated in 0.00011s] ()
+2024-03-24 16:18:52,898 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:18:52,898 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:18:52.894592'), (2, 2, '2024-03-24 16:18:52.894592')]
+2024-03-24 16:18:52,899 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:18:52,899 - INFO - [generated in 0.00050s] ()
+2024-03-24 16:18:52,900 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:18:52,900 - INFO - [generated in 0.00015s] [(1, 1, '2024-03-24 16:18:52.894592', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:18:52.894592', 10.0, 1003.0, 200)]
+2024-03-24 16:18:52,901 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:18:52,901 - INFO - [generated in 0.00008s] ()
+2024-03-24 16:18:52,902 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:18:52,902 - INFO - [generated in 0.00007s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:18:52,902 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:18:52,902 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:18:52,903 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:18:52,903 - INFO - [generated in 0.00007s] [(1, 1, '2024-03-24 16:18:52.894592'), (2, 2, '2024-03-24 16:18:52.894592')]
+2024-03-24 16:18:52,904 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:18:52,904 - INFO - [generated in 0.00008s] ()
+2024-03-24 16:18:52,904 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:18:52,904 - INFO - [generated in 0.00007s] [(1, 1, '2024-03-24 16:18:52.894592', 12.0, 15), (2, 2, '2024-03-24 16:18:52.894592', 10.0, 15)]
+2024-03-24 16:18:52,904 - INFO - COMMIT
+2024-03-24 16:24:26,729 - INFO - BEGIN (implicit)
+2024-03-24 16:24:26,729 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:24:26,729 - INFO - [raw sql] ()
+2024-03-24 16:24:26,730 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:24:26,730 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,731 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:24:26,731 - INFO - [raw sql] ()
+2024-03-24 16:24:26,732 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:24:26,732 - INFO - [no key 0.00007s] ()
+2024-03-24 16:24:26,732 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:24:26,732 - INFO - [no key 0.00005s] ()
+2024-03-24 16:24:26,732 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:24:26,733 - INFO - [no key 0.00005s] ()
+2024-03-24 16:24:26,733 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:24:26,733 - INFO - [no key 0.00005s] ()
+2024-03-24 16:24:26,733 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:24:26,733 - INFO - [no key 0.00004s] ()
+2024-03-24 16:24:26,733 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:24:26,733 - INFO - [no key 0.00004s] ()
+2024-03-24 16:24:26,733 - INFO - COMMIT
+2024-03-24 16:24:26,735 - INFO - BEGIN (implicit)
+2024-03-24 16:24:26,737 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:24:26,737 - INFO - [generated in 0.00012s] ()
+2024-03-24 16:24:26,738 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:24:26,738 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:24:26.733867'), (2, 2, '2024-03-24 16:24:26.733867')]
+2024-03-24 16:24:26,739 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:24:26,739 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:24:26,740 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:24:26,740 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:24:26.733867', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:24:26.733867', 10.0, 1003.0, 200)]
+2024-03-24 16:24:26,740 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:24:26,740 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:24:26,741 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:24:26,741 - INFO - [generated in 0.00006s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:24:26,741 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:24:26,741 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:24:26,742 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:24:26,742 - INFO - [generated in 0.00007s] [(1, 1, '2024-03-24 16:24:26.733867'), (2, 2, '2024-03-24 16:24:26.733867')]
+2024-03-24 16:24:26,743 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:24:26,743 - INFO - [generated in 0.00014s] ()
+2024-03-24 16:24:26,744 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:24:26,744 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:24:26.733867', 12.0, 15), (2, 2, '2024-03-24 16:24:26.733867', 10.0, 15)]
+2024-03-24 16:24:26,744 - INFO - COMMIT
+2024-03-24 16:24:39,238 - ERROR - [API] Textual SQL expression 'SELECT mu.* FROM metingur...' should be explicitly declared as text('SELECT mu.* FROM metingur...'): Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-24 16:25:21,583 - INFO - BEGIN (implicit)
+2024-03-24 16:25:21,584 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,584 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:25:21,584 - INFO - [raw sql] ()
+2024-03-24 16:25:21,585 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:25:21,585 - INFO - [raw sql] ()
+2024-03-24 16:25:21,585 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:25:21,585 - INFO - [raw sql] ()
+2024-03-24 16:25:21,585 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:25:21,585 - INFO - [raw sql] ()
+2024-03-24 16:25:21,585 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:25:21,585 - INFO - [raw sql] ()
+2024-03-24 16:25:21,585 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:25:21,585 - INFO - [no key 0.00004s] ()
+2024-03-24 16:25:21,585 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:25:21,586 - INFO - [no key 0.00004s] ()
+2024-03-24 16:25:21,586 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:25:21,586 - INFO - [no key 0.00004s] ()
+2024-03-24 16:25:21,586 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:25:21,586 - INFO - [no key 0.00004s] ()
+2024-03-24 16:25:21,586 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:25:21,586 - INFO - [no key 0.00004s] ()
+2024-03-24 16:25:21,586 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:25:21,586 - INFO - [no key 0.00004s] ()
+2024-03-24 16:25:21,586 - INFO - COMMIT
+2024-03-24 16:25:21,588 - INFO - BEGIN (implicit)
+2024-03-24 16:25:21,589 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:25:21,589 - INFO - [generated in 0.00011s] ()
+2024-03-24 16:25:21,590 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:25:21,590 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:25:21.586911'), (2, 2, '2024-03-24 16:25:21.586911')]
+2024-03-24 16:25:21,591 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:25:21,591 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:25:21,592 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:25:21,592 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:25:21.586911', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:25:21.586911', 10.0, 1003.0, 200)]
+2024-03-24 16:25:21,592 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:25:21,592 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:25:21,593 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:25:21,593 - INFO - [generated in 0.00007s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:25:21,594 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:25:21,594 - INFO - [generated in 0.00008s] ()
+2024-03-24 16:25:21,594 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:25:21,594 - INFO - [generated in 0.00008s] [(1, 1, '2024-03-24 16:25:21.586911'), (2, 2, '2024-03-24 16:25:21.586911')]
+2024-03-24 16:25:21,595 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:25:21,595 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:25:21,596 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:25:21,596 - INFO - [generated in 0.00020s] [(1, 1, '2024-03-24 16:25:21.586911', 12.0, 15), (2, 2, '2024-03-24 16:25:21.586911', 10.0, 15)]
+2024-03-24 16:25:21,596 - INFO - COMMIT
+2024-03-24 16:25:29,099 - INFO - BEGIN (implicit)
+2024-03-24 16:25:29,099 - INFO - SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = ?) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;
+2024-03-24 16:25:29,101 - INFO - [generated in 0.00134s] ('Apeldoorn',)
+2024-03-24 16:25:29,102 - ERROR - [API] (sqlite3.OperationalError) no such table: metinguren
+[SQL: SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = ?) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;]
+[parameters: ('Apeldoorn',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8): Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-24 16:25:29,103 - INFO - ROLLBACK
+2024-03-24 16:26:18,141 - INFO - BEGIN (implicit)
+2024-03-24 16:26:18,141 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:26:18,141 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,142 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:26:18,142 - INFO - [raw sql] ()
+2024-03-24 16:26:18,143 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:26:18,143 - INFO - [raw sql] ()
+2024-03-24 16:26:18,143 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:26:18,143 - INFO - [no key 0.00005s] ()
+2024-03-24 16:26:18,143 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:26:18,143 - INFO - [no key 0.00012s] ()
+2024-03-24 16:26:18,144 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:26:18,144 - INFO - [no key 0.00005s] ()
+2024-03-24 16:26:18,144 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:26:18,144 - INFO - [no key 0.00005s] ()
+2024-03-24 16:26:18,144 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:26:18,144 - INFO - [no key 0.00005s] ()
+2024-03-24 16:26:18,144 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:26:18,144 - INFO - [no key 0.00004s] ()
+2024-03-24 16:26:18,144 - INFO - COMMIT
+2024-03-24 16:26:18,146 - INFO - BEGIN (implicit)
+2024-03-24 16:26:18,148 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:26:18,148 - INFO - [generated in 0.00013s] ()
+2024-03-24 16:26:18,148 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:26:18,149 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:26:18.145014'), (2, 2, '2024-03-24 16:26:18.145014')]
+2024-03-24 16:26:18,150 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:26:18,150 - INFO - [generated in 0.00008s] ()
+2024-03-24 16:26:18,150 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:26:18,150 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:26:18.145014', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:26:18.145014', 10.0, 1003.0, 200)]
+2024-03-24 16:26:18,151 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:26:18,151 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:26:18,151 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:26:18,151 - INFO - [generated in 0.00006s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:26:18,152 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:26:18,152 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:26:18,153 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:26:18,153 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:26:18.145014'), (2, 2, '2024-03-24 16:26:18.145014')]
+2024-03-24 16:26:18,154 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:26:18,154 - INFO - [generated in 0.00017s] ()
+2024-03-24 16:26:18,155 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:26:18,155 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:26:18.145014', 12.0, 15), (2, 2, '2024-03-24 16:26:18.145014', 10.0, 15)]
+2024-03-24 16:26:18,155 - INFO - COMMIT
+2024-03-24 16:26:25,017 - INFO - BEGIN (implicit)
+2024-03-24 16:26:25,018 - INFO - SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = ?) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;
+2024-03-24 16:26:25,018 - INFO - [generated in 0.00046s] ('Apeldoorn',)
+2024-03-24 16:26:25,019 - ERROR - [API] (sqlite3.OperationalError) no such table: metinguren
+[SQL: SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = ?) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;]
+[parameters: ('Apeldoorn',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8): Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-24 16:26:25,020 - INFO - ROLLBACK
+2024-03-24 16:27:06,396 - INFO - BEGIN (implicit)
+2024-03-24 16:27:06,397 - INFO - PRAGMA main.table_info("metingen")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA temp.table_info("metingen")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA main.table_info("metinguren")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA temp.table_info("metinguren")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA main.table_info("locaties")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA temp.table_info("locaties")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA main.table_info("voorspellingen")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA temp.table_info("voorspellingen")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA main.table_info("voorspellinguren")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,397 - INFO - PRAGMA temp.table_info("voorspellinguren")
+2024-03-24 16:27:06,397 - INFO - [raw sql] ()
+2024-03-24 16:27:06,398 - INFO - PRAGMA main.table_info("zWaarden")
+2024-03-24 16:27:06,398 - INFO - [raw sql] ()
+2024-03-24 16:27:06,398 - INFO - PRAGMA temp.table_info("zWaarden")
+2024-03-24 16:27:06,398 - INFO - [raw sql] ()
+2024-03-24 16:27:06,398 - INFO - 
+CREATE TABLE locaties (
+	"locatieId" INTEGER NOT NULL, 
+	locatie VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("locatieId")
+)
+
+
+2024-03-24 16:27:06,398 - INFO - [no key 0.00004s] ()
+2024-03-24 16:27:06,398 - INFO - 
+CREATE TABLE "zWaarden" (
+	"zWaarde" INTEGER NOT NULL, 
+	beschrijving VARCHAR(30) NOT NULL, 
+	PRIMARY KEY ("zWaarde")
+)
+
+
+2024-03-24 16:27:06,398 - INFO - [no key 0.00006s] ()
+2024-03-24 16:27:06,399 - INFO - 
+CREATE TABLE metingen (
+	"metingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("metingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:27:06,399 - INFO - [no key 0.00005s] ()
+2024-03-24 16:27:06,399 - INFO - 
+CREATE TABLE voorspellingen (
+	"voorspellingenId" INTEGER NOT NULL, 
+	"locatieId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	PRIMARY KEY ("voorspellingenId"), 
+	FOREIGN KEY("locatieId") REFERENCES locaties ("locatieId")
+)
+
+
+2024-03-24 16:27:06,399 - INFO - [no key 0.00004s] ()
+2024-03-24 16:27:06,399 - INFO - 
+CREATE TABLE metinguren (
+	"metingUrenId" INTEGER NOT NULL, 
+	"metingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	pressure DECIMAL(6, 2) NOT NULL, 
+	winddirection VARCHAR(255) NOT NULL, 
+	PRIMARY KEY ("metingUrenId"), 
+	FOREIGN KEY("metingenId") REFERENCES metingen ("metingenId")
+)
+
+
+2024-03-24 16:27:06,399 - INFO - [no key 0.00004s] ()
+2024-03-24 16:27:06,399 - INFO - 
+CREATE TABLE voorspellinguren (
+	"voorspellingUrenId" INTEGER NOT NULL, 
+	"voorspellingenId" INTEGER NOT NULL, 
+	datetime DATETIME NOT NULL, 
+	temperature DECIMAL(5, 2) NOT NULL, 
+	"zWaarde" INTEGER NOT NULL, 
+	PRIMARY KEY ("voorspellingUrenId"), 
+	FOREIGN KEY("voorspellingenId") REFERENCES voorspellingen ("voorspellingenId")
+)
+
+
+2024-03-24 16:27:06,399 - INFO - [no key 0.00003s] ()
+2024-03-24 16:27:06,399 - INFO - COMMIT
+2024-03-24 16:27:06,400 - INFO - BEGIN (implicit)
+2024-03-24 16:27:06,402 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:27:06,402 - INFO - [generated in 0.00007s] ()
+2024-03-24 16:27:06,403 - INFO - INSERT INTO metingen ("metingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:27:06,403 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:27:06.399748'), (2, 2, '2024-03-24 16:27:06.399748')]
+2024-03-24 16:27:06,404 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:27:06,404 - INFO - [generated in 0.00010s] ()
+2024-03-24 16:27:06,404 - INFO - INSERT INTO metinguren ("metingUrenId", "metingenId", datetime, temperature, pressure, winddirection) VALUES (?, ?, ?, ?, ?, ?)
+2024-03-24 16:27:06,404 - INFO - [generated in 0.00009s] [(1, 1, '2024-03-24 16:27:06.399748', 12.0, 1008.0, 180), (2, 2, '2024-03-24 16:27:06.399748', 10.0, 1003.0, 200)]
+2024-03-24 16:27:06,405 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:27:06,405 - INFO - [generated in 0.00014s] ()
+2024-03-24 16:27:06,406 - INFO - INSERT INTO locaties ("locatieId", locatie) VALUES (?, ?)
+2024-03-24 16:27:06,406 - INFO - [generated in 0.00010s] [(1, 'Apeldoorn'), (2, 'Amersfoort')]
+2024-03-24 16:27:06,407 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:27:06,407 - INFO - [generated in 0.00006s] ()
+2024-03-24 16:27:06,407 - INFO - INSERT INTO voorspellingen ("voorspellingenId", "locatieId", datetime) VALUES (?, ?, ?)
+2024-03-24 16:27:06,407 - INFO - [generated in 0.00008s] [(1, 1, '2024-03-24 16:27:06.399748'), (2, 2, '2024-03-24 16:27:06.399748')]
+2024-03-24 16:27:06,408 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:27:06,408 - INFO - [generated in 0.00015s] ()
+2024-03-24 16:27:06,409 - INFO - INSERT INTO voorspellinguren ("voorspellingUrenId", "voorspellingenId", datetime, temperature, "zWaarde") VALUES (?, ?, ?, ?, ?)
+2024-03-24 16:27:06,409 - INFO - [generated in 0.00010s] [(1, 1, '2024-03-24 16:27:06.399748', 12.0, 15), (2, 2, '2024-03-24 16:27:06.399748', 10.0, 15)]
+2024-03-24 16:27:06,409 - INFO - COMMIT
+2024-03-24 16:27:11,886 - INFO - BEGIN (implicit)
+2024-03-24 16:27:11,887 - INFO - SELECT mu.* FROM DBMetinguren AS mu JOIN DBMetingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN DBLocaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = ?) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;
+2024-03-24 16:27:11,887 - INFO - [generated in 0.00018s] ('Apeldoorn',)
+2024-03-24 16:27:11,887 - ERROR - [API] (sqlite3.OperationalError) no such table: DBMetinguren
+[SQL: SELECT mu.* FROM DBMetinguren AS mu JOIN DBMetingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN DBLocaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = ?) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;]
+[parameters: ('Apeldoorn',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8): Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-24 16:27:11,887 - INFO - ROLLBACK
+2024-03-24 16:27:53,567 - INFO - SELECT DATABASE()
+2024-03-24 16:27:53,567 - INFO - [raw sql] {}
+2024-03-24 16:27:53,949 - INFO - SELECT @@sql_mode
+2024-03-24 16:27:53,949 - INFO - [raw sql] {}
+2024-03-24 16:27:54,136 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:27:54,136 - INFO - [raw sql] {}
+2024-03-24 16:27:54,324 - INFO - BEGIN (implicit)
+2024-03-24 16:27:54,416 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:27:54,416 - INFO - [raw sql] {}
+2024-03-24 16:27:54,604 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:27:54,604 - INFO - [raw sql] {}
+2024-03-24 16:27:54,792 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:27:54,792 - INFO - [raw sql] {}
+2024-03-24 16:27:54,981 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:27:54,981 - INFO - [raw sql] {}
+2024-03-24 16:27:55,170 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:27:55,170 - INFO - [raw sql] {}
+2024-03-24 16:27:55,363 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:27:55,363 - INFO - [raw sql] {}
+2024-03-24 16:27:55,462 - INFO - COMMIT
+2024-03-24 16:27:55,649 - INFO - BEGIN (implicit)
+2024-03-24 16:27:55,743 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:27:55,743 - INFO - [generated in 0.09353s] {}
+2024-03-24 16:27:55,933 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:27:55,933 - INFO - [generated in 0.09337s] {}
+2024-03-24 16:27:56,152 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:27:56,152 - INFO - [generated in 0.09369s] {}
+2024-03-24 16:27:56,344 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:27:56,344 - INFO - [generated in 0.09322s] {}
+2024-03-24 16:27:56,540 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:27:56,541 - INFO - [generated in 0.09379s] {}
+2024-03-24 16:27:56,740 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:27:56,741 - INFO - [generated in 0.09559s] {}
+2024-03-24 16:27:56,842 - INFO - COMMIT
+2024-03-24 16:27:57,034 - INFO - BEGIN (implicit)
+2024-03-24 16:27:57,130 - INFO - SET FOREIGN_KEY_CHECKS = 1;
+2024-03-24 16:27:57,131 - INFO - [generated in 0.09526s] {}
+2024-03-24 16:27:57,226 - INFO - ROLLBACK
+2024-03-24 16:28:06,530 - INFO - BEGIN (implicit)
+2024-03-24 16:28:06,630 - INFO - SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = %(locatie)s) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;
+2024-03-24 16:28:06,630 - INFO - [generated in 0.09991s] {'locatie': 'Apeldoorn'}
+2024-03-24 16:28:06,745 - ERROR - [API] 'int' object has no attribute 'datetime': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-24 16:28:06,747 - INFO - ROLLBACK
+2024-03-24 16:31:39,130 - INFO - SELECT DATABASE()
+2024-03-24 16:31:39,131 - INFO - [raw sql] {}
+2024-03-24 16:31:39,510 - INFO - SELECT @@sql_mode
+2024-03-24 16:31:39,510 - INFO - [raw sql] {}
+2024-03-24 16:31:39,707 - INFO - SELECT @@lower_case_table_names
+2024-03-24 16:31:39,707 - INFO - [raw sql] {}
+2024-03-24 16:31:39,901 - INFO - BEGIN (implicit)
+2024-03-24 16:31:39,996 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-24 16:31:39,997 - INFO - [raw sql] {}
+2024-03-24 16:31:40,191 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-24 16:31:40,191 - INFO - [raw sql] {}
+2024-03-24 16:31:40,392 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-24 16:31:40,392 - INFO - [raw sql] {}
+2024-03-24 16:31:40,593 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-24 16:31:40,593 - INFO - [raw sql] {}
+2024-03-24 16:31:40,784 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-24 16:31:40,784 - INFO - [raw sql] {}
+2024-03-24 16:31:40,974 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-24 16:31:40,974 - INFO - [raw sql] {}
+2024-03-24 16:31:41,071 - INFO - COMMIT
+2024-03-24 16:31:41,261 - INFO - BEGIN (implicit)
+2024-03-24 16:31:41,356 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-24 16:31:41,356 - INFO - [generated in 0.09440s] {}
+2024-03-24 16:31:41,551 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-24 16:31:41,551 - INFO - [generated in 0.09509s] {}
+2024-03-24 16:31:41,782 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-24 16:31:41,782 - INFO - [generated in 0.09557s] {}
+2024-03-24 16:31:41,981 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-24 16:31:41,982 - INFO - [generated in 0.09774s] {}
+2024-03-24 16:31:42,177 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-24 16:31:42,177 - INFO - [generated in 0.09528s] {}
+2024-03-24 16:31:42,380 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-24 16:31:42,380 - INFO - [generated in 0.09447s] {}
+2024-03-24 16:31:42,479 - INFO - COMMIT
+2024-03-24 16:31:42,669 - INFO - BEGIN (implicit)
+2024-03-24 16:31:42,763 - INFO - SET FOREIGN_KEY_CHECKS = 1;
+2024-03-24 16:31:42,763 - INFO - [generated in 0.09428s] {}
+2024-03-24 16:31:42,859 - INFO - ROLLBACK

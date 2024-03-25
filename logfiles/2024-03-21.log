@@ -1,0 +1,2001 @@
+2024-03-21 15:59:21,532 - INFO - SELECT DATABASE()
+2024-03-21 15:59:21,533 - INFO - [raw sql] {}
+2024-03-21 15:59:21,759 - INFO - SELECT @@sql_mode
+2024-03-21 15:59:21,760 - INFO - [raw sql] {}
+2024-03-21 15:59:21,887 - INFO - SELECT @@lower_case_table_names
+2024-03-21 15:59:21,888 - INFO - [raw sql] {}
+2024-03-21 15:59:22,017 - INFO - BEGIN (implicit)
+2024-03-21 15:59:22,076 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 15:59:22,076 - INFO - [raw sql] {}
+2024-03-21 15:59:22,201 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 15:59:22,201 - INFO - [raw sql] {}
+2024-03-21 15:59:22,319 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 15:59:22,320 - INFO - [raw sql] {}
+2024-03-21 15:59:22,428 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 15:59:22,428 - INFO - [raw sql] {}
+2024-03-21 15:59:22,555 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 15:59:22,556 - INFO - [raw sql] {}
+2024-03-21 15:59:22,767 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 15:59:22,767 - INFO - [raw sql] {}
+2024-03-21 15:59:22,863 - INFO - COMMIT
+2024-03-21 15:59:32,520 - INFO - BEGIN (implicit)
+2024-03-21 15:59:32,576 - INFO - SELECT metingen."metingenId", metingen."locatieId", metingen.datetime 
+FROM metingen 
+WHERE metingen."locatieId" = %(locatieId_1)s
+2024-03-21 15:59:32,576 - INFO - [generated in 0.05120s] {'locatieId_1': 8}
+2024-03-21 15:59:32,632 - INFO - ROLLBACK
+2024-03-21 16:00:58,995 - ERROR - [API] 'Depends' object has no attribute 'execute': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 16:01:48,286 - ERROR - [API] 'Depends' object has no attribute 'execute': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 16:02:27,244 - ERROR - [API] 'Depends' object has no attribute 'execute': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 16:02:44,703 - ERROR - [API] 'Depends' object has no attribute 'execute': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:31:50,521 - ERROR - [API] 'Depends' object has no attribute 'query': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:32:38,755 - ERROR - [API] 'Depends' object has no attribute 'query': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:34:04,295 - ERROR - [API] 'Depends' object has no attribute 'query': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:35:09,313 - ERROR - [API] 'Depends' object has no attribute 'execute': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:35:41,256 - INFO - SELECT DATABASE()
+2024-03-21 17:35:41,256 - INFO - [raw sql] {}
+2024-03-21 17:35:41,353 - INFO - SELECT @@sql_mode
+2024-03-21 17:35:41,353 - INFO - [raw sql] {}
+2024-03-21 17:35:41,403 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:35:41,403 - INFO - [raw sql] {}
+2024-03-21 17:35:41,455 - INFO - BEGIN (implicit)
+2024-03-21 17:35:41,481 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:35:41,482 - INFO - [raw sql] {}
+2024-03-21 17:35:41,536 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:35:41,537 - INFO - [raw sql] {}
+2024-03-21 17:35:41,586 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:35:41,586 - INFO - [raw sql] {}
+2024-03-21 17:35:41,635 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:35:41,635 - INFO - [raw sql] {}
+2024-03-21 17:35:41,686 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:35:41,686 - INFO - [raw sql] {}
+2024-03-21 17:35:41,741 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:35:41,741 - INFO - [raw sql] {}
+2024-03-21 17:35:41,767 - INFO - COMMIT
+2024-03-21 17:35:57,644 - INFO - BEGIN (implicit)
+2024-03-21 17:35:57,676 - INFO - SELECT metingen."metingenId", metingen."locatieId", metingen.datetime 
+FROM metingen 
+WHERE metingen."locatieId" = %(locatieId_1)s
+2024-03-21 17:35:57,676 - INFO - [generated in 0.02560s] {'locatieId_1': 8}
+2024-03-21 17:35:57,702 - ERROR - [API] 'DBMetingen' object has no attribute 'metingUrenId': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:35:57,703 - INFO - ROLLBACK
+2024-03-21 17:36:06,034 - INFO - SELECT DATABASE()
+2024-03-21 17:36:06,034 - INFO - [raw sql] {}
+2024-03-21 17:36:06,143 - INFO - SELECT @@sql_mode
+2024-03-21 17:36:06,143 - INFO - [raw sql] {}
+2024-03-21 17:36:06,195 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:36:06,196 - INFO - [raw sql] {}
+2024-03-21 17:36:06,250 - INFO - BEGIN (implicit)
+2024-03-21 17:36:06,278 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:36:06,279 - INFO - [raw sql] {}
+2024-03-21 17:36:06,350 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:36:06,350 - INFO - [raw sql] {}
+2024-03-21 17:36:06,417 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:36:06,418 - INFO - [raw sql] {}
+2024-03-21 17:36:06,482 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:36:06,482 - INFO - [raw sql] {}
+2024-03-21 17:36:06,543 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:36:06,543 - INFO - [raw sql] {}
+2024-03-21 17:36:06,601 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:36:06,601 - INFO - [raw sql] {}
+2024-03-21 17:36:06,631 - INFO - COMMIT
+2024-03-21 17:36:11,969 - INFO - BEGIN (implicit)
+2024-03-21 17:36:12,006 - INFO - SELECT metingen."metingenId", metingen."locatieId", metingen.datetime 
+FROM metingen 
+WHERE metingen."locatieId" = %(locatieId_1)s
+2024-03-21 17:36:12,006 - INFO - [generated in 0.03131s] {'locatieId_1': 8}
+2024-03-21 17:36:12,037 - ERROR - [API] 'DBMetingen' object has no attribute 'metingUrenId': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:36:12,037 - INFO - ROLLBACK
+2024-03-21 17:36:32,796 - INFO - SELECT DATABASE()
+2024-03-21 17:36:32,797 - INFO - [raw sql] {}
+2024-03-21 17:36:32,917 - INFO - SELECT @@sql_mode
+2024-03-21 17:36:32,918 - INFO - [raw sql] {}
+2024-03-21 17:36:32,974 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:36:32,975 - INFO - [raw sql] {}
+2024-03-21 17:36:33,030 - INFO - BEGIN (implicit)
+2024-03-21 17:36:33,077 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:36:33,078 - INFO - [raw sql] {}
+2024-03-21 17:36:33,133 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:36:33,134 - INFO - [raw sql] {}
+2024-03-21 17:36:33,199 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:36:33,200 - INFO - [raw sql] {}
+2024-03-21 17:36:33,259 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:36:33,259 - INFO - [raw sql] {}
+2024-03-21 17:36:33,329 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:36:33,330 - INFO - [raw sql] {}
+2024-03-21 17:36:33,385 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:36:33,386 - INFO - [raw sql] {}
+2024-03-21 17:36:33,415 - INFO - COMMIT
+2024-03-21 17:36:37,161 - INFO - BEGIN (implicit)
+2024-03-21 17:36:37,193 - INFO - SELECT metingen."metingenId", metingen."locatieId", metingen.datetime 
+FROM metingen
+2024-03-21 17:36:37,194 - INFO - [generated in 0.02767s] {}
+2024-03-21 17:36:37,222 - ERROR - [API] 'DBMetingen' object has no attribute 'metingUrenId': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:36:37,223 - INFO - ROLLBACK
+2024-03-21 17:36:44,251 - INFO - SELECT DATABASE()
+2024-03-21 17:36:44,251 - INFO - [raw sql] {}
+2024-03-21 17:36:44,351 - INFO - SELECT @@sql_mode
+2024-03-21 17:36:44,351 - INFO - [raw sql] {}
+2024-03-21 17:36:44,401 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:36:44,401 - INFO - [raw sql] {}
+2024-03-21 17:36:44,448 - INFO - BEGIN (implicit)
+2024-03-21 17:36:44,473 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:36:44,473 - INFO - [raw sql] {}
+2024-03-21 17:36:44,527 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:36:44,527 - INFO - [raw sql] {}
+2024-03-21 17:36:44,583 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:36:44,583 - INFO - [raw sql] {}
+2024-03-21 17:36:44,637 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:36:44,637 - INFO - [raw sql] {}
+2024-03-21 17:36:44,686 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:36:44,687 - INFO - [raw sql] {}
+2024-03-21 17:36:44,736 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:36:44,736 - INFO - [raw sql] {}
+2024-03-21 17:36:44,761 - INFO - COMMIT
+2024-03-21 17:37:04,332 - INFO - BEGIN (implicit)
+2024-03-21 17:37:04,367 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren
+2024-03-21 17:37:04,367 - INFO - [generated in 0.02885s] {}
+2024-03-21 17:37:04,798 - INFO - ROLLBACK
+2024-03-21 17:37:42,541 - INFO - SELECT DATABASE()
+2024-03-21 17:37:42,541 - INFO - [raw sql] {}
+2024-03-21 17:37:42,627 - INFO - SELECT @@sql_mode
+2024-03-21 17:37:42,628 - INFO - [raw sql] {}
+2024-03-21 17:37:42,671 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:37:42,671 - INFO - [raw sql] {}
+2024-03-21 17:37:42,711 - INFO - BEGIN (implicit)
+2024-03-21 17:37:42,730 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:37:42,731 - INFO - [raw sql] {}
+2024-03-21 17:37:42,778 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:37:42,778 - INFO - [raw sql] {}
+2024-03-21 17:37:42,836 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:37:42,837 - INFO - [raw sql] {}
+2024-03-21 17:37:42,882 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:37:42,882 - INFO - [raw sql] {}
+2024-03-21 17:37:42,941 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:37:42,942 - INFO - [raw sql] {}
+2024-03-21 17:37:42,979 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:37:42,979 - INFO - [raw sql] {}
+2024-03-21 17:37:43,001 - INFO - COMMIT
+2024-03-21 17:37:43,327 - INFO - BEGIN (implicit)
+2024-03-21 17:37:43,347 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren
+2024-03-21 17:37:43,348 - INFO - [generated in 0.01854s] {}
+2024-03-21 17:37:43,575 - INFO - ROLLBACK
+2024-03-21 17:37:50,186 - INFO - SELECT DATABASE()
+2024-03-21 17:37:50,187 - INFO - [raw sql] {}
+2024-03-21 17:37:50,274 - INFO - SELECT @@sql_mode
+2024-03-21 17:37:50,274 - INFO - [raw sql] {}
+2024-03-21 17:37:50,317 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:37:50,317 - INFO - [raw sql] {}
+2024-03-21 17:37:50,360 - INFO - BEGIN (implicit)
+2024-03-21 17:37:50,384 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:37:50,385 - INFO - [raw sql] {}
+2024-03-21 17:37:50,429 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:37:50,429 - INFO - [raw sql] {}
+2024-03-21 17:37:50,475 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:37:50,475 - INFO - [raw sql] {}
+2024-03-21 17:37:50,521 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:37:50,521 - INFO - [raw sql] {}
+2024-03-21 17:37:50,564 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:37:50,564 - INFO - [raw sql] {}
+2024-03-21 17:37:50,614 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:37:50,614 - INFO - [raw sql] {}
+2024-03-21 17:37:50,636 - INFO - COMMIT
+2024-03-21 17:37:58,309 - INFO - SELECT DATABASE()
+2024-03-21 17:37:58,309 - INFO - [raw sql] {}
+2024-03-21 17:37:58,390 - INFO - SELECT @@sql_mode
+2024-03-21 17:37:58,390 - INFO - [raw sql] {}
+2024-03-21 17:37:58,430 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:37:58,431 - INFO - [raw sql] {}
+2024-03-21 17:37:58,471 - INFO - BEGIN (implicit)
+2024-03-21 17:37:58,490 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:37:58,490 - INFO - [raw sql] {}
+2024-03-21 17:37:58,532 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:37:58,532 - INFO - [raw sql] {}
+2024-03-21 17:37:58,574 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:37:58,574 - INFO - [raw sql] {}
+2024-03-21 17:37:58,615 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:37:58,615 - INFO - [raw sql] {}
+2024-03-21 17:37:58,656 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:37:58,656 - INFO - [raw sql] {}
+2024-03-21 17:37:58,701 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:37:58,701 - INFO - [raw sql] {}
+2024-03-21 17:37:58,723 - INFO - COMMIT
+2024-03-21 17:38:01,451 - INFO - BEGIN (implicit)
+2024-03-21 17:38:01,479 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren
+2024-03-21 17:38:01,480 - INFO - [generated in 0.02570s] {}
+2024-03-21 17:38:01,699 - INFO - ROLLBACK
+2024-03-21 17:38:14,746 - INFO - SELECT DATABASE()
+2024-03-21 17:38:14,747 - INFO - [raw sql] {}
+2024-03-21 17:38:14,863 - INFO - SELECT @@sql_mode
+2024-03-21 17:38:14,864 - INFO - [raw sql] {}
+2024-03-21 17:38:14,920 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:38:14,920 - INFO - [raw sql] {}
+2024-03-21 17:38:14,976 - INFO - BEGIN (implicit)
+2024-03-21 17:38:15,003 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:38:15,003 - INFO - [raw sql] {}
+2024-03-21 17:38:15,062 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:38:15,063 - INFO - [raw sql] {}
+2024-03-21 17:38:15,119 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:38:15,119 - INFO - [raw sql] {}
+2024-03-21 17:38:15,176 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:38:15,180 - INFO - [raw sql] {}
+2024-03-21 17:38:15,236 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:38:15,237 - INFO - [raw sql] {}
+2024-03-21 17:38:15,293 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:38:15,294 - INFO - [raw sql] {}
+2024-03-21 17:38:15,324 - INFO - COMMIT
+2024-03-21 17:38:15,439 - INFO - BEGIN (implicit)
+2024-03-21 17:38:15,469 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren
+2024-03-21 17:38:15,469 - INFO - [generated in 0.02805s] {}
+2024-03-21 17:38:15,740 - INFO - ROLLBACK
+2024-03-21 17:39:47,464 - INFO - SELECT DATABASE()
+2024-03-21 17:39:47,464 - INFO - [raw sql] {}
+2024-03-21 17:39:47,564 - INFO - SELECT @@sql_mode
+2024-03-21 17:39:47,564 - INFO - [raw sql] {}
+2024-03-21 17:39:47,616 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:39:47,616 - INFO - [raw sql] {}
+2024-03-21 17:39:47,669 - INFO - BEGIN (implicit)
+2024-03-21 17:39:47,695 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:39:47,696 - INFO - [raw sql] {}
+2024-03-21 17:39:47,747 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:39:47,747 - INFO - [raw sql] {}
+2024-03-21 17:39:47,796 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:39:47,796 - INFO - [raw sql] {}
+2024-03-21 17:39:47,846 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:39:47,846 - INFO - [raw sql] {}
+2024-03-21 17:39:47,898 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:39:47,898 - INFO - [raw sql] {}
+2024-03-21 17:39:47,949 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:39:47,949 - INFO - [raw sql] {}
+2024-03-21 17:39:47,974 - INFO - COMMIT
+2024-03-21 17:40:02,865 - INFO - SELECT DATABASE()
+2024-03-21 17:40:02,865 - INFO - [raw sql] {}
+2024-03-21 17:40:02,976 - INFO - SELECT @@sql_mode
+2024-03-21 17:40:02,976 - INFO - [raw sql] {}
+2024-03-21 17:40:03,029 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:40:03,030 - INFO - [raw sql] {}
+2024-03-21 17:40:03,088 - INFO - BEGIN (implicit)
+2024-03-21 17:40:03,116 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:40:03,116 - INFO - [raw sql] {}
+2024-03-21 17:40:03,172 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:40:03,172 - INFO - [raw sql] {}
+2024-03-21 17:40:03,226 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:40:03,226 - INFO - [raw sql] {}
+2024-03-21 17:40:03,280 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:40:03,280 - INFO - [raw sql] {}
+2024-03-21 17:40:03,334 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:40:03,335 - INFO - [raw sql] {}
+2024-03-21 17:40:03,388 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:40:03,388 - INFO - [raw sql] {}
+2024-03-21 17:40:03,416 - INFO - COMMIT
+2024-03-21 17:40:18,142 - INFO - SELECT DATABASE()
+2024-03-21 17:40:18,142 - INFO - [raw sql] {}
+2024-03-21 17:40:18,301 - INFO - SELECT @@sql_mode
+2024-03-21 17:40:18,301 - INFO - [raw sql] {}
+2024-03-21 17:40:18,337 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:40:18,337 - INFO - [raw sql] {}
+2024-03-21 17:40:18,374 - INFO - BEGIN (implicit)
+2024-03-21 17:40:18,394 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:40:18,394 - INFO - [raw sql] {}
+2024-03-21 17:40:18,432 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:40:18,434 - INFO - [raw sql] {}
+2024-03-21 17:40:18,473 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:40:18,473 - INFO - [raw sql] {}
+2024-03-21 17:40:18,511 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:40:18,511 - INFO - [raw sql] {}
+2024-03-21 17:40:18,548 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:40:18,548 - INFO - [raw sql] {}
+2024-03-21 17:40:18,591 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:40:18,591 - INFO - [raw sql] {}
+2024-03-21 17:40:18,613 - INFO - COMMIT
+2024-03-21 17:40:26,775 - INFO - SELECT DATABASE()
+2024-03-21 17:40:26,776 - INFO - [raw sql] {}
+2024-03-21 17:40:26,884 - INFO - SELECT @@sql_mode
+2024-03-21 17:40:26,885 - INFO - [raw sql] {}
+2024-03-21 17:40:26,938 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:40:26,939 - INFO - [raw sql] {}
+2024-03-21 17:40:26,993 - INFO - BEGIN (implicit)
+2024-03-21 17:40:27,020 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:40:27,020 - INFO - [raw sql] {}
+2024-03-21 17:40:27,075 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:40:27,075 - INFO - [raw sql] {}
+2024-03-21 17:40:27,129 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:40:27,130 - INFO - [raw sql] {}
+2024-03-21 17:40:27,185 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:40:27,185 - INFO - [raw sql] {}
+2024-03-21 17:40:27,244 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:40:27,245 - INFO - [raw sql] {}
+2024-03-21 17:40:27,300 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:40:27,300 - INFO - [raw sql] {}
+2024-03-21 17:40:27,328 - INFO - COMMIT
+2024-03-21 17:40:29,245 - INFO - BEGIN (implicit)
+2024-03-21 17:40:29,273 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren
+2024-03-21 17:40:29,274 - INFO - [generated in 0.02617s] {}
+2024-03-21 17:40:29,742 - INFO - ROLLBACK
+2024-03-21 17:43:08,767 - INFO - SELECT DATABASE()
+2024-03-21 17:43:08,767 - INFO - [raw sql] {}
+2024-03-21 17:43:08,840 - INFO - SELECT @@sql_mode
+2024-03-21 17:43:08,840 - INFO - [raw sql] {}
+2024-03-21 17:43:08,876 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:43:08,876 - INFO - [raw sql] {}
+2024-03-21 17:43:08,913 - INFO - BEGIN (implicit)
+2024-03-21 17:43:08,930 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:43:08,930 - INFO - [raw sql] {}
+2024-03-21 17:43:08,967 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:43:08,967 - INFO - [raw sql] {}
+2024-03-21 17:43:09,005 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:43:09,005 - INFO - [raw sql] {}
+2024-03-21 17:43:09,042 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:43:09,042 - INFO - [raw sql] {}
+2024-03-21 17:43:09,081 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:43:09,081 - INFO - [raw sql] {}
+2024-03-21 17:43:09,120 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:43:09,121 - INFO - [raw sql] {}
+2024-03-21 17:43:09,141 - INFO - COMMIT
+2024-03-21 17:49:45,428 - INFO - SELECT DATABASE()
+2024-03-21 17:49:45,431 - INFO - [raw sql] {}
+2024-03-21 17:49:45,545 - INFO - SELECT @@sql_mode
+2024-03-21 17:49:45,546 - INFO - [raw sql] {}
+2024-03-21 17:49:45,600 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:49:45,600 - INFO - [raw sql] {}
+2024-03-21 17:49:45,656 - INFO - BEGIN (implicit)
+2024-03-21 17:49:45,687 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:49:45,687 - INFO - [raw sql] {}
+2024-03-21 17:49:45,744 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:49:45,744 - INFO - [raw sql] {}
+2024-03-21 17:49:45,799 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:49:45,799 - INFO - [raw sql] {}
+2024-03-21 17:49:45,854 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:49:45,854 - INFO - [raw sql] {}
+2024-03-21 17:49:45,910 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:49:45,910 - INFO - [raw sql] {}
+2024-03-21 17:49:45,969 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:49:45,969 - INFO - [raw sql] {}
+2024-03-21 17:49:46,001 - INFO - COMMIT
+2024-03-21 17:49:55,013 - INFO - BEGIN (implicit)
+2024-03-21 17:49:55,041 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId"
+2024-03-21 17:49:55,042 - INFO - [generated in 0.02669s] {}
+2024-03-21 17:49:55,503 - INFO - ROLLBACK
+2024-03-21 17:51:51,983 - INFO - SELECT DATABASE()
+2024-03-21 17:51:51,985 - INFO - [raw sql] {}
+2024-03-21 17:51:52,084 - INFO - SELECT @@sql_mode
+2024-03-21 17:51:52,084 - INFO - [raw sql] {}
+2024-03-21 17:51:52,132 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:51:52,132 - INFO - [raw sql] {}
+2024-03-21 17:51:52,183 - INFO - BEGIN (implicit)
+2024-03-21 17:51:52,208 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:51:52,209 - INFO - [raw sql] {}
+2024-03-21 17:51:52,262 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:51:52,262 - INFO - [raw sql] {}
+2024-03-21 17:51:52,322 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:51:52,322 - INFO - [raw sql] {}
+2024-03-21 17:51:52,371 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:51:52,371 - INFO - [raw sql] {}
+2024-03-21 17:51:52,420 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:51:52,420 - INFO - [raw sql] {}
+2024-03-21 17:51:52,470 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:51:52,470 - INFO - [raw sql] {}
+2024-03-21 17:51:52,496 - INFO - COMMIT
+2024-03-21 17:51:56,099 - INFO - BEGIN (implicit)
+2024-03-21 17:51:56,125 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId"
+2024-03-21 17:51:56,126 - INFO - [generated in 0.02480s] {}
+2024-03-21 17:51:56,629 - INFO - ROLLBACK
+2024-03-21 17:53:01,099 - INFO - SELECT DATABASE()
+2024-03-21 17:53:01,100 - INFO - [raw sql] {}
+2024-03-21 17:53:01,200 - INFO - SELECT @@sql_mode
+2024-03-21 17:53:01,200 - INFO - [raw sql] {}
+2024-03-21 17:53:01,251 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:53:01,251 - INFO - [raw sql] {}
+2024-03-21 17:53:01,305 - INFO - BEGIN (implicit)
+2024-03-21 17:53:01,330 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:53:01,330 - INFO - [raw sql] {}
+2024-03-21 17:53:01,384 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:53:01,385 - INFO - [raw sql] {}
+2024-03-21 17:53:01,440 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:53:01,440 - INFO - [raw sql] {}
+2024-03-21 17:53:01,490 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:53:01,490 - INFO - [raw sql] {}
+2024-03-21 17:53:01,540 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:53:01,540 - INFO - [raw sql] {}
+2024-03-21 17:53:01,589 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:53:01,589 - INFO - [raw sql] {}
+2024-03-21 17:53:01,615 - INFO - COMMIT
+2024-03-21 17:53:06,031 - INFO - BEGIN (implicit)
+2024-03-21 17:53:06,064 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s
+2024-03-21 17:53:06,064 - INFO - [generated in 0.03007s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 17:53:06,278 - INFO - ROLLBACK
+2024-03-21 17:53:26,255 - INFO - BEGIN (implicit)
+2024-03-21 17:53:26,280 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s
+2024-03-21 17:53:26,280 - INFO - [cached since 20.25s ago] {'locatie_1': 'Apeldoorn'}
+2024-03-21 17:53:26,554 - INFO - ROLLBACK
+2024-03-21 17:53:28,117 - INFO - BEGIN (implicit)
+2024-03-21 17:53:28,144 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s
+2024-03-21 17:53:28,144 - INFO - [cached since 22.11s ago] {'locatie_1': 'Amsterdam'}
+2024-03-21 17:53:28,418 - INFO - ROLLBACK
+2024-03-21 17:54:46,499 - INFO - SELECT DATABASE()
+2024-03-21 17:54:46,500 - INFO - [raw sql] {}
+2024-03-21 17:54:46,580 - INFO - SELECT @@sql_mode
+2024-03-21 17:54:46,581 - INFO - [raw sql] {}
+2024-03-21 17:54:46,621 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:54:46,621 - INFO - [raw sql] {}
+2024-03-21 17:54:46,661 - INFO - BEGIN (implicit)
+2024-03-21 17:54:46,682 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:54:46,682 - INFO - [raw sql] {}
+2024-03-21 17:54:46,726 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:54:46,726 - INFO - [raw sql] {}
+2024-03-21 17:54:46,767 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:54:46,767 - INFO - [raw sql] {}
+2024-03-21 17:54:46,810 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:54:46,810 - INFO - [raw sql] {}
+2024-03-21 17:54:46,852 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:54:46,852 - INFO - [raw sql] {}
+2024-03-21 17:54:46,893 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:54:46,893 - INFO - [raw sql] {}
+2024-03-21 17:54:46,915 - INFO - COMMIT
+2024-03-21 17:54:50,604 - INFO - BEGIN (implicit)
+2024-03-21 17:54:50,628 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = max(metingen."metingenId")
+2024-03-21 17:54:50,628 - INFO - [generated in 0.02161s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 17:54:50,648 - ERROR - [API] (mysql.connector.errors.DatabaseError) 1111 (HY000): Invalid use of group function
+[SQL: SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = max(metingen."metingenId")]
+[parameters: {'locatie_1': 'Apeldoorn'}]
+(Background on this error at: https://sqlalche.me/e/20/4xp6): Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:54:50,648 - INFO - ROLLBACK
+2024-03-21 17:55:26,128 - INFO - SELECT DATABASE()
+2024-03-21 17:55:26,130 - INFO - [raw sql] {}
+2024-03-21 17:55:26,202 - INFO - SELECT @@sql_mode
+2024-03-21 17:55:26,202 - INFO - [raw sql] {}
+2024-03-21 17:55:26,238 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:55:26,239 - INFO - [raw sql] {}
+2024-03-21 17:55:26,278 - INFO - BEGIN (implicit)
+2024-03-21 17:55:26,297 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:55:26,297 - INFO - [raw sql] {}
+2024-03-21 17:55:26,337 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:55:26,338 - INFO - [raw sql] {}
+2024-03-21 17:55:26,377 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:55:26,378 - INFO - [raw sql] {}
+2024-03-21 17:55:26,418 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:55:26,418 - INFO - [raw sql] {}
+2024-03-21 17:55:26,459 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:55:26,460 - INFO - [raw sql] {}
+2024-03-21 17:55:26,499 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:55:26,500 - INFO - [raw sql] {}
+2024-03-21 17:55:26,522 - INFO - COMMIT
+2024-03-21 17:55:47,892 - INFO - SELECT DATABASE()
+2024-03-21 17:55:47,892 - INFO - [raw sql] {}
+2024-03-21 17:55:47,976 - INFO - SELECT @@sql_mode
+2024-03-21 17:55:47,976 - INFO - [raw sql] {}
+2024-03-21 17:55:48,020 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:55:48,021 - INFO - [raw sql] {}
+2024-03-21 17:55:48,067 - INFO - BEGIN (implicit)
+2024-03-21 17:55:48,088 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:55:48,089 - INFO - [raw sql] {}
+2024-03-21 17:55:48,134 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:55:48,134 - INFO - [raw sql] {}
+2024-03-21 17:55:48,183 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:55:48,184 - INFO - [raw sql] {}
+2024-03-21 17:55:48,228 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:55:48,229 - INFO - [raw sql] {}
+2024-03-21 17:55:48,276 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:55:48,277 - INFO - [raw sql] {}
+2024-03-21 17:55:48,323 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:55:48,323 - INFO - [raw sql] {}
+2024-03-21 17:55:48,346 - INFO - COMMIT
+2024-03-21 17:55:52,341 - INFO - BEGIN (implicit)
+2024-03-21 17:55:52,369 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 17:55:52,369 - INFO - [generated in 0.02525s] {}
+2024-03-21 17:55:52,392 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x102559490>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:55:52,393 - INFO - ROLLBACK
+2024-03-21 17:55:53,870 - INFO - BEGIN (implicit)
+2024-03-21 17:55:53,896 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 17:55:53,896 - INFO - [cached since 1.552s ago] {}
+2024-03-21 17:55:53,919 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x102e1f490>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:55:53,924 - INFO - ROLLBACK
+2024-03-21 17:56:02,403 - INFO - SELECT DATABASE()
+2024-03-21 17:56:02,405 - INFO - [raw sql] {}
+2024-03-21 17:56:02,517 - INFO - SELECT @@sql_mode
+2024-03-21 17:56:02,518 - INFO - [raw sql] {}
+2024-03-21 17:56:02,574 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:56:02,574 - INFO - [raw sql] {}
+2024-03-21 17:56:02,631 - INFO - BEGIN (implicit)
+2024-03-21 17:56:02,659 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:56:02,659 - INFO - [raw sql] {}
+2024-03-21 17:56:02,716 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:56:02,717 - INFO - [raw sql] {}
+2024-03-21 17:56:02,774 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:56:02,774 - INFO - [raw sql] {}
+2024-03-21 17:56:02,828 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:56:02,829 - INFO - [raw sql] {}
+2024-03-21 17:56:02,881 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:56:02,881 - INFO - [raw sql] {}
+2024-03-21 17:56:02,934 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:56:02,934 - INFO - [raw sql] {}
+2024-03-21 17:56:02,962 - INFO - COMMIT
+2024-03-21 17:56:04,602 - INFO - BEGIN (implicit)
+2024-03-21 17:56:04,633 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 17:56:04,633 - INFO - [generated in 0.02819s] {}
+2024-03-21 17:56:04,660 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x10448f990>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:56:04,661 - INFO - ROLLBACK
+2024-03-21 17:56:19,078 - INFO - SELECT DATABASE()
+2024-03-21 17:56:19,079 - INFO - [raw sql] {}
+2024-03-21 17:56:19,161 - INFO - SELECT @@sql_mode
+2024-03-21 17:56:19,161 - INFO - [raw sql] {}
+2024-03-21 17:56:19,202 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:56:19,203 - INFO - [raw sql] {}
+2024-03-21 17:56:19,246 - INFO - BEGIN (implicit)
+2024-03-21 17:56:19,266 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:56:19,266 - INFO - [raw sql] {}
+2024-03-21 17:56:19,311 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:56:19,311 - INFO - [raw sql] {}
+2024-03-21 17:56:19,354 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:56:19,354 - INFO - [raw sql] {}
+2024-03-21 17:56:19,399 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:56:19,399 - INFO - [raw sql] {}
+2024-03-21 17:56:19,441 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:56:19,441 - INFO - [raw sql] {}
+2024-03-21 17:56:19,482 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:56:19,483 - INFO - [raw sql] {}
+2024-03-21 17:56:19,504 - INFO - COMMIT
+2024-03-21 17:56:21,537 - INFO - SELECT DATABASE()
+2024-03-21 17:56:21,537 - INFO - [raw sql] {}
+2024-03-21 17:56:21,618 - INFO - SELECT @@sql_mode
+2024-03-21 17:56:21,618 - INFO - [raw sql] {}
+2024-03-21 17:56:21,656 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:56:21,657 - INFO - [raw sql] {}
+2024-03-21 17:56:21,696 - INFO - BEGIN (implicit)
+2024-03-21 17:56:21,715 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:56:21,715 - INFO - [raw sql] {}
+2024-03-21 17:56:21,755 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:56:21,755 - INFO - [raw sql] {}
+2024-03-21 17:56:21,796 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:56:21,796 - INFO - [raw sql] {}
+2024-03-21 17:56:21,834 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:56:21,835 - INFO - [raw sql] {}
+2024-03-21 17:56:21,873 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:56:21,873 - INFO - [raw sql] {}
+2024-03-21 17:56:21,911 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:56:21,911 - INFO - [raw sql] {}
+2024-03-21 17:56:21,931 - INFO - COMMIT
+2024-03-21 17:56:23,745 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x1078fa1d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:57:36,889 - INFO - SELECT DATABASE()
+2024-03-21 17:57:36,892 - INFO - [raw sql] {}
+2024-03-21 17:57:36,980 - INFO - SELECT @@sql_mode
+2024-03-21 17:57:36,980 - INFO - [raw sql] {}
+2024-03-21 17:57:37,026 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:57:37,026 - INFO - [raw sql] {}
+2024-03-21 17:57:37,067 - INFO - BEGIN (implicit)
+2024-03-21 17:57:37,088 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:57:37,088 - INFO - [raw sql] {}
+2024-03-21 17:57:37,130 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:57:37,130 - INFO - [raw sql] {}
+2024-03-21 17:57:37,171 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:57:37,172 - INFO - [raw sql] {}
+2024-03-21 17:57:37,212 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:57:37,213 - INFO - [raw sql] {}
+2024-03-21 17:57:37,254 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:57:37,255 - INFO - [raw sql] {}
+2024-03-21 17:57:37,297 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:57:37,297 - INFO - [raw sql] {}
+2024-03-21 17:57:37,320 - INFO - COMMIT
+2024-03-21 17:58:23,231 - INFO - SELECT DATABASE()
+2024-03-21 17:58:23,231 - INFO - [raw sql] {}
+2024-03-21 17:58:23,309 - INFO - SELECT @@sql_mode
+2024-03-21 17:58:23,310 - INFO - [raw sql] {}
+2024-03-21 17:58:23,348 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:58:23,348 - INFO - [raw sql] {}
+2024-03-21 17:58:23,388 - INFO - BEGIN (implicit)
+2024-03-21 17:58:23,407 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:58:23,408 - INFO - [raw sql] {}
+2024-03-21 17:58:23,446 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:58:23,446 - INFO - [raw sql] {}
+2024-03-21 17:58:23,486 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:58:23,487 - INFO - [raw sql] {}
+2024-03-21 17:58:23,527 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:58:23,527 - INFO - [raw sql] {}
+2024-03-21 17:58:23,569 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:58:23,569 - INFO - [raw sql] {}
+2024-03-21 17:58:23,608 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:58:23,609 - INFO - [raw sql] {}
+2024-03-21 17:58:23,630 - INFO - COMMIT
+2024-03-21 17:58:29,828 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x109a6f4d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:58:31,113 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x108548f90>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 17:59:12,059 - INFO - SELECT DATABASE()
+2024-03-21 17:59:12,061 - INFO - [raw sql] {}
+2024-03-21 17:59:12,161 - INFO - SELECT @@sql_mode
+2024-03-21 17:59:12,161 - INFO - [raw sql] {}
+2024-03-21 17:59:12,215 - INFO - SELECT @@lower_case_table_names
+2024-03-21 17:59:12,216 - INFO - [raw sql] {}
+2024-03-21 17:59:12,269 - INFO - BEGIN (implicit)
+2024-03-21 17:59:12,297 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 17:59:12,298 - INFO - [raw sql] {}
+2024-03-21 17:59:12,351 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 17:59:12,351 - INFO - [raw sql] {}
+2024-03-21 17:59:12,400 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 17:59:12,400 - INFO - [raw sql] {}
+2024-03-21 17:59:12,449 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 17:59:12,449 - INFO - [raw sql] {}
+2024-03-21 17:59:12,497 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 17:59:12,497 - INFO - [raw sql] {}
+2024-03-21 17:59:12,547 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 17:59:12,547 - INFO - [raw sql] {}
+2024-03-21 17:59:12,573 - INFO - COMMIT
+2024-03-21 17:59:14,471 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x106fe3050>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:00:01,123 - INFO - SELECT DATABASE()
+2024-03-21 18:00:01,124 - INFO - [raw sql] {}
+2024-03-21 18:00:01,232 - INFO - SELECT @@sql_mode
+2024-03-21 18:00:01,232 - INFO - [raw sql] {}
+2024-03-21 18:00:01,284 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:00:01,284 - INFO - [raw sql] {}
+2024-03-21 18:00:01,337 - INFO - BEGIN (implicit)
+2024-03-21 18:00:01,363 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:00:01,363 - INFO - [raw sql] {}
+2024-03-21 18:00:01,415 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:00:01,416 - INFO - [raw sql] {}
+2024-03-21 18:00:01,468 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:00:01,469 - INFO - [raw sql] {}
+2024-03-21 18:00:01,520 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:00:01,520 - INFO - [raw sql] {}
+2024-03-21 18:00:01,573 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:00:01,574 - INFO - [raw sql] {}
+2024-03-21 18:00:01,630 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:00:01,630 - INFO - [raw sql] {}
+2024-03-21 18:00:01,659 - INFO - COMMIT
+2024-03-21 18:00:05,840 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x106833950>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:00:06,782 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x10564f1d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:01:09,600 - INFO - SELECT DATABASE()
+2024-03-21 18:01:09,602 - INFO - [raw sql] {}
+2024-03-21 18:01:09,688 - INFO - SELECT @@sql_mode
+2024-03-21 18:01:09,689 - INFO - [raw sql] {}
+2024-03-21 18:01:09,731 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:01:09,732 - INFO - [raw sql] {}
+2024-03-21 18:01:09,775 - INFO - BEGIN (implicit)
+2024-03-21 18:01:09,797 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:01:09,797 - INFO - [raw sql] {}
+2024-03-21 18:01:09,841 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:01:09,841 - INFO - [raw sql] {}
+2024-03-21 18:01:09,885 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:01:09,885 - INFO - [raw sql] {}
+2024-03-21 18:01:09,930 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:01:09,930 - INFO - [raw sql] {}
+2024-03-21 18:01:10,051 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:01:10,052 - INFO - [raw sql] {}
+2024-03-21 18:01:10,094 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:01:10,095 - INFO - [raw sql] {}
+2024-03-21 18:01:10,125 - INFO - COMMIT
+2024-03-21 18:01:13,181 - ERROR - [API] name 'session' is not defined: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:01:14,087 - ERROR - [API] name 'session' is not defined: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:01:14,828 - ERROR - [API] name 'session' is not defined: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:01:20,628 - INFO - SELECT DATABASE()
+2024-03-21 18:01:20,628 - INFO - [raw sql] {}
+2024-03-21 18:01:20,702 - INFO - SELECT @@sql_mode
+2024-03-21 18:01:20,702 - INFO - [raw sql] {}
+2024-03-21 18:01:20,740 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:01:20,740 - INFO - [raw sql] {}
+2024-03-21 18:01:20,781 - INFO - BEGIN (implicit)
+2024-03-21 18:01:20,802 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:01:20,802 - INFO - [raw sql] {}
+2024-03-21 18:01:20,843 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:01:20,844 - INFO - [raw sql] {}
+2024-03-21 18:01:20,884 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:01:20,885 - INFO - [raw sql] {}
+2024-03-21 18:01:20,925 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:01:20,925 - INFO - [raw sql] {}
+2024-03-21 18:01:20,966 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:01:20,967 - INFO - [raw sql] {}
+2024-03-21 18:01:21,011 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:01:21,012 - INFO - [raw sql] {}
+2024-03-21 18:01:21,033 - INFO - COMMIT
+2024-03-21 18:01:22,811 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x1081d0850>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:01:23,734 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x106fb94d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:01:45,052 - INFO - SELECT DATABASE()
+2024-03-21 18:01:45,053 - INFO - [raw sql] {}
+2024-03-21 18:01:45,157 - INFO - SELECT @@sql_mode
+2024-03-21 18:01:45,157 - INFO - [raw sql] {}
+2024-03-21 18:01:45,210 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:01:45,211 - INFO - [raw sql] {}
+2024-03-21 18:01:45,263 - INFO - BEGIN (implicit)
+2024-03-21 18:01:45,290 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:01:45,290 - INFO - [raw sql] {}
+2024-03-21 18:01:45,344 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:01:45,344 - INFO - [raw sql] {}
+2024-03-21 18:01:45,402 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:01:45,402 - INFO - [raw sql] {}
+2024-03-21 18:01:45,456 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:01:45,456 - INFO - [raw sql] {}
+2024-03-21 18:01:45,509 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:01:45,509 - INFO - [raw sql] {}
+2024-03-21 18:01:45,563 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:01:45,563 - INFO - [raw sql] {}
+2024-03-21 18:01:45,592 - INFO - COMMIT
+2024-03-21 18:01:48,127 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x108ac6410>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:02:27,592 - INFO - SELECT DATABASE()
+2024-03-21 18:02:27,593 - INFO - [raw sql] {}
+2024-03-21 18:02:27,829 - INFO - SELECT @@sql_mode
+2024-03-21 18:02:27,829 - INFO - [raw sql] {}
+2024-03-21 18:02:27,871 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:02:27,871 - INFO - [raw sql] {}
+2024-03-21 18:02:27,914 - INFO - BEGIN (implicit)
+2024-03-21 18:02:27,935 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:02:27,935 - INFO - [raw sql] {}
+2024-03-21 18:02:27,979 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:02:27,979 - INFO - [raw sql] {}
+2024-03-21 18:02:28,021 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:02:28,021 - INFO - [raw sql] {}
+2024-03-21 18:02:28,061 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:02:28,061 - INFO - [raw sql] {}
+2024-03-21 18:02:28,102 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:02:28,102 - INFO - [raw sql] {}
+2024-03-21 18:02:28,143 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:02:28,143 - INFO - [raw sql] {}
+2024-03-21 18:02:28,166 - INFO - COMMIT
+2024-03-21 18:02:31,103 - ERROR - [API] 'Session' object has no attribute 'scalar_subquery': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:03:55,480 - INFO - SELECT DATABASE()
+2024-03-21 18:03:55,480 - INFO - [raw sql] {}
+2024-03-21 18:03:55,576 - INFO - SELECT @@sql_mode
+2024-03-21 18:03:55,576 - INFO - [raw sql] {}
+2024-03-21 18:03:55,626 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:03:55,626 - INFO - [raw sql] {}
+2024-03-21 18:03:55,675 - INFO - BEGIN (implicit)
+2024-03-21 18:03:55,700 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:03:55,700 - INFO - [raw sql] {}
+2024-03-21 18:03:55,752 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:03:55,753 - INFO - [raw sql] {}
+2024-03-21 18:03:55,803 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:03:55,803 - INFO - [raw sql] {}
+2024-03-21 18:03:55,855 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:03:55,855 - INFO - [raw sql] {}
+2024-03-21 18:03:55,905 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:03:55,905 - INFO - [raw sql] {}
+2024-03-21 18:03:55,955 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:03:55,955 - INFO - [raw sql] {}
+2024-03-21 18:03:55,982 - INFO - COMMIT
+2024-03-21 18:03:59,042 - INFO - BEGIN (implicit)
+2024-03-21 18:03:59,069 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:03:59,069 - INFO - [generated in 0.02478s] {}
+2024-03-21 18:03:59,096 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x10756fe50>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:03:59,096 - INFO - ROLLBACK
+2024-03-21 18:03:59,890 - INFO - BEGIN (implicit)
+2024-03-21 18:03:59,918 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:03:59,918 - INFO - [cached since 0.8737s ago] {}
+2024-03-21 18:03:59,945 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x1075d2b50>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:03:59,946 - INFO - ROLLBACK
+2024-03-21 18:04:16,576 - INFO - SELECT DATABASE()
+2024-03-21 18:04:16,577 - INFO - [raw sql] {}
+2024-03-21 18:04:16,651 - INFO - SELECT @@sql_mode
+2024-03-21 18:04:16,651 - INFO - [raw sql] {}
+2024-03-21 18:04:16,689 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:04:16,689 - INFO - [raw sql] {}
+2024-03-21 18:04:16,729 - INFO - BEGIN (implicit)
+2024-03-21 18:04:16,747 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:04:16,747 - INFO - [raw sql] {}
+2024-03-21 18:04:16,788 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:04:16,788 - INFO - [raw sql] {}
+2024-03-21 18:04:16,829 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:04:16,830 - INFO - [raw sql] {}
+2024-03-21 18:04:16,870 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:04:16,871 - INFO - [raw sql] {}
+2024-03-21 18:04:16,911 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:04:16,911 - INFO - [raw sql] {}
+2024-03-21 18:04:16,950 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:04:16,950 - INFO - [raw sql] {}
+2024-03-21 18:04:16,971 - INFO - COMMIT
+2024-03-21 18:04:18,828 - INFO - BEGIN (implicit)
+2024-03-21 18:04:18,851 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:04:18,851 - INFO - [generated in 0.02044s] {}
+2024-03-21 18:04:18,872 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x110269790>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:04:18,872 - INFO - ROLLBACK
+2024-03-21 18:04:32,024 - INFO - SELECT DATABASE()
+2024-03-21 18:04:32,024 - INFO - [raw sql] {}
+2024-03-21 18:04:32,133 - INFO - SELECT @@sql_mode
+2024-03-21 18:04:32,133 - INFO - [raw sql] {}
+2024-03-21 18:04:32,189 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:04:32,189 - INFO - [raw sql] {}
+2024-03-21 18:04:32,246 - INFO - BEGIN (implicit)
+2024-03-21 18:04:32,273 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:04:32,273 - INFO - [raw sql] {}
+2024-03-21 18:04:32,332 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:04:32,332 - INFO - [raw sql] {}
+2024-03-21 18:04:32,390 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:04:32,391 - INFO - [raw sql] {}
+2024-03-21 18:04:32,447 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:04:32,447 - INFO - [raw sql] {}
+2024-03-21 18:04:32,505 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:04:32,505 - INFO - [raw sql] {}
+2024-03-21 18:04:32,559 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:04:32,559 - INFO - [raw sql] {}
+2024-03-21 18:04:32,586 - INFO - COMMIT
+2024-03-21 18:04:34,547 - INFO - BEGIN (implicit)
+2024-03-21 18:04:34,576 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:04:34,576 - INFO - [generated in 0.02664s] {}
+2024-03-21 18:04:34,603 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x10abfd9d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:04:34,604 - INFO - ROLLBACK
+2024-03-21 18:04:47,946 - INFO - SELECT DATABASE()
+2024-03-21 18:04:47,947 - INFO - [raw sql] {}
+2024-03-21 18:04:48,042 - INFO - SELECT @@sql_mode
+2024-03-21 18:04:48,043 - INFO - [raw sql] {}
+2024-03-21 18:04:48,102 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:04:48,103 - INFO - [raw sql] {}
+2024-03-21 18:04:48,156 - INFO - BEGIN (implicit)
+2024-03-21 18:04:48,186 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:04:48,187 - INFO - [raw sql] {}
+2024-03-21 18:04:48,242 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:04:48,243 - INFO - [raw sql] {}
+2024-03-21 18:04:48,305 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:04:48,305 - INFO - [raw sql] {}
+2024-03-21 18:04:48,361 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:04:48,361 - INFO - [raw sql] {}
+2024-03-21 18:04:48,413 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:04:48,414 - INFO - [raw sql] {}
+2024-03-21 18:04:48,468 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:04:48,468 - INFO - [raw sql] {}
+2024-03-21 18:04:48,495 - INFO - COMMIT
+2024-03-21 18:04:49,140 - INFO - BEGIN (implicit)
+2024-03-21 18:04:49,167 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:04:49,168 - INFO - [generated in 0.02459s] {}
+2024-03-21 18:04:49,193 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x10417a9d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:04:49,194 - INFO - ROLLBACK
+2024-03-21 18:05:08,627 - INFO - SELECT DATABASE()
+2024-03-21 18:05:08,628 - INFO - [raw sql] {}
+2024-03-21 18:05:08,724 - INFO - SELECT @@sql_mode
+2024-03-21 18:05:08,725 - INFO - [raw sql] {}
+2024-03-21 18:05:08,773 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:05:08,773 - INFO - [raw sql] {}
+2024-03-21 18:05:08,821 - INFO - BEGIN (implicit)
+2024-03-21 18:05:08,846 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:05:08,846 - INFO - [raw sql] {}
+2024-03-21 18:05:08,894 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:05:08,894 - INFO - [raw sql] {}
+2024-03-21 18:05:08,945 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:05:08,945 - INFO - [raw sql] {}
+2024-03-21 18:05:08,994 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:05:08,994 - INFO - [raw sql] {}
+2024-03-21 18:05:09,045 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:05:09,045 - INFO - [raw sql] {}
+2024-03-21 18:05:09,097 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:05:09,097 - INFO - [raw sql] {}
+2024-03-21 18:05:09,121 - INFO - COMMIT
+2024-03-21 18:05:11,241 - INFO - BEGIN (implicit)
+2024-03-21 18:05:11,272 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:05:11,272 - INFO - [generated in 0.02829s] {}
+2024-03-21 18:05:11,298 - ERROR - [API] mapping or list expected for parameters: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:05:11,299 - INFO - ROLLBACK
+2024-03-21 18:05:24,736 - INFO - SELECT DATABASE()
+2024-03-21 18:05:24,737 - INFO - [raw sql] {}
+2024-03-21 18:05:24,837 - INFO - SELECT @@sql_mode
+2024-03-21 18:05:24,837 - INFO - [raw sql] {}
+2024-03-21 18:05:24,886 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:05:24,886 - INFO - [raw sql] {}
+2024-03-21 18:05:24,938 - INFO - BEGIN (implicit)
+2024-03-21 18:05:24,962 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:05:24,963 - INFO - [raw sql] {}
+2024-03-21 18:05:25,013 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:05:25,013 - INFO - [raw sql] {}
+2024-03-21 18:05:25,063 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:05:25,063 - INFO - [raw sql] {}
+2024-03-21 18:05:25,113 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:05:25,113 - INFO - [raw sql] {}
+2024-03-21 18:05:25,166 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:05:25,166 - INFO - [raw sql] {}
+2024-03-21 18:05:25,227 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:05:25,227 - INFO - [raw sql] {}
+2024-03-21 18:05:25,253 - INFO - COMMIT
+2024-03-21 18:05:27,776 - INFO - BEGIN (implicit)
+2024-03-21 18:05:27,805 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:05:27,805 - INFO - [generated in 0.02601s] {}
+2024-03-21 18:05:27,854 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:05:27,855 - INFO - [cached since 0.07554s ago] {}
+2024-03-21 18:05:27,881 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x108131310>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:05:27,883 - INFO - ROLLBACK
+2024-03-21 18:05:38,063 - INFO - SELECT DATABASE()
+2024-03-21 18:05:38,063 - INFO - [raw sql] {}
+2024-03-21 18:05:38,135 - INFO - SELECT @@sql_mode
+2024-03-21 18:05:38,135 - INFO - [raw sql] {}
+2024-03-21 18:05:38,173 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:05:38,173 - INFO - [raw sql] {}
+2024-03-21 18:05:38,214 - INFO - BEGIN (implicit)
+2024-03-21 18:05:38,233 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:05:38,233 - INFO - [raw sql] {}
+2024-03-21 18:05:38,272 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:05:38,273 - INFO - [raw sql] {}
+2024-03-21 18:05:38,312 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:05:38,312 - INFO - [raw sql] {}
+2024-03-21 18:05:38,352 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:05:38,352 - INFO - [raw sql] {}
+2024-03-21 18:05:38,392 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:05:38,392 - INFO - [raw sql] {}
+2024-03-21 18:05:38,431 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:05:38,431 - INFO - [raw sql] {}
+2024-03-21 18:05:38,454 - INFO - COMMIT
+2024-03-21 18:05:40,188 - INFO - BEGIN (implicit)
+2024-03-21 18:05:40,209 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:05:40,209 - INFO - [generated in 0.01940s] {}
+2024-03-21 18:05:40,249 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:05:40,250 - INFO - [cached since 0.05981s ago] {}
+2024-03-21 18:05:40,268 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x106ab7b50>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:05:40,270 - INFO - ROLLBACK
+2024-03-21 18:05:59,137 - INFO - SELECT DATABASE()
+2024-03-21 18:05:59,139 - INFO - [raw sql] {}
+2024-03-21 18:05:59,216 - INFO - SELECT @@sql_mode
+2024-03-21 18:05:59,217 - INFO - [raw sql] {}
+2024-03-21 18:05:59,252 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:05:59,253 - INFO - [raw sql] {}
+2024-03-21 18:05:59,291 - INFO - BEGIN (implicit)
+2024-03-21 18:05:59,309 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:05:59,309 - INFO - [raw sql] {}
+2024-03-21 18:05:59,347 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:05:59,347 - INFO - [raw sql] {}
+2024-03-21 18:05:59,386 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:05:59,386 - INFO - [raw sql] {}
+2024-03-21 18:05:59,426 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:05:59,426 - INFO - [raw sql] {}
+2024-03-21 18:05:59,465 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:05:59,465 - INFO - [raw sql] {}
+2024-03-21 18:05:59,505 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:05:59,506 - INFO - [raw sql] {}
+2024-03-21 18:05:59,527 - INFO - COMMIT
+2024-03-21 18:06:01,380 - INFO - BEGIN (implicit)
+2024-03-21 18:06:01,400 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:01,400 - INFO - [generated in 0.01788s] {}
+2024-03-21 18:06:01,437 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:01,438 - INFO - [cached since 0.05572s ago] {}
+2024-03-21 18:06:01,456 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x1082754d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:06:01,457 - INFO - ROLLBACK
+2024-03-21 18:06:09,603 - INFO - SELECT DATABASE()
+2024-03-21 18:06:09,605 - INFO - [raw sql] {}
+2024-03-21 18:06:09,713 - INFO - SELECT @@sql_mode
+2024-03-21 18:06:09,717 - INFO - [raw sql] {}
+2024-03-21 18:06:09,771 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:06:09,772 - INFO - [raw sql] {}
+2024-03-21 18:06:09,828 - INFO - BEGIN (implicit)
+2024-03-21 18:06:09,856 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:06:09,856 - INFO - [raw sql] {}
+2024-03-21 18:06:09,912 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:06:09,913 - INFO - [raw sql] {}
+2024-03-21 18:06:09,968 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:06:09,968 - INFO - [raw sql] {}
+2024-03-21 18:06:10,020 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:06:10,020 - INFO - [raw sql] {}
+2024-03-21 18:06:10,073 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:06:10,073 - INFO - [raw sql] {}
+2024-03-21 18:06:10,128 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:06:10,128 - INFO - [raw sql] {}
+2024-03-21 18:06:10,156 - INFO - COMMIT
+2024-03-21 18:06:11,730 - INFO - BEGIN (implicit)
+2024-03-21 18:06:11,758 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:11,758 - INFO - [generated in 0.02588s] {}
+2024-03-21 18:06:11,811 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:11,812 - INFO - [cached since 0.07956s ago] {}
+2024-03-21 18:06:11,841 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x105e69450>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:06:11,842 - INFO - ROLLBACK
+2024-03-21 18:06:20,051 - INFO - SELECT DATABASE()
+2024-03-21 18:06:20,053 - INFO - [raw sql] {}
+2024-03-21 18:06:20,153 - INFO - SELECT @@sql_mode
+2024-03-21 18:06:20,155 - INFO - [raw sql] {}
+2024-03-21 18:06:20,205 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:06:20,206 - INFO - [raw sql] {}
+2024-03-21 18:06:20,258 - INFO - BEGIN (implicit)
+2024-03-21 18:06:20,285 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:06:20,286 - INFO - [raw sql] {}
+2024-03-21 18:06:20,341 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:06:20,342 - INFO - [raw sql] {}
+2024-03-21 18:06:20,401 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:06:20,401 - INFO - [raw sql] {}
+2024-03-21 18:06:20,450 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:06:20,450 - INFO - [raw sql] {}
+2024-03-21 18:06:20,500 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:06:20,500 - INFO - [raw sql] {}
+2024-03-21 18:06:20,550 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:06:20,550 - INFO - [raw sql] {}
+2024-03-21 18:06:20,576 - INFO - COMMIT
+2024-03-21 18:06:22,201 - INFO - BEGIN (implicit)
+2024-03-21 18:06:22,230 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:22,230 - INFO - [generated in 0.02700s] {}
+2024-03-21 18:06:22,285 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:22,285 - INFO - [cached since 0.08211s ago] {}
+2024-03-21 18:06:22,313 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x103bdf790>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:06:22,316 - INFO - ROLLBACK
+2024-03-21 18:06:42,119 - INFO - SELECT DATABASE()
+2024-03-21 18:06:42,120 - INFO - [raw sql] {}
+2024-03-21 18:06:42,229 - INFO - SELECT @@sql_mode
+2024-03-21 18:06:42,230 - INFO - [raw sql] {}
+2024-03-21 18:06:42,285 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:06:42,286 - INFO - [raw sql] {}
+2024-03-21 18:06:42,344 - INFO - BEGIN (implicit)
+2024-03-21 18:06:42,373 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:06:42,373 - INFO - [raw sql] {}
+2024-03-21 18:06:42,429 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:06:42,430 - INFO - [raw sql] {}
+2024-03-21 18:06:42,488 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:06:42,489 - INFO - [raw sql] {}
+2024-03-21 18:06:42,546 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:06:42,546 - INFO - [raw sql] {}
+2024-03-21 18:06:42,600 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:06:42,600 - INFO - [raw sql] {}
+2024-03-21 18:06:42,655 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:06:42,655 - INFO - [raw sql] {}
+2024-03-21 18:06:42,683 - INFO - COMMIT
+2024-03-21 18:06:44,407 - INFO - BEGIN (implicit)
+2024-03-21 18:06:44,438 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:06:44,439 - INFO - [generated in 0.02918s] {}
+2024-03-21 18:06:44,467 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x1055148d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:06:44,467 - INFO - ROLLBACK
+2024-03-21 18:07:15,146 - INFO - SELECT DATABASE()
+2024-03-21 18:07:15,146 - INFO - [raw sql] {}
+2024-03-21 18:07:15,222 - INFO - SELECT @@sql_mode
+2024-03-21 18:07:15,223 - INFO - [raw sql] {}
+2024-03-21 18:07:15,264 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:07:15,265 - INFO - [raw sql] {}
+2024-03-21 18:07:15,305 - INFO - BEGIN (implicit)
+2024-03-21 18:07:15,323 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:07:15,323 - INFO - [raw sql] {}
+2024-03-21 18:07:15,363 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:07:15,363 - INFO - [raw sql] {}
+2024-03-21 18:07:15,403 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:07:15,403 - INFO - [raw sql] {}
+2024-03-21 18:07:15,441 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:07:15,442 - INFO - [raw sql] {}
+2024-03-21 18:07:15,482 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:07:15,482 - INFO - [raw sql] {}
+2024-03-21 18:07:15,522 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:07:15,522 - INFO - [raw sql] {}
+2024-03-21 18:07:15,544 - INFO - COMMIT
+2024-03-21 18:07:18,954 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x104086b10>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:07:44,752 - INFO - SELECT DATABASE()
+2024-03-21 18:07:44,753 - INFO - [raw sql] {}
+2024-03-21 18:07:44,853 - INFO - SELECT @@sql_mode
+2024-03-21 18:07:44,854 - INFO - [raw sql] {}
+2024-03-21 18:07:44,906 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:07:44,906 - INFO - [raw sql] {}
+2024-03-21 18:07:44,957 - INFO - BEGIN (implicit)
+2024-03-21 18:07:44,983 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:07:44,983 - INFO - [raw sql] {}
+2024-03-21 18:07:45,034 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:07:45,034 - INFO - [raw sql] {}
+2024-03-21 18:07:45,087 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:07:45,088 - INFO - [raw sql] {}
+2024-03-21 18:07:45,139 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:07:45,139 - INFO - [raw sql] {}
+2024-03-21 18:07:45,188 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:07:45,188 - INFO - [raw sql] {}
+2024-03-21 18:07:45,237 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:07:45,237 - INFO - [raw sql] {}
+2024-03-21 18:07:45,263 - INFO - COMMIT
+2024-03-21 18:07:46,789 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x106e001d0>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:08:40,434 - ERROR - [API] Executable SQL or text() construct expected, got (<sqlalchemy.sql.selectable.Select object at 0x106df6990>,).: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:08:46,493 - INFO - SELECT DATABASE()
+2024-03-21 18:08:46,494 - INFO - [raw sql] {}
+2024-03-21 18:08:46,601 - INFO - SELECT @@sql_mode
+2024-03-21 18:08:46,601 - INFO - [raw sql] {}
+2024-03-21 18:08:46,655 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:08:46,655 - INFO - [raw sql] {}
+2024-03-21 18:08:46,710 - INFO - BEGIN (implicit)
+2024-03-21 18:08:46,737 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:08:46,737 - INFO - [raw sql] {}
+2024-03-21 18:08:46,791 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:08:46,792 - INFO - [raw sql] {}
+2024-03-21 18:08:46,846 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:08:46,846 - INFO - [raw sql] {}
+2024-03-21 18:08:46,901 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:08:46,901 - INFO - [raw sql] {}
+2024-03-21 18:08:46,955 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:08:46,955 - INFO - [raw sql] {}
+2024-03-21 18:08:47,008 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:08:47,008 - INFO - [raw sql] {}
+2024-03-21 18:08:47,036 - INFO - COMMIT
+2024-03-21 18:09:16,245 - INFO - SELECT DATABASE()
+2024-03-21 18:09:16,245 - INFO - [raw sql] {}
+2024-03-21 18:09:16,371 - INFO - SELECT @@sql_mode
+2024-03-21 18:09:16,371 - INFO - [raw sql] {}
+2024-03-21 18:09:16,425 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:09:16,425 - INFO - [raw sql] {}
+2024-03-21 18:09:16,481 - INFO - BEGIN (implicit)
+2024-03-21 18:09:16,510 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:09:16,511 - INFO - [raw sql] {}
+2024-03-21 18:09:16,571 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:09:16,571 - INFO - [raw sql] {}
+2024-03-21 18:09:16,631 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:09:16,632 - INFO - [raw sql] {}
+2024-03-21 18:09:16,691 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:09:16,691 - INFO - [raw sql] {}
+2024-03-21 18:09:16,746 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:09:16,746 - INFO - [raw sql] {}
+2024-03-21 18:09:16,802 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:09:16,803 - INFO - [raw sql] {}
+2024-03-21 18:09:16,831 - INFO - COMMIT
+2024-03-21 18:09:16,958 - INFO - BEGIN (implicit)
+2024-03-21 18:09:16,991 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:09:16,991 - INFO - [generated in 0.02810s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:09:17,021 - INFO - ROLLBACK
+2024-03-21 18:09:34,000 - INFO - SELECT DATABASE()
+2024-03-21 18:09:34,000 - INFO - [raw sql] {}
+2024-03-21 18:09:34,075 - INFO - SELECT @@sql_mode
+2024-03-21 18:09:34,075 - INFO - [raw sql] {}
+2024-03-21 18:09:34,111 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:09:34,111 - INFO - [raw sql] {}
+2024-03-21 18:09:34,148 - INFO - BEGIN (implicit)
+2024-03-21 18:09:34,167 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:09:34,167 - INFO - [raw sql] {}
+2024-03-21 18:09:34,204 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:09:34,204 - INFO - [raw sql] {}
+2024-03-21 18:09:34,243 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:09:34,243 - INFO - [raw sql] {}
+2024-03-21 18:09:34,282 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:09:34,282 - INFO - [raw sql] {}
+2024-03-21 18:09:34,322 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:09:34,322 - INFO - [raw sql] {}
+2024-03-21 18:09:34,363 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:09:34,364 - INFO - [raw sql] {}
+2024-03-21 18:09:34,383 - INFO - COMMIT
+2024-03-21 18:09:35,798 - INFO - BEGIN (implicit)
+2024-03-21 18:09:35,819 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:09:35,820 - INFO - [generated in 0.01846s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:09:35,839 - INFO - ROLLBACK
+2024-03-21 18:09:45,643 - INFO - SELECT DATABASE()
+2024-03-21 18:09:45,643 - INFO - [raw sql] {}
+2024-03-21 18:09:45,725 - INFO - SELECT @@sql_mode
+2024-03-21 18:09:45,726 - INFO - [raw sql] {}
+2024-03-21 18:09:45,764 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:09:45,765 - INFO - [raw sql] {}
+2024-03-21 18:09:45,807 - INFO - BEGIN (implicit)
+2024-03-21 18:09:45,827 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:09:45,827 - INFO - [raw sql] {}
+2024-03-21 18:09:45,873 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:09:45,873 - INFO - [raw sql] {}
+2024-03-21 18:09:45,914 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:09:45,914 - INFO - [raw sql] {}
+2024-03-21 18:09:45,955 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:09:45,955 - INFO - [raw sql] {}
+2024-03-21 18:09:46,001 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:09:46,001 - INFO - [raw sql] {}
+2024-03-21 18:09:46,042 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:09:46,043 - INFO - [raw sql] {}
+2024-03-21 18:09:46,064 - INFO - COMMIT
+2024-03-21 18:09:48,436 - INFO - BEGIN (implicit)
+2024-03-21 18:09:48,462 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:09:48,463 - INFO - [generated in 0.02333s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:09:48,484 - INFO - ROLLBACK
+2024-03-21 18:09:53,618 - INFO - SELECT DATABASE()
+2024-03-21 18:09:53,619 - INFO - [raw sql] {}
+2024-03-21 18:09:53,714 - INFO - SELECT @@sql_mode
+2024-03-21 18:09:53,715 - INFO - [raw sql] {}
+2024-03-21 18:09:53,765 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:09:53,766 - INFO - [raw sql] {}
+2024-03-21 18:09:53,817 - INFO - BEGIN (implicit)
+2024-03-21 18:09:53,843 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:09:53,843 - INFO - [raw sql] {}
+2024-03-21 18:09:53,893 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:09:53,894 - INFO - [raw sql] {}
+2024-03-21 18:09:53,948 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:09:53,949 - INFO - [raw sql] {}
+2024-03-21 18:09:54,003 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:09:54,003 - INFO - [raw sql] {}
+2024-03-21 18:09:54,055 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:09:54,055 - INFO - [raw sql] {}
+2024-03-21 18:09:54,106 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:09:54,106 - INFO - [raw sql] {}
+2024-03-21 18:09:54,131 - INFO - COMMIT
+2024-03-21 18:09:55,698 - INFO - BEGIN (implicit)
+2024-03-21 18:09:55,726 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:09:55,727 - INFO - [generated in 0.02501s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:09:55,752 - INFO - ROLLBACK
+2024-03-21 18:11:26,429 - INFO - SELECT DATABASE()
+2024-03-21 18:11:26,430 - INFO - [raw sql] {}
+2024-03-21 18:11:26,511 - INFO - SELECT @@sql_mode
+2024-03-21 18:11:26,511 - INFO - [raw sql] {}
+2024-03-21 18:11:26,553 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:11:26,553 - INFO - [raw sql] {}
+2024-03-21 18:11:26,596 - INFO - BEGIN (implicit)
+2024-03-21 18:11:26,617 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:11:26,617 - INFO - [raw sql] {}
+2024-03-21 18:11:26,661 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:11:26,662 - INFO - [raw sql] {}
+2024-03-21 18:11:26,705 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:11:26,706 - INFO - [raw sql] {}
+2024-03-21 18:11:26,750 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:11:26,750 - INFO - [raw sql] {}
+2024-03-21 18:11:26,794 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:11:26,795 - INFO - [raw sql] {}
+2024-03-21 18:11:26,846 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:11:26,846 - INFO - [raw sql] {}
+2024-03-21 18:11:26,867 - INFO - COMMIT
+2024-03-21 18:11:29,504 - INFO - BEGIN (implicit)
+2024-03-21 18:11:29,529 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s
+2024-03-21 18:11:29,530 - INFO - [generated in 0.02200s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:11:29,750 - INFO - ROLLBACK
+2024-03-21 18:11:47,167 - INFO - SELECT DATABASE()
+2024-03-21 18:11:47,168 - INFO - [raw sql] {}
+2024-03-21 18:11:47,244 - INFO - SELECT @@sql_mode
+2024-03-21 18:11:47,244 - INFO - [raw sql] {}
+2024-03-21 18:11:47,282 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:11:47,282 - INFO - [raw sql] {}
+2024-03-21 18:11:47,319 - INFO - BEGIN (implicit)
+2024-03-21 18:11:47,337 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:11:47,337 - INFO - [raw sql] {}
+2024-03-21 18:11:47,375 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:11:47,375 - INFO - [raw sql] {}
+2024-03-21 18:11:47,413 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:11:47,413 - INFO - [raw sql] {}
+2024-03-21 18:11:47,453 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:11:47,453 - INFO - [raw sql] {}
+2024-03-21 18:11:47,491 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:11:47,491 - INFO - [raw sql] {}
+2024-03-21 18:11:47,532 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:11:47,532 - INFO - [raw sql] {}
+2024-03-21 18:11:47,553 - INFO - COMMIT
+2024-03-21 18:11:49,110 - INFO - BEGIN (implicit)
+2024-03-21 18:11:49,133 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s
+2024-03-21 18:11:49,133 - INFO - [generated in 0.02035s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:11:49,313 - INFO - ROLLBACK
+2024-03-21 18:12:00,090 - INFO - SELECT DATABASE()
+2024-03-21 18:12:00,091 - INFO - [raw sql] {}
+2024-03-21 18:12:00,190 - INFO - SELECT @@sql_mode
+2024-03-21 18:12:00,190 - INFO - [raw sql] {}
+2024-03-21 18:12:00,241 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:12:00,241 - INFO - [raw sql] {}
+2024-03-21 18:12:00,294 - INFO - BEGIN (implicit)
+2024-03-21 18:12:00,319 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:12:00,319 - INFO - [raw sql] {}
+2024-03-21 18:12:00,368 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:12:00,368 - INFO - [raw sql] {}
+2024-03-21 18:12:00,421 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:12:00,422 - INFO - [raw sql] {}
+2024-03-21 18:12:00,471 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:12:00,472 - INFO - [raw sql] {}
+2024-03-21 18:12:00,520 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:12:00,520 - INFO - [raw sql] {}
+2024-03-21 18:12:00,573 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:12:00,573 - INFO - [raw sql] {}
+2024-03-21 18:12:00,600 - INFO - COMMIT
+2024-03-21 18:12:01,449 - INFO - BEGIN (implicit)
+2024-03-21 18:12:01,477 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s
+2024-03-21 18:12:01,478 - INFO - [generated in 0.02590s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:12:01,726 - INFO - ROLLBACK
+2024-03-21 18:12:25,286 - INFO - SELECT DATABASE()
+2024-03-21 18:12:25,287 - INFO - [raw sql] {}
+2024-03-21 18:12:25,390 - INFO - SELECT @@sql_mode
+2024-03-21 18:12:25,390 - INFO - [raw sql] {}
+2024-03-21 18:12:25,439 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:12:25,440 - INFO - [raw sql] {}
+2024-03-21 18:12:25,489 - INFO - BEGIN (implicit)
+2024-03-21 18:12:25,514 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:12:25,515 - INFO - [raw sql] {}
+2024-03-21 18:12:25,567 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:12:25,568 - INFO - [raw sql] {}
+2024-03-21 18:12:25,623 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:12:25,623 - INFO - [raw sql] {}
+2024-03-21 18:12:25,673 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:12:25,673 - INFO - [raw sql] {}
+2024-03-21 18:12:25,721 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:12:25,721 - INFO - [raw sql] {}
+2024-03-21 18:12:25,771 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:12:25,771 - INFO - [raw sql] {}
+2024-03-21 18:12:25,797 - INFO - COMMIT
+2024-03-21 18:12:28,039 - ERROR - [API] Operator 'getitem' is not supported on this expression: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:13:21,123 - INFO - SELECT DATABASE()
+2024-03-21 18:13:21,124 - INFO - [raw sql] {}
+2024-03-21 18:13:21,220 - INFO - SELECT @@sql_mode
+2024-03-21 18:13:21,221 - INFO - [raw sql] {}
+2024-03-21 18:13:21,268 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:13:21,270 - INFO - [raw sql] {}
+2024-03-21 18:13:21,318 - INFO - BEGIN (implicit)
+2024-03-21 18:13:21,342 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:13:21,342 - INFO - [raw sql] {}
+2024-03-21 18:13:21,391 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:13:21,391 - INFO - [raw sql] {}
+2024-03-21 18:13:21,441 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:13:21,441 - INFO - [raw sql] {}
+2024-03-21 18:13:21,496 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:13:21,496 - INFO - [raw sql] {}
+2024-03-21 18:13:21,547 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:13:21,547 - INFO - [raw sql] {}
+2024-03-21 18:13:21,594 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:13:21,595 - INFO - [raw sql] {}
+2024-03-21 18:13:21,620 - INFO - COMMIT
+2024-03-21 18:13:23,736 - INFO - BEGIN (implicit)
+2024-03-21 18:13:23,763 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:13:23,763 - INFO - [generated in 0.02457s] {}
+2024-03-21 18:13:23,813 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:13:23,813 - INFO - [generated in 0.02477s] {'locatie_1': 'Apeldoorn', 'metingenId_1': 797}
+2024-03-21 18:13:23,846 - INFO - ROLLBACK
+2024-03-21 18:13:42,646 - INFO - SELECT DATABASE()
+2024-03-21 18:13:42,648 - INFO - [raw sql] {}
+2024-03-21 18:13:42,748 - INFO - SELECT @@sql_mode
+2024-03-21 18:13:42,749 - INFO - [raw sql] {}
+2024-03-21 18:13:42,801 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:13:42,802 - INFO - [raw sql] {}
+2024-03-21 18:13:42,856 - INFO - BEGIN (implicit)
+2024-03-21 18:13:42,882 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:13:42,882 - INFO - [raw sql] {}
+2024-03-21 18:13:42,941 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:13:42,941 - INFO - [raw sql] {}
+2024-03-21 18:13:42,991 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:13:42,992 - INFO - [raw sql] {}
+2024-03-21 18:13:43,042 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:13:43,042 - INFO - [raw sql] {}
+2024-03-21 18:13:43,093 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:13:43,093 - INFO - [raw sql] {}
+2024-03-21 18:13:43,142 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:13:43,142 - INFO - [raw sql] {}
+2024-03-21 18:13:43,169 - INFO - COMMIT
+2024-03-21 18:13:44,675 - INFO - BEGIN (implicit)
+2024-03-21 18:13:44,702 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:13:44,703 - INFO - [generated in 0.02561s] {}
+2024-03-21 18:13:44,752 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:13:44,753 - INFO - [generated in 0.02500s] {'locatie_1': 'Apeldoorn', 'metingenId_1': 797}
+2024-03-21 18:13:44,779 - INFO - ROLLBACK
+2024-03-21 18:14:21,217 - INFO - SELECT DATABASE()
+2024-03-21 18:14:21,218 - INFO - [raw sql] {}
+2024-03-21 18:14:21,290 - INFO - SELECT @@sql_mode
+2024-03-21 18:14:21,291 - INFO - [raw sql] {}
+2024-03-21 18:14:21,330 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:14:21,330 - INFO - [raw sql] {}
+2024-03-21 18:14:21,368 - INFO - BEGIN (implicit)
+2024-03-21 18:14:21,386 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:14:21,386 - INFO - [raw sql] {}
+2024-03-21 18:14:21,424 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:14:21,425 - INFO - [raw sql] {}
+2024-03-21 18:14:21,477 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:14:21,477 - INFO - [raw sql] {}
+2024-03-21 18:14:21,514 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:14:21,515 - INFO - [raw sql] {}
+2024-03-21 18:14:21,552 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:14:21,552 - INFO - [raw sql] {}
+2024-03-21 18:14:21,590 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:14:21,590 - INFO - [raw sql] {}
+2024-03-21 18:14:21,610 - INFO - COMMIT
+2024-03-21 18:14:24,267 - INFO - BEGIN (implicit)
+2024-03-21 18:14:24,288 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:14:24,288 - INFO - [generated in 0.01857s] {}
+2024-03-21 18:14:24,327 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:14:24,327 - INFO - [cached since 0.05732s ago] {}
+2024-03-21 18:14:24,367 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:14:24,368 - INFO - [generated in 0.01994s] {'locatie_1': 'Apeldoorn', 'metingenId_1': 797}
+2024-03-21 18:14:24,389 - INFO - ROLLBACK
+2024-03-21 18:15:20,902 - INFO - SELECT DATABASE()
+2024-03-21 18:15:20,903 - INFO - [raw sql] {}
+2024-03-21 18:15:21,008 - INFO - SELECT @@sql_mode
+2024-03-21 18:15:21,008 - INFO - [raw sql] {}
+2024-03-21 18:15:21,060 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:15:21,060 - INFO - [raw sql] {}
+2024-03-21 18:15:21,115 - INFO - BEGIN (implicit)
+2024-03-21 18:15:21,142 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:15:21,143 - INFO - [raw sql] {}
+2024-03-21 18:15:21,199 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:15:21,199 - INFO - [raw sql] {}
+2024-03-21 18:15:21,257 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:15:21,258 - INFO - [raw sql] {}
+2024-03-21 18:15:21,310 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:15:21,310 - INFO - [raw sql] {}
+2024-03-21 18:15:21,364 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:15:21,364 - INFO - [raw sql] {}
+2024-03-21 18:15:21,418 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:15:21,420 - INFO - [raw sql] {}
+2024-03-21 18:15:21,454 - INFO - COMMIT
+2024-03-21 18:15:23,347 - INFO - BEGIN (implicit)
+2024-03-21 18:15:23,376 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:15:23,377 - INFO - [generated in 0.02706s] {}
+2024-03-21 18:15:23,430 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:15:23,431 - INFO - [generated in 0.02648s] {'param_1': 1}
+2024-03-21 18:15:23,486 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:15:23,486 - INFO - [cached since 0.1366s ago] {}
+2024-03-21 18:15:23,553 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:15:23,554 - INFO - [generated in 0.03119s] {'locatie_1': 'Apeldoorn', 'metingenId_1': 797}
+2024-03-21 18:15:23,589 - INFO - ROLLBACK
+2024-03-21 18:15:37,848 - INFO - SELECT DATABASE()
+2024-03-21 18:15:37,848 - INFO - [raw sql] {}
+2024-03-21 18:15:37,945 - INFO - SELECT @@sql_mode
+2024-03-21 18:15:37,945 - INFO - [raw sql] {}
+2024-03-21 18:15:37,993 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:15:37,993 - INFO - [raw sql] {}
+2024-03-21 18:15:38,043 - INFO - BEGIN (implicit)
+2024-03-21 18:15:38,068 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:15:38,068 - INFO - [raw sql] {}
+2024-03-21 18:15:38,117 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:15:38,118 - INFO - [raw sql] {}
+2024-03-21 18:15:38,166 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:15:38,166 - INFO - [raw sql] {}
+2024-03-21 18:15:38,214 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:15:38,214 - INFO - [raw sql] {}
+2024-03-21 18:15:38,264 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:15:38,264 - INFO - [raw sql] {}
+2024-03-21 18:15:38,315 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:15:38,315 - INFO - [raw sql] {}
+2024-03-21 18:15:38,342 - INFO - COMMIT
+2024-03-21 18:15:40,210 - INFO - BEGIN (implicit)
+2024-03-21 18:15:40,238 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:15:40,238 - INFO - [generated in 0.02599s] {}
+2024-03-21 18:15:40,288 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen
+2024-03-21 18:15:40,288 - INFO - [generated in 0.02456s] {}
+2024-03-21 18:15:40,317 - ERROR - [API] Multiple rows were found when exactly one was required: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:15:40,320 - INFO - ROLLBACK
+2024-03-21 18:16:03,361 - INFO - SELECT DATABASE()
+2024-03-21 18:16:03,361 - INFO - [raw sql] {}
+2024-03-21 18:16:03,433 - INFO - SELECT @@sql_mode
+2024-03-21 18:16:03,433 - INFO - [raw sql] {}
+2024-03-21 18:16:03,469 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:16:03,469 - INFO - [raw sql] {}
+2024-03-21 18:16:03,505 - INFO - BEGIN (implicit)
+2024-03-21 18:16:03,524 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:16:03,524 - INFO - [raw sql] {}
+2024-03-21 18:16:03,563 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:16:03,563 - INFO - [raw sql] {}
+2024-03-21 18:16:03,600 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:16:03,600 - INFO - [raw sql] {}
+2024-03-21 18:16:03,637 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:16:03,637 - INFO - [raw sql] {}
+2024-03-21 18:16:03,676 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:16:03,676 - INFO - [raw sql] {}
+2024-03-21 18:16:03,714 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:16:03,714 - INFO - [raw sql] {}
+2024-03-21 18:16:03,735 - INFO - COMMIT
+2024-03-21 18:16:05,846 - INFO - BEGIN (implicit)
+2024-03-21 18:16:05,873 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:16:05,874 - INFO - [generated in 0.02421s] {}
+2024-03-21 18:16:05,911 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen
+2024-03-21 18:16:05,911 - INFO - [generated in 0.01842s] {}
+2024-03-21 18:16:05,929 - ERROR - [API] Multiple rows were found when exactly one was required: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:16:05,930 - INFO - ROLLBACK
+2024-03-21 18:16:52,737 - INFO - SELECT DATABASE()
+2024-03-21 18:16:52,738 - INFO - [raw sql] {}
+2024-03-21 18:16:52,811 - INFO - SELECT @@sql_mode
+2024-03-21 18:16:52,811 - INFO - [raw sql] {}
+2024-03-21 18:16:52,848 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:16:52,849 - INFO - [raw sql] {}
+2024-03-21 18:16:52,890 - INFO - BEGIN (implicit)
+2024-03-21 18:16:52,910 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:16:52,910 - INFO - [raw sql] {}
+2024-03-21 18:16:52,947 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:16:52,947 - INFO - [raw sql] {}
+2024-03-21 18:16:52,984 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:16:52,985 - INFO - [raw sql] {}
+2024-03-21 18:16:53,022 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:16:53,022 - INFO - [raw sql] {}
+2024-03-21 18:16:53,061 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:16:53,062 - INFO - [raw sql] {}
+2024-03-21 18:16:53,104 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:16:53,105 - INFO - [raw sql] {}
+2024-03-21 18:16:53,127 - INFO - COMMIT
+2024-03-21 18:16:54,495 - INFO - BEGIN (implicit)
+2024-03-21 18:16:54,515 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:16:54,516 - INFO - [generated in 0.01857s] {}
+2024-03-21 18:16:54,554 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:16:54,554 - INFO - [generated in 0.01886s] {'locatie_1': 'Apeldoorn', 'metingenId_1': 797}
+2024-03-21 18:16:54,573 - INFO - ROLLBACK
+2024-03-21 18:17:07,588 - INFO - SELECT DATABASE()
+2024-03-21 18:17:07,589 - INFO - [raw sql] {}
+2024-03-21 18:17:07,672 - INFO - SELECT @@sql_mode
+2024-03-21 18:17:07,672 - INFO - [raw sql] {}
+2024-03-21 18:17:07,713 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:17:07,713 - INFO - [raw sql] {}
+2024-03-21 18:17:07,759 - INFO - BEGIN (implicit)
+2024-03-21 18:17:07,783 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:17:07,783 - INFO - [raw sql] {}
+2024-03-21 18:17:07,830 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:17:07,830 - INFO - [raw sql] {}
+2024-03-21 18:17:07,873 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:17:07,874 - INFO - [raw sql] {}
+2024-03-21 18:17:07,914 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:17:07,915 - INFO - [raw sql] {}
+2024-03-21 18:17:07,962 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:17:07,962 - INFO - [raw sql] {}
+2024-03-21 18:17:08,003 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:17:08,003 - INFO - [raw sql] {}
+2024-03-21 18:17:08,025 - INFO - COMMIT
+2024-03-21 18:17:09,957 - INFO - BEGIN (implicit)
+2024-03-21 18:17:09,981 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:17:09,981 - INFO - [generated in 0.02178s] {}
+2024-03-21 18:17:10,021 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen
+2024-03-21 18:17:10,021 - INFO - [generated in 0.01939s] {}
+2024-03-21 18:17:10,042 - ERROR - [API] Multiple rows were found when exactly one was required: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:17:10,043 - INFO - ROLLBACK
+2024-03-21 18:17:16,412 - INFO - SELECT DATABASE()
+2024-03-21 18:17:16,413 - INFO - [raw sql] {}
+2024-03-21 18:17:16,497 - INFO - SELECT @@sql_mode
+2024-03-21 18:17:16,498 - INFO - [raw sql] {}
+2024-03-21 18:17:16,539 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:17:16,539 - INFO - [raw sql] {}
+2024-03-21 18:17:16,582 - INFO - BEGIN (implicit)
+2024-03-21 18:17:16,606 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:17:16,606 - INFO - [raw sql] {}
+2024-03-21 18:17:16,651 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:17:16,651 - INFO - [raw sql] {}
+2024-03-21 18:17:16,697 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:17:16,697 - INFO - [raw sql] {}
+2024-03-21 18:17:16,738 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:17:16,738 - INFO - [raw sql] {}
+2024-03-21 18:17:16,779 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:17:16,779 - INFO - [raw sql] {}
+2024-03-21 18:17:16,831 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:17:16,832 - INFO - [raw sql] {}
+2024-03-21 18:17:16,856 - INFO - COMMIT
+2024-03-21 18:17:18,524 - INFO - BEGIN (implicit)
+2024-03-21 18:17:18,547 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:17:18,548 - INFO - [generated in 0.02121s] {}
+2024-03-21 18:17:18,588 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen
+2024-03-21 18:17:18,588 - INFO - [generated in 0.01965s] {}
+2024-03-21 18:17:18,608 - ERROR - [API] Multiple rows were found when exactly one was required: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:17:18,609 - INFO - ROLLBACK
+2024-03-21 18:17:24,942 - INFO - SELECT DATABASE()
+2024-03-21 18:17:24,943 - INFO - [raw sql] {}
+2024-03-21 18:17:25,017 - INFO - SELECT @@sql_mode
+2024-03-21 18:17:25,018 - INFO - [raw sql] {}
+2024-03-21 18:17:25,055 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:17:25,056 - INFO - [raw sql] {}
+2024-03-21 18:17:25,094 - INFO - BEGIN (implicit)
+2024-03-21 18:17:25,113 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:17:25,113 - INFO - [raw sql] {}
+2024-03-21 18:17:25,150 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:17:25,150 - INFO - [raw sql] {}
+2024-03-21 18:17:25,191 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:17:25,191 - INFO - [raw sql] {}
+2024-03-21 18:17:25,231 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:17:25,231 - INFO - [raw sql] {}
+2024-03-21 18:17:25,270 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:17:25,270 - INFO - [raw sql] {}
+2024-03-21 18:17:25,308 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:17:25,308 - INFO - [raw sql] {}
+2024-03-21 18:17:25,329 - INFO - COMMIT
+2024-03-21 18:17:26,440 - INFO - BEGIN (implicit)
+2024-03-21 18:17:26,467 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:17:26,467 - INFO - [generated in 0.02441s] {}
+2024-03-21 18:17:26,509 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:17:26,509 - INFO - [generated in 0.01914s] {'param_1': 1}
+2024-03-21 18:17:26,547 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:17:26,548 - INFO - [generated in 0.01943s] {'locatie_1': 'Apeldoorn', 'metingenId_1': 797}
+2024-03-21 18:17:26,568 - INFO - ROLLBACK
+2024-03-21 18:17:36,660 - INFO - SELECT DATABASE()
+2024-03-21 18:17:36,660 - INFO - [raw sql] {}
+2024-03-21 18:17:36,734 - INFO - SELECT @@sql_mode
+2024-03-21 18:17:36,734 - INFO - [raw sql] {}
+2024-03-21 18:17:36,776 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:17:36,776 - INFO - [raw sql] {}
+2024-03-21 18:17:36,814 - INFO - BEGIN (implicit)
+2024-03-21 18:17:36,834 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:17:36,834 - INFO - [raw sql] {}
+2024-03-21 18:17:36,877 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:17:36,880 - INFO - [raw sql] {}
+2024-03-21 18:17:36,920 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:17:36,921 - INFO - [raw sql] {}
+2024-03-21 18:17:36,963 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:17:36,964 - INFO - [raw sql] {}
+2024-03-21 18:17:37,005 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:17:37,006 - INFO - [raw sql] {}
+2024-03-21 18:17:37,046 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:17:37,046 - INFO - [raw sql] {}
+2024-03-21 18:17:37,068 - INFO - COMMIT
+2024-03-21 18:17:38,644 - INFO - BEGIN (implicit)
+2024-03-21 18:17:38,665 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen
+2024-03-21 18:17:38,665 - INFO - [generated in 0.01859s] {}
+2024-03-21 18:17:38,704 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:17:38,704 - INFO - [generated in 0.01855s] {'param_1': 1}
+2024-03-21 18:17:38,723 - ERROR - [API] int() argument must be a string, a bytes-like object or a real number, not 'Row': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:17:38,724 - INFO - ROLLBACK
+2024-03-21 18:18:08,485 - INFO - SELECT DATABASE()
+2024-03-21 18:18:08,486 - INFO - [raw sql] {}
+2024-03-21 18:18:08,558 - INFO - SELECT @@sql_mode
+2024-03-21 18:18:08,559 - INFO - [raw sql] {}
+2024-03-21 18:18:08,597 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:18:08,597 - INFO - [raw sql] {}
+2024-03-21 18:18:08,635 - INFO - BEGIN (implicit)
+2024-03-21 18:18:08,654 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:18:08,654 - INFO - [raw sql] {}
+2024-03-21 18:18:08,691 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:18:08,691 - INFO - [raw sql] {}
+2024-03-21 18:18:08,730 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:18:08,731 - INFO - [raw sql] {}
+2024-03-21 18:18:08,769 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:18:08,769 - INFO - [raw sql] {}
+2024-03-21 18:18:08,807 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:18:08,807 - INFO - [raw sql] {}
+2024-03-21 18:18:08,846 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:18:08,846 - INFO - [raw sql] {}
+2024-03-21 18:18:08,866 - INFO - COMMIT
+2024-03-21 18:18:10,704 - INFO - BEGIN (implicit)
+2024-03-21 18:18:10,727 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:18:10,727 - INFO - [generated in 0.01945s] {'param_1': 1}
+2024-03-21 18:18:10,746 - ERROR - [API] int() argument must be a string, a bytes-like object or a real number, not 'Row': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:18:10,747 - INFO - ROLLBACK
+2024-03-21 18:18:21,861 - INFO - SELECT DATABASE()
+2024-03-21 18:18:21,861 - INFO - [raw sql] {}
+2024-03-21 18:18:21,937 - INFO - SELECT @@sql_mode
+2024-03-21 18:18:21,937 - INFO - [raw sql] {}
+2024-03-21 18:18:21,974 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:18:21,974 - INFO - [raw sql] {}
+2024-03-21 18:18:22,011 - INFO - BEGIN (implicit)
+2024-03-21 18:18:22,029 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:18:22,029 - INFO - [raw sql] {}
+2024-03-21 18:18:22,069 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:18:22,069 - INFO - [raw sql] {}
+2024-03-21 18:18:22,109 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:18:22,109 - INFO - [raw sql] {}
+2024-03-21 18:18:22,146 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:18:22,146 - INFO - [raw sql] {}
+2024-03-21 18:18:22,182 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:18:22,183 - INFO - [raw sql] {}
+2024-03-21 18:18:22,221 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:18:22,221 - INFO - [raw sql] {}
+2024-03-21 18:18:22,242 - INFO - COMMIT
+2024-03-21 18:18:24,058 - INFO - BEGIN (implicit)
+2024-03-21 18:18:24,080 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:18:24,080 - INFO - [generated in 0.01963s] {'param_1': 1}
+2024-03-21 18:18:24,118 - INFO - SELECT metingen."metingenId" AS "metingen_metingenId" 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:18:24,118 - INFO - [generated in 0.01841s] {'param_1': 1}
+2024-03-21 18:18:24,157 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:18:24,157 - INFO - [cached since 0.09661s ago] {'param_1': 1}
+2024-03-21 18:18:24,200 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:18:24,200 - INFO - [generated in 0.01931s] {'locatie_1': 'Apeldoorn', 'metingenId_1': (797,)}
+2024-03-21 18:18:24,201 - ERROR - [API] Python type Row cannot be converted: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:18:24,203 - INFO - ROLLBACK
+2024-03-21 18:19:17,818 - INFO - SELECT DATABASE()
+2024-03-21 18:19:17,820 - INFO - [raw sql] {}
+2024-03-21 18:19:17,918 - INFO - SELECT @@sql_mode
+2024-03-21 18:19:17,918 - INFO - [raw sql] {}
+2024-03-21 18:19:17,967 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:19:17,967 - INFO - [raw sql] {}
+2024-03-21 18:19:18,016 - INFO - BEGIN (implicit)
+2024-03-21 18:19:18,041 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:19:18,041 - INFO - [raw sql] {}
+2024-03-21 18:19:18,095 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:19:18,095 - INFO - [raw sql] {}
+2024-03-21 18:19:18,150 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:19:18,151 - INFO - [raw sql] {}
+2024-03-21 18:19:18,202 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:19:18,203 - INFO - [raw sql] {}
+2024-03-21 18:19:18,255 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:19:18,255 - INFO - [raw sql] {}
+2024-03-21 18:19:18,303 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:19:18,304 - INFO - [raw sql] {}
+2024-03-21 18:19:18,329 - INFO - COMMIT
+2024-03-21 18:19:20,604 - ERROR - [API] name 'typedb' is not defined: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:19:31,987 - INFO - SELECT DATABASE()
+2024-03-21 18:19:31,988 - INFO - [raw sql] {}
+2024-03-21 18:19:32,095 - INFO - SELECT @@sql_mode
+2024-03-21 18:19:32,095 - INFO - [raw sql] {}
+2024-03-21 18:19:32,151 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:19:32,151 - INFO - [raw sql] {}
+2024-03-21 18:19:32,208 - INFO - BEGIN (implicit)
+2024-03-21 18:19:32,237 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:19:32,237 - INFO - [raw sql] {}
+2024-03-21 18:19:32,292 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:19:32,293 - INFO - [raw sql] {}
+2024-03-21 18:19:32,347 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:19:32,347 - INFO - [raw sql] {}
+2024-03-21 18:19:32,402 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:19:32,402 - INFO - [raw sql] {}
+2024-03-21 18:19:32,466 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:19:32,466 - INFO - [raw sql] {}
+2024-03-21 18:19:32,520 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:19:32,520 - INFO - [raw sql] {}
+2024-03-21 18:19:32,549 - INFO - COMMIT
+2024-03-21 18:19:34,780 - INFO - BEGIN (implicit)
+2024-03-21 18:19:34,809 - INFO - SELECT max(metingen."metingenId") AS max_1 
+FROM metingen 
+ LIMIT %(param_1)s
+2024-03-21 18:19:34,810 - INFO - [generated in 0.02772s] {'param_1': 1}
+2024-03-21 18:19:34,866 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:19:34,866 - INFO - [generated in 0.02719s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:19:34,896 - INFO - ROLLBACK
+2024-03-21 18:21:12,410 - INFO - SELECT DATABASE()
+2024-03-21 18:21:12,412 - INFO - [raw sql] {}
+2024-03-21 18:21:12,484 - INFO - SELECT @@sql_mode
+2024-03-21 18:21:12,484 - INFO - [raw sql] {}
+2024-03-21 18:21:12,522 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:21:12,523 - INFO - [raw sql] {}
+2024-03-21 18:21:12,562 - INFO - BEGIN (implicit)
+2024-03-21 18:21:12,580 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:21:12,581 - INFO - [raw sql] {}
+2024-03-21 18:21:12,619 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:21:12,619 - INFO - [raw sql] {}
+2024-03-21 18:21:12,658 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:21:12,659 - INFO - [raw sql] {}
+2024-03-21 18:21:12,698 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:21:12,698 - INFO - [raw sql] {}
+2024-03-21 18:21:12,738 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:21:12,739 - INFO - [raw sql] {}
+2024-03-21 18:21:12,779 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:21:12,780 - INFO - [raw sql] {}
+2024-03-21 18:21:12,802 - INFO - COMMIT
+2024-03-21 18:21:43,776 - INFO - SELECT DATABASE()
+2024-03-21 18:21:43,776 - INFO - [raw sql] {}
+2024-03-21 18:21:43,852 - INFO - SELECT @@sql_mode
+2024-03-21 18:21:43,853 - INFO - [raw sql] {}
+2024-03-21 18:21:43,890 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:21:43,890 - INFO - [raw sql] {}
+2024-03-21 18:21:43,927 - INFO - BEGIN (implicit)
+2024-03-21 18:21:43,946 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:21:43,946 - INFO - [raw sql] {}
+2024-03-21 18:21:43,983 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:21:43,984 - INFO - [raw sql] {}
+2024-03-21 18:21:44,022 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:21:44,022 - INFO - [raw sql] {}
+2024-03-21 18:21:44,064 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:21:44,065 - INFO - [raw sql] {}
+2024-03-21 18:21:44,104 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:21:44,104 - INFO - [raw sql] {}
+2024-03-21 18:21:44,142 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:21:44,142 - INFO - [raw sql] {}
+2024-03-21 18:21:44,163 - INFO - COMMIT
+2024-03-21 18:21:46,085 - INFO - BEGIN (implicit)
+2024-03-21 18:21:46,106 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:21:46,106 - INFO - [generated in 0.01873s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:21:46,126 - INFO - ROLLBACK
+2024-03-21 18:22:00,964 - INFO - SELECT DATABASE()
+2024-03-21 18:22:00,964 - INFO - [raw sql] {}
+2024-03-21 18:22:01,047 - INFO - SELECT @@sql_mode
+2024-03-21 18:22:01,047 - INFO - [raw sql] {}
+2024-03-21 18:22:01,090 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:22:01,090 - INFO - [raw sql] {}
+2024-03-21 18:22:01,130 - INFO - BEGIN (implicit)
+2024-03-21 18:22:01,150 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:22:01,150 - INFO - [raw sql] {}
+2024-03-21 18:22:01,194 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:22:01,194 - INFO - [raw sql] {}
+2024-03-21 18:22:01,240 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:22:01,240 - INFO - [raw sql] {}
+2024-03-21 18:22:01,283 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:22:01,283 - INFO - [raw sql] {}
+2024-03-21 18:22:01,325 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:22:01,325 - INFO - [raw sql] {}
+2024-03-21 18:22:01,367 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:22:01,367 - INFO - [raw sql] {}
+2024-03-21 18:22:01,391 - INFO - COMMIT
+2024-03-21 18:22:03,496 - INFO - BEGIN (implicit)
+2024-03-21 18:22:03,520 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = %(metingenId_1)s
+2024-03-21 18:22:03,520 - INFO - [generated in 0.02073s] {'locatie_1': 'Apeldoorn', 'metingenId_1': <bound method SelectBase.scalar_subquery of <sqlalchemy.sql.selectable.Select object at 0x107cd57d0>>}
+2024-03-21 18:22:03,520 - ERROR - [API] Python type method cannot be converted: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:22:03,521 - INFO - ROLLBACK
+2024-03-21 18:22:12,984 - INFO - SELECT DATABASE()
+2024-03-21 18:22:12,985 - INFO - [raw sql] {}
+2024-03-21 18:22:13,067 - INFO - SELECT @@sql_mode
+2024-03-21 18:22:13,067 - INFO - [raw sql] {}
+2024-03-21 18:22:13,107 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:22:13,107 - INFO - [raw sql] {}
+2024-03-21 18:22:13,147 - INFO - BEGIN (implicit)
+2024-03-21 18:22:13,168 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:22:13,168 - INFO - [raw sql] {}
+2024-03-21 18:22:13,212 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:22:13,212 - INFO - [raw sql] {}
+2024-03-21 18:22:13,255 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:22:13,256 - INFO - [raw sql] {}
+2024-03-21 18:22:13,297 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:22:13,298 - INFO - [raw sql] {}
+2024-03-21 18:22:13,343 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:22:13,344 - INFO - [raw sql] {}
+2024-03-21 18:22:13,388 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:22:13,389 - INFO - [raw sql] {}
+2024-03-21 18:22:13,412 - INFO - COMMIT
+2024-03-21 18:22:18,905 - INFO - SELECT DATABASE()
+2024-03-21 18:22:18,906 - INFO - [raw sql] {}
+2024-03-21 18:22:18,991 - INFO - SELECT @@sql_mode
+2024-03-21 18:22:18,991 - INFO - [raw sql] {}
+2024-03-21 18:22:19,032 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:22:19,033 - INFO - [raw sql] {}
+2024-03-21 18:22:19,076 - INFO - BEGIN (implicit)
+2024-03-21 18:22:19,098 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:22:19,098 - INFO - [raw sql] {}
+2024-03-21 18:22:19,141 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:22:19,142 - INFO - [raw sql] {}
+2024-03-21 18:22:19,185 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:22:19,185 - INFO - [raw sql] {}
+2024-03-21 18:22:19,226 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:22:19,227 - INFO - [raw sql] {}
+2024-03-21 18:22:19,270 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:22:19,271 - INFO - [raw sql] {}
+2024-03-21 18:22:19,314 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:22:19,315 - INFO - [raw sql] {}
+2024-03-21 18:22:19,338 - INFO - COMMIT
+2024-03-21 18:22:22,121 - INFO - BEGIN (implicit)
+2024-03-21 18:22:22,148 - INFO - SELECT metinguren."metingUrenId", metinguren."metingenId", metinguren.datetime, metinguren.temperature, metinguren.pressure, metinguren.winddirection 
+FROM metinguren INNER JOIN metingen ON metinguren."metingenId" = metingen."metingenId" INNER JOIN locaties ON metingen."locatieId" = locaties."locatieId" 
+WHERE locaties.locatie = %(locatie_1)s AND metingen."metingenId" = (SELECT max(metingen."metingenId") AS max_1 
+FROM metingen)
+2024-03-21 18:22:22,148 - INFO - [generated in 0.02465s] {'locatie_1': 'Apeldoorn'}
+2024-03-21 18:22:22,170 - INFO - ROLLBACK
+2024-03-21 18:22:58,480 - INFO - SELECT DATABASE()
+2024-03-21 18:22:58,480 - INFO - [raw sql] {}
+2024-03-21 18:22:58,565 - INFO - SELECT @@sql_mode
+2024-03-21 18:22:58,566 - INFO - [raw sql] {}
+2024-03-21 18:22:58,615 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:22:58,615 - INFO - [raw sql] {}
+2024-03-21 18:22:58,657 - INFO - BEGIN (implicit)
+2024-03-21 18:22:58,677 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:22:58,677 - INFO - [raw sql] {}
+2024-03-21 18:22:58,721 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:22:58,721 - INFO - [raw sql] {}
+2024-03-21 18:22:58,765 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:22:58,766 - INFO - [raw sql] {}
+2024-03-21 18:22:58,812 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:22:58,813 - INFO - [raw sql] {}
+2024-03-21 18:22:58,859 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:22:58,859 - INFO - [raw sql] {}
+2024-03-21 18:22:58,907 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:22:58,907 - INFO - [raw sql] {}
+2024-03-21 18:22:58,931 - INFO - COMMIT
+2024-03-21 18:22:59,402 - ERROR - [API] Executable SQL or text() construct expected, got <sqlalchemy.sql.selectable.ScalarSelect object at 0x105adc7d0>.: Er is een fout opgetreden bij get-request metinguren/Apeldoorn
+2024-03-21 18:23:11,578 - INFO - SELECT DATABASE()
+2024-03-21 18:23:11,579 - INFO - [raw sql] {}
+2024-03-21 18:23:11,679 - INFO - SELECT @@sql_mode
+2024-03-21 18:23:11,679 - INFO - [raw sql] {}
+2024-03-21 18:23:11,731 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:23:11,731 - INFO - [raw sql] {}
+2024-03-21 18:23:11,783 - INFO - BEGIN (implicit)
+2024-03-21 18:23:11,809 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:23:11,809 - INFO - [raw sql] {}
+2024-03-21 18:23:11,862 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:23:11,863 - INFO - [raw sql] {}
+2024-03-21 18:23:11,914 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:23:11,914 - INFO - [raw sql] {}
+2024-03-21 18:23:11,967 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:23:11,968 - INFO - [raw sql] {}
+2024-03-21 18:23:12,168 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:23:12,168 - INFO - [raw sql] {}
+2024-03-21 18:23:12,217 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:23:12,217 - INFO - [raw sql] {}
+2024-03-21 18:23:12,243 - INFO - COMMIT
+2024-03-21 18:23:21,223 - INFO - SELECT DATABASE()
+2024-03-21 18:23:21,224 - INFO - [raw sql] {}
+2024-03-21 18:23:21,322 - INFO - SELECT @@sql_mode
+2024-03-21 18:23:21,322 - INFO - [raw sql] {}
+2024-03-21 18:23:21,373 - INFO - SELECT @@lower_case_table_names
+2024-03-21 18:23:21,374 - INFO - [raw sql] {}
+2024-03-21 18:23:21,426 - INFO - BEGIN (implicit)
+2024-03-21 18:23:21,452 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 18:23:21,452 - INFO - [raw sql] {}
+2024-03-21 18:23:21,505 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 18:23:21,505 - INFO - [raw sql] {}
+2024-03-21 18:23:21,554 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 18:23:21,555 - INFO - [raw sql] {}
+2024-03-21 18:23:21,607 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 18:23:21,607 - INFO - [raw sql] {}
+2024-03-21 18:23:21,656 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 18:23:21,656 - INFO - [raw sql] {}
+2024-03-21 18:23:21,707 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 18:23:21,707 - INFO - [raw sql] {}
+2024-03-21 18:23:21,732 - INFO - COMMIT
+2024-03-21 22:55:47,734 - INFO - SELECT DATABASE()
+2024-03-21 22:55:47,735 - INFO - [raw sql] {}
+2024-03-21 22:55:47,822 - INFO - SELECT @@sql_mode
+2024-03-21 22:55:47,822 - INFO - [raw sql] {}
+2024-03-21 22:55:47,862 - INFO - SELECT @@lower_case_table_names
+2024-03-21 22:55:47,862 - INFO - [raw sql] {}
+2024-03-21 22:55:47,899 - INFO - BEGIN (implicit)
+2024-03-21 22:55:47,919 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 22:55:47,919 - INFO - [raw sql] {}
+2024-03-21 22:55:47,970 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 22:55:47,970 - INFO - [raw sql] {}
+2024-03-21 22:55:48,009 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 22:55:48,009 - INFO - [raw sql] {}
+2024-03-21 22:55:48,048 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 22:55:48,049 - INFO - [raw sql] {}
+2024-03-21 22:55:48,091 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 22:55:48,091 - INFO - [raw sql] {}
+2024-03-21 22:55:48,134 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 22:55:48,134 - INFO - [raw sql] {}
+2024-03-21 22:55:48,156 - INFO - COMMIT
+2024-03-21 23:05:47,278 - INFO - SELECT DATABASE()
+2024-03-21 23:05:47,279 - INFO - [raw sql] {}
+2024-03-21 23:05:47,362 - INFO - SELECT @@sql_mode
+2024-03-21 23:05:47,363 - INFO - [raw sql] {}
+2024-03-21 23:05:47,405 - INFO - SELECT @@lower_case_table_names
+2024-03-21 23:05:47,405 - INFO - [raw sql] {}
+2024-03-21 23:05:47,448 - INFO - BEGIN (implicit)
+2024-03-21 23:05:47,470 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-21 23:05:47,470 - INFO - [raw sql] {}
+2024-03-21 23:05:47,515 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-21 23:05:47,515 - INFO - [raw sql] {}
+2024-03-21 23:05:47,565 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-21 23:05:47,565 - INFO - [raw sql] {}
+2024-03-21 23:05:47,610 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-21 23:05:47,610 - INFO - [raw sql] {}
+2024-03-21 23:05:47,654 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-21 23:05:47,654 - INFO - [raw sql] {}
+2024-03-21 23:05:47,697 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-21 23:05:47,698 - INFO - [raw sql] {}
+2024-03-21 23:05:47,719 - INFO - COMMIT
