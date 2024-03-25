@@ -1571,3 +1571,51 @@ WHERE locaties.locatie = %(locatie_1)s ORDER BY metinguren."metingUrenId" ASC
 2024-03-25 10:40:57,097 - INFO - [generated in 0.01854s] {'locatie_1': 'Apeldoorn'}
 2024-03-25 10:40:57,117 - ERROR - [API] 'DBMetingUren' object has no attribute 'dict': Er is een fout opgetreden bij get-request metinguren/Apeldoorn
 2024-03-25 10:40:57,118 - INFO - ROLLBACK
+2024-03-25 10:43:28,495 - INFO - SELECT DATABASE()
+2024-03-25 10:43:28,496 - INFO - [raw sql] {}
+2024-03-25 10:43:28,584 - INFO - SELECT @@sql_mode
+2024-03-25 10:43:28,584 - INFO - [raw sql] {}
+2024-03-25 10:43:28,628 - INFO - SELECT @@lower_case_table_names
+2024-03-25 10:43:28,628 - INFO - [raw sql] {}
+2024-03-25 10:43:28,672 - INFO - BEGIN (implicit)
+2024-03-25 10:43:28,693 - INFO - DESCRIBE "defaultdb"."metingen"
+2024-03-25 10:43:28,693 - INFO - [raw sql] {}
+2024-03-25 10:43:28,738 - INFO - DESCRIBE "defaultdb"."metinguren"
+2024-03-25 10:43:28,738 - INFO - [raw sql] {}
+2024-03-25 10:43:28,784 - INFO - DESCRIBE "defaultdb"."locaties"
+2024-03-25 10:43:28,784 - INFO - [raw sql] {}
+2024-03-25 10:43:28,830 - INFO - DESCRIBE "defaultdb"."voorspellingen"
+2024-03-25 10:43:28,830 - INFO - [raw sql] {}
+2024-03-25 10:43:28,876 - INFO - DESCRIBE "defaultdb"."voorspellinguren"
+2024-03-25 10:43:28,876 - INFO - [raw sql] {}
+2024-03-25 10:43:28,923 - INFO - DESCRIBE "defaultdb"."zWaarden"
+2024-03-25 10:43:28,923 - INFO - [raw sql] {}
+2024-03-25 10:43:28,946 - INFO - COMMIT
+2024-03-25 10:43:28,990 - INFO - BEGIN (implicit)
+2024-03-25 10:43:29,013 - INFO - SET FOREIGN_KEY_CHECKS = 0;
+2024-03-25 10:43:29,013 - INFO - [generated in 0.02257s] {}
+2024-03-25 10:43:29,060 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metingen."metingenId" AS "metingen_metingenId", metingen."locatieId" AS "metingen_locatieId", metingen.datetime AS metingen_datetime 
+FROM metingen) AS anon_1
+2024-03-25 10:43:29,060 - INFO - [generated in 0.02198s] {}
+2024-03-25 10:43:29,126 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT metinguren."metingUrenId" AS "metinguren_metingUrenId", metinguren."metingenId" AS "metinguren_metingenId", metinguren.datetime AS metinguren_datetime, metinguren.temperature AS metinguren_temperature, metinguren.pressure AS metinguren_pressure, metinguren.winddirection AS metinguren_winddirection 
+FROM metinguren) AS anon_1
+2024-03-25 10:43:29,126 - INFO - [generated in 0.02258s] {}
+2024-03-25 10:43:29,177 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT locaties."locatieId" AS "locaties_locatieId", locaties.locatie AS locaties_locatie 
+FROM locaties) AS anon_1
+2024-03-25 10:43:29,177 - INFO - [generated in 0.02118s] {}
+2024-03-25 10:43:29,227 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellingen."voorspellingenId" AS "voorspellingen_voorspellingenId", voorspellingen."locatieId" AS "voorspellingen_locatieId", voorspellingen.datetime AS voorspellingen_datetime 
+FROM voorspellingen) AS anon_1
+2024-03-25 10:43:29,228 - INFO - [generated in 0.02213s] {}
+2024-03-25 10:43:29,276 - INFO - SELECT count(*) AS count_1 
+FROM (SELECT voorspellinguren."voorspellingUrenId" AS "voorspellinguren_voorspellingUrenId", voorspellinguren."voorspellingenId" AS "voorspellinguren_voorspellingenId", voorspellinguren.datetime AS voorspellinguren_datetime, voorspellinguren.temperature AS voorspellinguren_temperature, voorspellinguren."zWaarde" AS "voorspellinguren_zWaarde" 
+FROM voorspellinguren) AS anon_1
+2024-03-25 10:43:29,276 - INFO - [generated in 0.02177s] {}
+2024-03-25 10:43:29,302 - INFO - COMMIT
+2024-03-25 10:43:29,345 - INFO - BEGIN (implicit)
+2024-03-25 10:43:29,367 - INFO - SET FOREIGN_KEY_CHECKS = 1;
+2024-03-25 10:43:29,367 - INFO - [generated in 0.02186s] {}
+2024-03-25 10:43:29,388 - INFO - ROLLBACK

@@ -260,85 +260,40 @@ def verify_api_key(api_key: str = None):
 def get_metingen(locatie: str, db: Session = Depends(get_db)):
     """Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten."""
     try:
-        metingen = (
-            db.query(DBMetingUren)
-            .join(DBMetingen)
-            .join(DBLocaties)
-            .filter(DBLocaties.locatie == locatie)
-            .order_by(DBMetingUren.metingUrenId.asc())
-            .all()
+        subq = (
+            select(func.max(DBMetingen.metingenId))
+            .join(DBLocaties, DBMetingen.locatieId == DBLocaties.locatieId)
+            .where(DBLocaties.locatie == locatie)
         )
+        query = (
+            select(DBMetingUren)
+            .join(DBMetingen, DBMetingUren.metingenId == DBMetingen.metingenId)
+            .join(DBLocaties, DBMetingen.locatieId == DBLocaties.locatieId)
+            .where(and_(DBLocaties.locatie == locatie, DBMetingen.metingenId == subq))
+            .order_by(asc(DBMetingUren.metingUrenId))
+        )
+        values = {"locatie": locatie}
+        query = text(
+            "SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = :locatie) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;"
+        )
+        metingen_totaal = db.execute(query, values).all()
         weermetingen = []
-        for meting in metingen:
-            weermetingen.append(
-                WeerMetingUren(datetime=str(meting.datetime), **meting.dict())
-            )
+        for i in metingen_totaal:
+            for j in i:
+                weermetingen.append(
+                    WeerMetingUren(
+                        datetime=j.datetime,
+                        temperature=j.temperature,
+                        pressure=j.pressure,
+                        winddirection=j.winddirection,
+                    )
+                )
         return weermetingen
     except Exception as e:
         logging.error(
-            f"[API] {e}: Er is een fout opgetreden bij get-request metinguren/{locatie}"
+            f"[API] %s: Er is een fout opgetreden bij get-request metinguren/{locatie}",
+            e,
         )
-    # def get_metingen(locatie: str, db: Session = Depends(get_db)):
-    """Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten."""
-    # try:
-    # values = {"locatie": locatie}
-    # query = text(
-    #     "SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = :locatie) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;"
-    # )
-    # result = db.execute(query, values).scalar
-    # return result
-    # metingen = [dict(row) for row in result]  # Convert result to a list of dictionaries
-    # return metingen
-    # return result
-    # metingen = [dict(row) for row in result]
-    # weermetingen = []
-    # for meting in metingen:
-    #     meting["datetime"] = str(meting["datetime"])
-    #     weermetingen.append(WeerMetingUren(**meting))
-    # return weermetingen
-    # except Exception as e:
-    #     db.close()
-    #     logging.error(
-    #         f"[API] %s: Er is een fout opgetreden bij get-request metinguren/{locatie}",
-    #         e,
-    #     )
-    # finally:
-    #     db.close()
-    # try:
-    #     subq = (
-    #         select(func.max(DBMetingen.metingenId))
-    #         .join(DBLocaties, DBMetingen.locatieId == DBLocaties.locatieId)
-    #         .where(DBLocaties.locatie == locatie)
-    #     )
-    #     query = (
-    #         select(DBMetingUren)
-    #         .join(DBMetingen, DBMetingUren.metingenId == DBMetingen.metingenId)
-    #         .join(DBLocaties, DBMetingen.locatieId == DBLocaties.locatieId)
-    #         .where(and_(DBLocaties.locatie == locatie, DBMetingen.metingenId == subq))
-    #         .order_by(asc(DBMetingUren.metingUrenId))
-    #     )
-    #     values = {"locatie": locatie}
-    #     query = text(
-    #         "SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = :locatie) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;"
-    #     )
-    #     metingen_totaal = db.execute(query, values).all()
-    #     weermetingen = []
-    #     for i in metingen_totaal:
-    #         for j in i:
-    #             weermetingen.append(
-    #                 WeerMetingUren(
-    #                     datetime=j.datetime,
-    #                     temperature=j.temperature,
-    #                     pressure=j.pressure,
-    #                     winddirection=j.winddirection,
-    #                 )
-    #             )
-    #     return weermetingen
-    # except Exception as e:
-    #     logging.error(
-    #         f"[API] %s: Er is een fout opgetreden bij get-request metinguren/{locatie}",
-    #         e,
-    #     )
 
 
 @app.post("/metingen", response_model=WeerMeting)
