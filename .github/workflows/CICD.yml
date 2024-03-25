@@ -27,6 +27,26 @@ jobs:
         run: | 
           pytest --cov
 
+  setup-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+      - name: get token
+        run: |
+          export DO_TOKEN="${{ secrets.DOCKER_TOKEN }}"
+
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Validate
+        run: terraform validate
+      - name: Terraform Plan
+        run: terraform plan
+
   build:
     needs: setup-test
     runs-on: ubuntu-latest
