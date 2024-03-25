@@ -259,22 +259,43 @@ def verify_api_key(api_key: str = None):
 @app.get("/metinguren/{locatie}")
 def get_metingen(locatie: str, db: Session = Depends(get_db)):
     """Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten."""
+    try:
+        metingen = (
+            db.query(DBMetingUren)
+            .join(DBMetingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie)
+            .order_by(DBMetingUren.metingUrenId.asc())
+            .all()
+        )
+        weermetingen = []
+        for meting in metingen:
+            weermetingen.append(
+                WeerMetingUren(datetime=str(meting.datetime), **meting.dict())
+            )
+        return weermetingen
+    except Exception as e:
+        logging.error(
+            f"[API] {e}: Er is een fout opgetreden bij get-request metinguren/{locatie}"
+        )
+    # def get_metingen(locatie: str, db: Session = Depends(get_db)):
+    """Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten."""
     # try:
-    values = {"locatie": locatie}
-    query = text(
-        "SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = :locatie) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;"
-    )
-    result = db.execute(query, values).scalar()
-    return result
-    metingen = [dict(row) for row in result]  # Convert result to a list of dictionaries
-    return metingen
-    return result
-    metingen = [dict(row) for row in result]
-    weermetingen = []
-    for meting in metingen:
-        meting["datetime"] = str(meting["datetime"])
-        weermetingen.append(WeerMetingUren(**meting))
-    return weermetingen
+    # values = {"locatie": locatie}
+    # query = text(
+    #     "SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = :locatie) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;"
+    # )
+    # result = db.execute(query, values).scalar
+    # return result
+    # metingen = [dict(row) for row in result]  # Convert result to a list of dictionaries
+    # return metingen
+    # return result
+    # metingen = [dict(row) for row in result]
+    # weermetingen = []
+    # for meting in metingen:
+    #     meting["datetime"] = str(meting["datetime"])
+    #     weermetingen.append(WeerMetingUren(**meting))
+    # return weermetingen
     # except Exception as e:
     #     db.close()
     #     logging.error(
