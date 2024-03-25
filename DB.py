@@ -20,6 +20,7 @@ engine = create_engine(f"mysql://{db_user}:{db_password}@{db_host}:{db_port}/{db
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+
 class Locatie(Base):
     __tablename__ = "locaties"
 
@@ -59,10 +60,10 @@ class Voorspelling(Base):
 
     voorspellingenId = Column(Integer, primary_key=True, autoincrement=True)
     locatieId = Column(Integer, ForeignKey("locaties.locatieId"), nullable=False)
+    datetime = Column(DateTime)
 
     locatie = relationship("Locatie", back_populates="voorspellingen")  # Voeg deze relatie toe
     voorspellinguren = relationship("VoorspellingUren", back_populates="voorspelling")
-
 
 
 class VoorspellingUren(Base):
@@ -70,11 +71,21 @@ class VoorspellingUren(Base):
 
     voorspellingUrenId = Column(Integer, primary_key=True, autoincrement=True)
     voorspellingenId = Column(Integer, ForeignKey("voorspellingen.voorspellingenId"), nullable=False)
-    datetime = Column(DateTime, default=datetime.now)
+    zWaarde = Column(Integer, ForeignKey("zwaarden.zWaarde"), nullable=False)
+    datetime = Column(DateTime)
     temperature = Column(Numeric(5, 2))
-    zWaarde = Column(Integer)
 
     voorspelling = relationship("Voorspelling", back_populates="voorspellinguren")
+    zwaarde = relationship("zWaarden", back_populates="voorspellinguren")  # Voeg deze relatie toe
+
+
+class zWaarden(Base):
+    __tablename__ = "zwaarden"
+
+    zWaarde = Column(Integer, primary_key=True)
+    beschrijving = Column(String(100), nullable=True)
+
+    voorspellinguren = relationship("VoorspellingUren", back_populates="zwaarde")  # Voeg deze relatie toe
 
 
 def get_db():

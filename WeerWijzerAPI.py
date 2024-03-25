@@ -2,15 +2,15 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
-
-import DB
+from sqlalchemy import func
 from logfiles.log import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timedelta
 
 from DB import SessionLocal, engine
-from DB import Locatie as DBLocatie, Meting as DBMeting, MetingUren as DBMetingUren, Voorspelling as DBVoorspelling, VoorspellingUren as DBVoorspellingUren
+from DB import Locatie as DBLocatie, Meting as DBMeting, MetingUren as DBMetingUren, Voorspelling as DBVoorspelling, \
+    VoorspellingUren as DBVoorspellingUren, zWaarden as DBzWaarden
 
 import os
 from dotenv import load_dotenv
@@ -45,7 +45,7 @@ class WeerMeting(BaseModel):
 
 class WeerMetingUren(BaseModel):
     '''Klasse voor het aanmaken van een WeerMeting object.'''
-    metingenId: Optional[int] = None
+    # metingenId: int
     datetime: datetime
     temperature: float
     pressure: float
@@ -66,6 +66,7 @@ class Voorspelling(BaseModel):
 
 class VoorspellingUren(BaseModel):
     '''Klasse voor het aanmaken van een VerwachtingUren object.'''
+    # voorspellingenId: int
     datetime: datetime
     temperature: float
     zWaarde: int
@@ -85,16 +86,24 @@ def verify_api_key(api_key: str = None):
 # METINGEN / METINGUREN ENDPOINTS
 @app.get('/metinguren/{locatie}', response_model=List[WeerMetingUren])
 def get_metingen(locatie: str, db: Session = Depends(get_db)):
-    '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
+    '''Haal de meest recente meting op uit de database en converteer deze naar een lijst van WeerMeting objecten.'''
     try:
         locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
         if not locatie_db:
             return {"detail": f"Locatie {locatie} bestaat niet in de database."}
-        metingen = db.query(DBMetingUren).join(DBMeting).filter(DBMeting.locatieId == locatie_db.locatieId).all()
-        return metingen
+
+        # Haal de meest recente meting op
+        recentste_meting = db.query(DBMeting).filter(DBMeting.locatieId == locatie_db.locatieId).order_by(DBMeting.datetime.desc()).first()
+        if not recentste_meting:
+            return {"detail": f"Geen metingen gevonden voor locatie {locatie}."}
+
+        # Haal de metinguren op die geassocieerd zijn met de meest recente meting
+        metinguren = db.query(DBMetingUren).filter(DBMetingUren.metingenId == recentste_meting.metingenId).all()
+        return metinguren
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request metinguren/{locatie}: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
+
 
 @app.post('/metingen', response_model=WeerMeting)
 def create_meting(nieuwe_meting: WeerMeting, db: Session = Depends(get_db), key: str = Depends(verify_api_key)):
@@ -119,23 +128,26 @@ def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren], db: Session 
                              key: str = Depends(verify_api_key)):
     '''Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten.'''
     try:
+        # Haal de maximale metingenId op
+        max_metingen_id = db.query(func.max(DBMeting.metingenId)).scalar()
+        if not max_metingen_id:
+            raise HTTPException(status_code=404, detail="Geen metingen gevonden")
+
         for meting in nieuwe_metingen:
-            meting_db = db.query(DBMeting).filter(DBMeting.metingenId == meting.metingenId).first()
-            if not meting_db:
-                raise HTTPException(status_code=404, detail="Meting niet gevonden")
-
-            locatie_db = db.query(DBLocatie).filter(DBLocatie.locatieId == meting_db.locatieId).first()
-            if not locatie_db:
-                raise HTTPException(status_code=404, detail="Locatie niet gevonden")
-
-            meting_uren_db = DBMetingUren(metingenId=meting_db.metingenId, datetime=meting.datetime, temperature=meting.temperature, pressure=meting.pressure, winddirection=meting.winddirection)
+            meting_uren_db = DBMetingUren(
+                metingenId=max_metingen_id,
+                datetime=meting.datetime,
+                temperature=meting.temperature,
+                pressure=meting.pressure,
+                winddirection=meting.winddirection
+            )
             db.add(meting_uren_db)
         db.commit()
         return nieuwe_metingen
     except SQLAlchemyError as e:
         db.rollback()
         logging.error(f"[API] Er is een fout opgetreden bij het toevoegen van nieuwe metinguren: {e}")
-        #raise HTTPException(status_code=500, detail="Interne serverfout")
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
 @app.delete("/metingen/{locatie}")
@@ -148,11 +160,19 @@ def delete_metingen(locatie: str, db: Session = Depends(get_db), key: str = Depe
 
         # Zoek de metingen ouder dan 12 uur
         cutoff_time = datetime.utcnow() - timedelta(hours=12)
-        metingen_ouder_dan_12_uur = db.query(DBMeting).join(Locatie).filter(DBLocatie.locatie == locatie,
-                                                                          DBMeting.datetime < cutoff_time).all()
+        metingen_ouder_dan_12_uur = db.query(DBMeting).join(DBLocatie).filter(DBLocatie.locatie == locatie,
+                                                                              DBMeting.datetime < cutoff_time).all()
+
+        # Controleer of er meer dan één meting is
+        totaal_metingen = db.query(DBMeting).join(DBLocatie).filter(DBLocatie.locatie == locatie).count()
+        if totaal_metingen <= 1:
+            return {"detail": f"Er is slechts één / null meting voor locatie {locatie}. Deze wordt niet verwijderd."}
 
         # Verwijder de metingen en metinguren ouder dan 12 uur
         for meting in metingen_ouder_dan_12_uur:
+            # Verwijder eerst de gerelateerde metinguren
+            for meting_uren in meting.metinguren:
+                db.delete(meting_uren)
             db.delete(meting)
         db.commit()
 
@@ -162,21 +182,42 @@ def delete_metingen(locatie: str, db: Session = Depends(get_db), key: str = Depe
         logging.error(f"[API] Er is een fout opgetreden bij het delete-request /metingen/{locatie}: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
+
 ########################################################################################################################
 # VOORSPELLING / VOORSPELLINGEN ENDPOINTS
 @app.get('/voorspellinguren/{locatie}', response_model=List[VoorspellingUren])
 def get_voorspellingen(locatie: str, db: Session = Depends(get_db)):
-    '''Haal alle metingen op uit de database en converteer ze naar een lijst van voorspellinguren objecten.'''
+    '''Haal de meest recente voorspelling op uit de database en converteer deze naar een lijst van VoorspellingUren objecten.'''
     try:
-        locatie_db = db.query(Locatie).filter(Locatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
         if not locatie_db:
-            raise HTTPException(status_code=404, detail="Locatie niet gevonden")
-        voorspellingen = db.query(VoorspellingUren).join(Voorspelling).filter(
-            Voorspelling.locatieId == locatie_db.locatieId).all()
-        return voorspellingen
+            return {"detail": f"Locatie {locatie} bestaat niet in de database."}
+
+        # Haal de meest recente voorspelling op
+        recentste_voorspelling = db.query(DBVoorspelling).filter(DBVoorspelling.locatieId == locatie_db.locatieId).order_by(DBVoorspelling.datetime.desc()).first()
+        if not recentste_voorspelling:
+            return {"detail": f"Geen voorspellingen gevonden voor locatie {locatie}."}
+
+        # Haal de voorspellinguren op die geassocieerd zijn met de meest recente voorspelling
+        voorspellinguren = db.query(DBVoorspellingUren).filter(DBVoorspellingUren.voorspellingenId == recentste_voorspelling.voorspellingenId).all()
+
+        # Maak een nieuwe lijst van voorspellinguren
+        nieuwe_voorspellinguren = []
+        for voorspellinguur in voorspellinguren:
+            beschrijving = db.query(DBzWaarden.beschrijving).filter(DBzWaarden.zWaarde == voorspellinguur.zWaarde).scalar()
+            nieuwe_voorspellinguren.append({
+                "datetime": voorspellinguur.datetime,
+                "temperature": voorspellinguur.temperature,
+                "zWaarde": voorspellinguur.zWaarde,
+                "beschrijving": beschrijving,
+                "sneeuw": True if voorspellinguur.temperature <= -5 else False
+            })
+
+        return nieuwe_voorspellinguren
     except SQLAlchemyError as e:
-        logging.error(f"[API] Er is een fout opgetreden bij get-request /voorspellinguren/{locatie}: {e}")
+        logging.error(f"[API] Er is een fout opgetreden bij get-request voorspellinguren/{locatie}: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
+
 
 
 @app.post('/voorspellingen', response_model=Voorspelling)
@@ -184,11 +225,11 @@ def create_voorspelling(nieuwe_voorspelling: Voorspelling, db: Session = Depends
                         key: str = Depends(verify_api_key)):
     '''Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object.'''
     try:
-        locatie_db = db.query(Locatie).filter(Locatie.locatie == nieuwe_voorspelling.locatie).first()
+        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == nieuwe_voorspelling.locatie).first()
         if not locatie_db:
             raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
-        voorspelling_db = Voorspelling(locatieId=locatie_db.locatieId, datetime=nieuwe_voorspelling.datetime)
+        voorspelling_db = DBVoorspelling(locatieId=locatie_db.locatieId, datetime=nieuwe_voorspelling.datetime)
         db.add(voorspelling_db)
         db.commit()
         return nieuwe_voorspelling
@@ -203,13 +244,19 @@ def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]
                                    key: str = Depends(verify_api_key)):
     '''Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten.'''
     try:
-        for voorspelling in nieuwe_voorspellingen:
-            locatie_db = db.query(Locatie).filter(Locatie.locatie == voorspelling.locatie).first()
-            if not locatie_db:
-                raise HTTPException(status_code=404, detail="Locatie niet gevonden")
+        # Haal de maximale voorspellingenId op
+        max_voorspellingen_id = db.query(func.max(DBVoorspelling.voorspellingenId)).scalar()
+        if not max_voorspellingen_id:
+            raise HTTPException(status_code=404, detail="Geen voorspellingen gevonden")
 
-            voorspelling_db = Voorspelling(locatieId=locatie_db.locatieId, datetime=voorspelling.datetime)
-            db.add(voorspelling_db)
+        for voorspelling in nieuwe_voorspellingen:
+            voorspelling_uren_db = DBVoorspellingUren(
+                voorspellingenId=max_voorspellingen_id,
+                datetime=voorspelling.datetime,
+                temperature=voorspelling.temperature,
+                zWaarde=voorspelling.zWaarde
+            )
+            db.add(voorspelling_uren_db)
         db.commit()
         return nieuwe_voorspellingen
     except SQLAlchemyError as e:
@@ -217,26 +264,27 @@ def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren]
         logging.error(f"[API] Er is een fout opgetreden bij het post-request /voorspellinguren: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
-
 @app.delete("/voorspellingen/{locatie}")
 def delete_voorspellingen(locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)):
-    '''Verwijderen van voorspellingen en voorspellinguren behalve de meest recente.'''
+    '''Verwijderen van voorspellingen behalve de meest recente.'''
     try:
-        locatie_db = db.query(Locatie).filter(Locatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
         if not locatie_db:
             raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
-        # Zoek de voorspellingen ouder dan 12 uur
-        cutoff_time = datetime.utcnow() - timedelta(hours=12)
-        voorspellingen_ouder_dan_12_uur = db.query(Voorspelling).join(Locatie).filter(Locatie.locatie == locatie,
-                                                                                      Voorspelling.datetime < cutoff_time).all()
+        # Zoek de meest recente voorspelling
+        meest_recente_voorspelling = db.query(DBVoorspelling).join(DBLocatie).filter(DBLocatie.locatie == locatie).order_by(DBVoorspelling.voorspellingenId.desc()).first()
 
-        # Verwijder de voorspellingen en voorspellinguren ouder dan 12 uur
-        for voorspelling in voorspellingen_ouder_dan_12_uur:
+        # Verwijder alle voorspellingen behalve de meest recente
+        voorspellingen_te_verwijderen = db.query(DBVoorspelling).join(DBLocatie).filter(DBLocatie.locatie == locatie, DBVoorspelling.voorspellingenId != meest_recente_voorspelling.voorspellingenId).all()
+        for voorspelling in voorspellingen_te_verwijderen:
+            # Verwijder eerst de gerelateerde voorspellinguren
+            for voorspelling_uren in voorspelling.voorspellinguren:
+                db.delete(voorspelling_uren)
             db.delete(voorspelling)
         db.commit()
 
-        return {"detail": f"Voorspellingen ouder dan 12 uur voor locatie {locatie} zijn verwijderd."}
+        return {"detail": f"Alle voorspellingen voor locatie {locatie} zijn verwijderd, behalve de meest recente."}
     except SQLAlchemyError as e:
         db.rollback()
         logging.error(f"[API] Er is een fout opgetreden bij het delete-request /voorspellingen/{locatie}: {e}")
@@ -277,6 +325,17 @@ def delete_locatie(locatie: str, db: Session = Depends(get_db), key: str = Depen
         locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
         if not locatie_db:
             return {"detail": f"Locatie {locatie} bestaat niet in de database."}
+
+        # Verwijder eerst de gerelateerde metingen, metinguren, voorspellingen en voorspellinguren
+        for meting in locatie_db.metingen:
+            for meting_uren in meting.metinguren:
+                db.delete(meting_uren)
+            db.delete(meting)
+        for voorspelling in locatie_db.voorspellingen:
+            for voorspelling_uren in voorspelling.voorspellinguren:
+                db.delete(voorspelling_uren)
+            db.delete(voorspelling)
+
         db.delete(locatie_db)
         db.commit()
         return {"detail": f"Locatie {locatie} is verwijderd."}

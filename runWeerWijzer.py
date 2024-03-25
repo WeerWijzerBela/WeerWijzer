@@ -69,11 +69,8 @@ def bereken_voorspellingen_uren(locatie):
         response_metingen.raise_for_status()  # Raise an exception for non-200 status codes
 
         url_voorspellingen_uren = API + f"/voorspellinguren?api_key={API_KEY}"
-        batch_size = 193
-        for i in range(0, len(zambrettiList), batch_size):
-            batch_data = zambrettiList[i : i + batch_size]
-            response_batch = requests.post(url_voorspellingen_uren, json=batch_data)
-            response_batch.raise_for_status()  # Raise an exception for non-200 status codes
+        response_batch = requests.post(url_voorspellingen_uren, json=zambrettiList)
+        response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude voorspellinguren
         url_delete = API + f"/voorspellingen/{locatie}?api_key={API_KEY}"
@@ -140,11 +137,8 @@ def post_weer_data(locatie):
                     }
                 )
         url_metinguren = API + f"/metinguren?api_key={API_KEY}"
-        batch_size = 190
-        for i in range(0, len(nieuwe_metinguren), batch_size):
-            batch_data = nieuwe_metinguren[i : i + batch_size]
-            response_batch = requests.post(url_metinguren, json=batch_data)
-            response_batch.raise_for_status()  # Raise an exception for non-200 status codes
+        response_batch = requests.post(url_metinguren, json=nieuwe_metinguren)
+        response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude metingen
         url_metingen = API + f"/metingen/{locatie}?api_key={API_KEY}"
