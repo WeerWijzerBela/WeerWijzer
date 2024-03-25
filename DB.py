@@ -1,78 +1,80 @@
-from sqlalchemy import (
-    create_engine,
-    Column,
-    Integer,
-    String,
-    DateTime,
-    ForeignKey,
-    DECIMAL,
-    VARCHAR,
-)
-from sqlalchemy.orm import declarative_base, sessionmaker, DeclarativeBase
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean, Numeric
+from sqlalchemy.orm import sessionmaker, relationship, declarative_base
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, Depends
 
 load_dotenv()
 
-DB_URL = (
-    f"mysql+mysqlconnector://{os.environ.get("DB_USER")}:{os.environ.get("DB_PASSWORD")}@{os.environ.get("DB_HOST")}:{os.environ.get("DB_PORT")}/{os.environ.get("DB_NAME")}?auth_plugin="
-)
-testing_DB_URL = "sqlite:///:memory:"
+# Database connection parameters
+db_user = os.environ.get("DB_USER")
+db_password = os.environ.get("DB_PASSWORD")
+db_host = os.environ.get("DB_HOST")
+db_port = os.environ.get("DB_PORT")
+db_name = os.environ.get("DB_NAME")
 
-engine = create_engine(DB_URL, echo=True)
-SessionLocal = sessionmaker(bind=engine)
+# Creating engine
+engine = create_engine(f"mysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
 
-class Base(DeclarativeBase):
-    pass
+# Creating a session
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
 
-class Metingen(Base):
+class Locatie(Base):
+    __tablename__ = "locaties"
+
+    locatieId = Column(Integer, primary_key=True, autoincrement=True)
+    locatie = Column(String(255), nullable=False)
+
+    metingen = relationship("Meting", back_populates="locatie")
+    voorspellingen = relationship("Voorspelling", back_populates="locatie")  # Voeg deze relatie toe
+
+
+class Meting(Base):
     __tablename__ = "metingen"
+
     metingenId = Column(Integer, primary_key=True, autoincrement=True)
-    locatieId = Column(Integer, ForeignKey("locaties.locatieId"))
-    datetime = Column(DateTime)
+    locatieId = Column(Integer, ForeignKey("locaties.locatieId"), nullable=False)
+    datetime = Column(DateTime, default=datetime.now)
+
+    locatie = relationship("Locatie", back_populates="metingen")
+    metinguren = relationship("MetingUren", back_populates="meting")
 
 
 class MetingUren(Base):
     __tablename__ = "metinguren"
+
     metingUrenId = Column(Integer, primary_key=True, autoincrement=True)
-    metingenId = Column(Integer, ForeignKey("metingen.metingenId"))
+    metingenId = Column(Integer, ForeignKey("metingen.metingenId"), nullable=False)
     datetime = Column(DateTime)
-    temperature = Column(DECIMAL(5, 2))
-    pressure = Column(DECIMAL(5, 2))
-    winddirection = Column(VARCHAR(255))
+    temperature = Column(Numeric(5, 2))
+    pressure = Column(Numeric(5, 2))
+    winddirection = Column(String(255))
+
+    meting = relationship("Meting", back_populates="metinguren")
 
 
-class Locaties(Base):
-    __tablename__ = "locaties"
-    locatieId = Column(Integer, primary_key=True, autoincrement=True)
-    locatie = Column(VARCHAR(255))
-
-
-class Voorspellingen(Base):
+class Voorspelling(Base):
     __tablename__ = "voorspellingen"
-    voorspellingId = Column(Integer, primary_key=True, autoincrement=True)
-    locatieId = Column(Integer, ForeignKey("locaties.locatieId"))
-    datetime = Column(DateTime)
-    currenttemp = Column(DECIMAL(5, 2))
-    zWaarde = Column(Integer)
+
+    voorspellingenId = Column(Integer, primary_key=True, autoincrement=True)
+    locatieId = Column(Integer, ForeignKey("locaties.locatieId"), nullable=False)
+
+    locatie = relationship("Locatie", back_populates="voorspellingen")  # Voeg deze relatie toe
+    voorspellinguren = relationship("VoorspellingUren", back_populates="voorspelling")
+
 
 
 class VoorspellingUren(Base):
     __tablename__ = "voorspellinguren"
+
     voorspellingUrenId = Column(Integer, primary_key=True, autoincrement=True)
-    voorspellingId = Column(Integer, ForeignKey("voorspellingen.voorspellingId"))
-    datetime = Column(DateTime)
-    temperature = Column(DECIMAL(5, 2))
+    voorspellingenId = Column(Integer, ForeignKey("voorspellingen.voorspellingenId"), nullable=False)
+    datetime = Column(DateTime, default=datetime.now)
+    temperature = Column(Numeric(5, 2))
     zWaarde = Column(Integer)
 
-@app.on_event("startup")
-async def startup():
-    Base.metadata.create_all(bind=engine)
-Base.metadata.create_all(bind=engine)
-
-SessionLocal().add(eerste_meting)
+    voorspelling = relationship("Voorspelling", back_populates="voorspellinguren")
 
 
 def get_db():
@@ -81,10 +83,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
-# @app.post("/items")
-# def create_item(item: ItemCreate, db: session = Depends(get_db)) -> Item:
-#     db_item = DBItem(**item.model_dump())
-#     db.add(db_item)
-#     return Item(**db_item.__dict__)
