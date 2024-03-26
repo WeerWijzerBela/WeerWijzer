@@ -1,21 +1,22 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
-from sqlalchemy import func
+from sqlalchemy import func, text
 from logfiles.log import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timedelta
 
-from DB import SessionLocal, engine
+from DB import SessionLocal, engine, Base
 from DB import (
-    Locatie as DBLocatie,
-    Meting as DBMeting,
-    MetingUren as DBMetingUren,
-    Voorspelling as DBVoorspelling,
-    VoorspellingUren as DBVoorspellingUren,
-    zWaarden as DBzWaarden,
+    DBLocaties,
+    DBMetingen,
+    DBMetingUren,
+    DBVoorspellingen,
+    DBVoorspellingUren,
+    DBzWaarden,
 )
 
 import os
@@ -25,7 +26,101 @@ load_dotenv()
 
 API_KEY = os.environ.get("API_KEY")
 
-app = FastAPI()
+
+# command to start: uvicorn WeerWijzerAPI:app --reload
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+
+def init_db():
+    # Create all tables in the database
+    Base.metadata.create_all(bind=engine)
+
+    # seed_db()
+
+
+# def seed_db():
+#     print("Seeding DB")
+#     try:
+#         db = SessionLocal()
+#         if db.bind.url.drivername != "sqlite":
+#             db.execute(text("SET FOREIGN_KEY_CHECKS = 0;"))
+#         datumNu = datetime.now() - timedelta(hours=12)
+
+#         # Check if the tables are empty and seed data if they are
+#         if db.query(DBMetingen).count() == 0:
+#             metingen = [
+#                 DBMetingen(metingenId=1, locatieId=1, datetime=datumNu),
+#                 DBMetingen(metingenId=2, locatieId=2, datetime=datumNu),
+#             ]
+#             db.add_all(metingen)
+#         if db.query(DBMetingUren).count() == 0:
+#             metingUren = [
+#                 DBMetingUren(
+#                     metingUrenId=1,
+#                     metingenId=1,
+#                     datetime=datumNu,
+#                     temperature=12,
+#                     pressure=1008,
+#                     winddirection=180,
+#                 ),
+#                 DBMetingUren(
+#                     metingUrenId=2,
+#                     metingenId=2,
+#                     datetime=datumNu,
+#                     temperature=10,
+#                     pressure=1003,
+#                     winddirection=200,
+#                 ),
+#             ]
+#             db.add_all(metingUren)
+#         if db.query(DBLocaties).count() == 0:
+#             locaties = [
+#                 DBLocaties(locatieId=1, locatie="Apeldoorn"),
+#                 DBLocaties(locatieId=2, locatie="Amersfoort"),
+#             ]
+#             db.add_all(locaties)
+#         if db.query(DBVoorspellingen).count() == 0:
+#             voorspellingen = [
+#                 DBVoorspellingen(voorspellingenId=1, locatieId=1, datetime=datumNu),
+#                 DBVoorspellingen(voorspellingenId=2, locatieId=2, datetime=datumNu),
+#             ]
+#             db.add_all(voorspellingen)
+#         if db.query(DBVoorspellingUren).count() == 0:
+#             voorspellingUren = [
+#                 DBVoorspellingUren(
+#                     voorspellingUrenId=1,
+#                     voorspellingenId=1,
+#                     zWaarde=15,
+#                     datetime=datumNu,
+#                     temperature=12,
+#                 ),
+#                 DBVoorspellingUren(
+#                     voorspellingUrenId=2,
+#                     voorspellingenId=2,
+#                     zWaarde=15,
+#                     datetime=datumNu,
+#                     temperature=10,
+#                 ),
+#             ]
+#             db.add_all(voorspellingUren)
+#     except SQLAlchemyError as e:
+#         db.rollback()
+#         logging.error(f"Er is een fout opgetreden bij het seeden van de database: {e}")
+#         return e
+#     finally:
+#         db.commit()
+#         if db.bind.url.drivername != "sqlite":
+#             db.execute(text("SET FOREIGN_KEY_CHECKS = 1;"))
+#         db.close()
+
+
+app = FastAPI(lifespan=lifespan)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -99,15 +194,15 @@ def verify_api_key(api_key: str = None):
 def get_metingen(locatie: str, db: Session = Depends(get_db)):
     """Haal de meest recente meting op uit de database en converteer deze naar een lijst van WeerMeting objecten."""
     try:
-        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
         if not locatie_db:
             return {"detail": f"Locatie {locatie} bestaat niet in de database."}
 
         # Haal de meest recente meting op
         recentste_meting = (
-            db.query(DBMeting)
-            .filter(DBMeting.locatieId == locatie_db.locatieId)
-            .order_by(DBMeting.datetime.desc())
+            db.query(DBMetingen)
+            .filter(DBMetingen.locatieId == locatie_db.locatieId)
+            .order_by(DBMetingen.datetime.desc())
             .first()
         )
         if not recentste_meting:
@@ -136,14 +231,14 @@ def create_meting(
     """Voeg een nieuwe meting toe aan de database en retourneer een NieuweWeerMeting object."""
     try:
         locatie_db = (
-            db.query(DBLocatie)
-            .filter(DBLocatie.locatie == nieuwe_meting.locatie)
+            db.query(DBLocaties)
+            .filter(DBLocaties.locatie == nieuwe_meting.locatie)
             .first()
         )
         if not locatie_db:
             raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
-        meting_db = DBMeting(
+        meting_db = DBMetingen(
             locatieId=locatie_db.locatieId, datetime=nieuwe_meting.datetime
         )
         db.add(meting_db)
@@ -166,7 +261,7 @@ def create_meting_uren_batch(
     """Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten."""
     try:
         # Haal de maximale metingenId op
-        max_metingen_id = db.query(func.max(DBMeting.metingenId)).scalar()
+        max_metingen_id = db.query(func.max(DBMetingen.metingenId)).scalar()
         if not max_metingen_id:
             raise HTTPException(status_code=404, detail="Geen metingen gevonden")
 
@@ -195,24 +290,24 @@ def delete_metingen(
 ):
     """Verwijder metingen en metinguren ouder dan 12 uur."""
     try:
-        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
         if not locatie_db:
             raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
         # Zoek de metingen ouder dan 12 uur
         cutoff_time = datetime.utcnow() - timedelta(hours=12)
         metingen_ouder_dan_12_uur = (
-            db.query(DBMeting)
-            .join(DBLocatie)
-            .filter(DBLocatie.locatie == locatie, DBMeting.datetime < cutoff_time)
+            db.query(DBMetingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie, DBMetingen.datetime < cutoff_time)
             .all()
         )
 
         # Controleer of er meer dan één meting is
         totaal_metingen = (
-            db.query(DBMeting)
-            .join(DBLocatie)
-            .filter(DBLocatie.locatie == locatie)
+            db.query(DBMetingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie)
             .count()
         )
         if totaal_metingen <= 1:
@@ -245,15 +340,15 @@ def delete_metingen(
 def get_voorspellingen(locatie: str, db: Session = Depends(get_db)):
     """Haal de meest recente voorspelling op uit de database en converteer deze naar een lijst van VoorspellingUren objecten."""
     try:
-        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
         if not locatie_db:
             return {"detail": f"Locatie {locatie} bestaat niet in de database."}
 
         # Haal de meest recente voorspelling op
         recentste_voorspelling = (
-            db.query(DBVoorspelling)
-            .filter(DBVoorspelling.locatieId == locatie_db.locatieId)
-            .order_by(DBVoorspelling.datetime.desc())
+            db.query(DBVoorspellingen)
+            .filter(DBVoorspellingen.locatieId == locatie_db.locatieId)
+            .order_by(DBVoorspellingen.datetime.desc())
             .first()
         )
         if not recentste_voorspelling:
@@ -304,14 +399,14 @@ def create_voorspelling(
     """Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object."""
     try:
         locatie_db = (
-            db.query(DBLocatie)
-            .filter(DBLocatie.locatie == nieuwe_voorspelling.locatie)
+            db.query(DBLocaties)
+            .filter(DBLocaties.locatie == nieuwe_voorspelling.locatie)
             .first()
         )
         if not locatie_db:
             raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
-        voorspelling_db = DBVoorspelling(
+        voorspelling_db = DBVoorspellingen(
             locatieId=locatie_db.locatieId, datetime=nieuwe_voorspelling.datetime
         )
         db.add(voorspelling_db)
@@ -335,7 +430,7 @@ def create_voorspelling_uren_batch(
     try:
         # Haal de maximale voorspellingenId op
         max_voorspellingen_id = db.query(
-            func.max(DBVoorspelling.voorspellingenId)
+            func.max(DBVoorspellingen.voorspellingenId)
         ).scalar()
         if not max_voorspellingen_id:
             raise HTTPException(status_code=404, detail="Geen voorspellingen gevonden")
@@ -364,26 +459,26 @@ def delete_voorspellingen(
 ):
     """Verwijderen van voorspellingen behalve de meest recente."""
     try:
-        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
         if not locatie_db:
             raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
         # Zoek de meest recente voorspelling
         meest_recente_voorspelling = (
-            db.query(DBVoorspelling)
-            .join(DBLocatie)
-            .filter(DBLocatie.locatie == locatie)
-            .order_by(DBVoorspelling.voorspellingenId.desc())
+            db.query(DBVoorspellingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie)
+            .order_by(DBVoorspellingen.voorspellingenId.desc())
             .first()
         )
 
         # Verwijder alle voorspellingen behalve de meest recente
         voorspellingen_te_verwijderen = (
-            db.query(DBVoorspelling)
-            .join(DBLocatie)
+            db.query(DBVoorspellingen)
+            .join(DBLocaties)
             .filter(
-                DBLocatie.locatie == locatie,
-                DBVoorspelling.voorspellingenId
+                DBLocaties.locatie == locatie,
+                DBVoorspellingen.voorspellingenId
                 != meest_recente_voorspelling.voorspellingenId,
             )
             .all()
@@ -412,7 +507,7 @@ def delete_voorspellingen(
 def get_locaties(db: Session = Depends(get_db)):
     """Haal alle locaties op uit de database en converteer ze naar een lijst van Locatie objecten."""
     try:
-        locaties = db.query(DBLocatie).all()
+        locaties = db.query(DBLocaties).all()
         return locaties
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /locaties: {e}")
@@ -427,7 +522,7 @@ def create_locatie(
 ):
     """Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object."""
     try:
-        locatie_db = DBLocatie(**nieuwe_locatie.dict())
+        locatie_db = DBLocaties(**nieuwe_locatie.dict())
         db.add(locatie_db)
         db.commit()
         return nieuwe_locatie
@@ -445,7 +540,7 @@ def delete_locatie(
 ):
     """Verwijder een locatie uit de database."""
     try:
-        locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
         if not locatie_db:
             return {"detail": f"Locatie {locatie} bestaat niet in de database."}
 

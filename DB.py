@@ -30,7 +30,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-class Locatie(Base):
+class DBLocaties(Base):
     __tablename__ = "locaties"
 
     locatieId = Column(Integer, primary_key=True, autoincrement=True)
@@ -42,7 +42,7 @@ class Locatie(Base):
     )  # Voeg deze relatie toe
 
 
-class Meting(Base):
+class DBMetingen(Base):
     __tablename__ = "metingen"
 
     metingenId = Column(Integer, primary_key=True, autoincrement=True)
@@ -53,7 +53,7 @@ class Meting(Base):
     metinguren = relationship("MetingUren", back_populates="meting")
 
 
-class MetingUren(Base):
+class DBMetingUren(Base):
     __tablename__ = "metinguren"
 
     metingUrenId = Column(Integer, primary_key=True, autoincrement=True)
@@ -66,7 +66,7 @@ class MetingUren(Base):
     meting = relationship("Meting", back_populates="metinguren")
 
 
-class Voorspelling(Base):
+class DBVoorspellingen(Base):
     __tablename__ = "voorspellingen"
 
     voorspellingenId = Column(Integer, primary_key=True, autoincrement=True)
@@ -79,7 +79,7 @@ class Voorspelling(Base):
     voorspellinguren = relationship("VoorspellingUren", back_populates="voorspelling")
 
 
-class VoorspellingUren(Base):
+class DBVoorspellingUren(Base):
     __tablename__ = "voorspellinguren"
 
     voorspellingUrenId = Column(Integer, primary_key=True, autoincrement=True)
@@ -96,7 +96,7 @@ class VoorspellingUren(Base):
     )  # Voeg deze relatie toe
 
 
-class zWaarden(Base):
+class DBzWaarden(Base):
     __tablename__ = "zwaarden"
 
     zWaarde = Column(Integer, primary_key=True)
@@ -105,11 +105,3 @@ class zWaarden(Base):
     voorspellinguren = relationship(
         "VoorspellingUren", back_populates="zwaarde"
     )  # Voeg deze relatie toe
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
