@@ -16,9 +16,9 @@ API_KEY = os.environ.get("API_KEY")
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     """Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)"""
     # zWind uitrekenen aan de hand van windrichting
-    if windrichting >= 135 and windrichting <= 225:
+    if 225 >= windrichting >= 135:
         zWind = 2
-    elif windrichting >= 315 or windrichting <= 45:
+    elif 45 >= windrichting >= 315:
         zWind = 0
     else:
         zWind = 1

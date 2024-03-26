@@ -1,4 +1,13 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean, Numeric
+from sqlalchemy import (
+    create_engine,
+    Column,
+    Integer,
+    String,
+    DateTime,
+    ForeignKey,
+    Boolean,
+    Numeric,
+)
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
 from datetime import datetime
 import os
@@ -28,7 +37,9 @@ class Locatie(Base):
     locatie = Column(String(255), nullable=False)
 
     metingen = relationship("Meting", back_populates="locatie")
-    voorspellingen = relationship("Voorspelling", back_populates="locatie")  # Voeg deze relatie toe
+    voorspellingen = relationship(
+        "Voorspelling", back_populates="locatie"
+    )  # Voeg deze relatie toe
 
 
 class Meting(Base):
@@ -62,7 +73,9 @@ class Voorspelling(Base):
     locatieId = Column(Integer, ForeignKey("locaties.locatieId"), nullable=False)
     datetime = Column(DateTime)
 
-    locatie = relationship("Locatie", back_populates="voorspellingen")  # Voeg deze relatie toe
+    locatie = relationship(
+        "Locatie", back_populates="voorspellingen"
+    )  # Voeg deze relatie toe
     voorspellinguren = relationship("VoorspellingUren", back_populates="voorspelling")
 
 
@@ -70,13 +83,17 @@ class VoorspellingUren(Base):
     __tablename__ = "voorspellinguren"
 
     voorspellingUrenId = Column(Integer, primary_key=True, autoincrement=True)
-    voorspellingenId = Column(Integer, ForeignKey("voorspellingen.voorspellingenId"), nullable=False)
+    voorspellingenId = Column(
+        Integer, ForeignKey("voorspellingen.voorspellingenId"), nullable=False
+    )
     zWaarde = Column(Integer, ForeignKey("zwaarden.zWaarde"), nullable=False)
     datetime = Column(DateTime)
     temperature = Column(Numeric(5, 2))
 
     voorspelling = relationship("Voorspelling", back_populates="voorspellinguren")
-    zwaarde = relationship("zWaarden", back_populates="voorspellinguren")  # Voeg deze relatie toe
+    zwaarde = relationship(
+        "zWaarden", back_populates="voorspellinguren"
+    )  # Voeg deze relatie toe
 
 
 class zWaarden(Base):
@@ -85,7 +102,9 @@ class zWaarden(Base):
     zWaarde = Column(Integer, primary_key=True)
     beschrijving = Column(String(100), nullable=True)
 
-    voorspellinguren = relationship("VoorspellingUren", back_populates="zwaarde")  # Voeg deze relatie toe
+    voorspellinguren = relationship(
+        "VoorspellingUren", back_populates="zwaarde"
+    )  # Voeg deze relatie toe
 
 
 def get_db():
