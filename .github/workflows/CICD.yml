@@ -2,7 +2,7 @@ name: CICD Pipeline
 on:
   push:
     branches:
-      - dev
+      - feature/terraform
   # pull_request:
   #   branches:
   #     - master
@@ -68,12 +68,12 @@ jobs:
           ./stop.sh
       - name: Build Docker container
         run: |
-          docker build -t my-cicd-pipeline:latest .
+          docker build -t weerwijzer-api:latest .
       - name: push the image to digital ocean container
         run: |
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
-            docker tag my-cicd-pipeline registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
-            docker image push registry.digitalocean.com/container-weerwijzer/my-cicd-pipeline
+            docker tag weerwijzer-api registry.digitalocean.com/container-weerwijzer/weerwijzer-api
+            docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-api
 #      - name: Run garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
@@ -82,6 +82,22 @@ jobs:
           cd .github/workflows
           chmod +x bash.sh
           ./bash.sh
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+      - name: Set Terraform DigitalOcean token
+        run: echo "do_token = ${{secrets.DOCKER_TOKEN}}" >> variables.tf
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
 
 
       ## Deploying to kubernetes cluster (nog doen: load balancer)
