@@ -68,9 +68,9 @@ jobs:
         with:
           terraform_version: 1.0.0
       - name: Set Terraform DigitalOcean token
-        run: echo 'variable "do_token" {
+        run: echo "variable \"do_token\" { \n
           type = string \n
-          default = "${{secrets.DOCKER_TOKEN}}" \n }' > variables.tf
+          default = \"${{secrets.DOCKER_TOKEN}}\" }" > variables.tf
 
       - name: Terraform Init
         run: terraform init
