@@ -27,19 +27,6 @@ jobs:
         run: | 
           pytest --cov
 
-  setup-terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.0
-      - name: get token
-        run: |
-          export DO_TOKEN="${{ secrets.DOCKER_TOKEN }}"
-
   build:
     needs: setup-test
     runs-on: ubuntu-latest
@@ -81,7 +68,9 @@ jobs:
         with:
           terraform_version: 1.0.0
       - name: Set Terraform DigitalOcean token
-        run: echo "do_token = ${{secrets.DOCKER_TOKEN}}" >> variables.tf
+        run: echo "variable 'do_token' {
+          type = string
+          default = \$\{secrets.DOCKER_TOKEN\}\n}" > variables.tf
 
       - name: Terraform Init
         run: terraform init
