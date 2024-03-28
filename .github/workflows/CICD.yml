@@ -52,7 +52,7 @@ jobs:
       - name: push the image to digital ocean container
         run: |
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
-            docker tag weerwijzer-api registry.digitalocean.com/container-weerwijzer/weerwijzer-app
+            docker tag weerwijzer-app registry.digitalocean.com/container-weerwijzer/weerwijzer-app
             docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app
 #      - name: Run garbage collection
 #        run: |
