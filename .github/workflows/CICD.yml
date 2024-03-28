@@ -79,14 +79,11 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan \
-            -var "do_token=${{ secrets.DOCKER_TOKEN }}" \
-            -var "pvt_key=$HOME/.ssh/id_rsa"
+          terraform plan
       - name: Terraform Apply
         run: |
           terraform apply -auto-approve
-          -var "do_token=${{ secrets.DOCKER_TOKEN }}" \
-          -var "pvt_key=$HOME/.ssh/id_rsa"
+
 
 
       ## Deploying to kubernetes cluster (nog doen: load balancer)
