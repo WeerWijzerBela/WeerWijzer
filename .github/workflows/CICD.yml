@@ -48,12 +48,12 @@ jobs:
           ./stop.sh
       - name: Build Docker container
         run: |
-          docker build -t weerwijzer-api:latest .
+            docker build -t weerwijzer-app:latest .
       - name: push the image to digital ocean container
         run: |
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
-            docker tag weerwijzer-api registry.digitalocean.com/container-weerwijzer/weerwijzer-api
-            docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-api
+            docker tag weerwijzer-api registry.digitalocean.com/container-weerwijzer/weerwijzer-app
+            docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app
 #      - name: Run garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
@@ -78,10 +78,15 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan
-
+        run: |
+          terraform plan \
+            -var "do_token=${{ secrets.DOCKER_TOKEN }}" \
+            -var "pvt_key=$HOME/.ssh/id_rsa"
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply -auto-approve
+          -var "do_token=${{ secrets.DOCKER_TOKEN }}" \
+          -var "pvt_key=$HOME/.ssh/id_rsa"
 
 
       ## Deploying to kubernetes cluster (nog doen: load balancer)
