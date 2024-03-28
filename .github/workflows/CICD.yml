@@ -67,19 +67,22 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+      - name: Set Terraform DigitalOcean token
+        run: |
+          echo 'variable "do_token" {' > variables.tf
+          echo '  type    = string' >> variables.tf
+          echo '  default = "${{secrets.DOCKER_TOKEN}}"' >> variables.tf
+          echo '}' >> variables.tf
 
       - name: Terraform Init
         run: terraform init
-          var="do_token=${{ secrets.DOCKER_TOKEN }}"
 
       - name: Terraform Plan
         run: |
           terraform plan
-          var="do_token=${{ secrets.DOCKER_TOKEN }}"
       - name: Terraform Apply
         run: |
           terraform apply -auto-approve
-          var="do_token=${{ secrets.DOCKER_TOKEN }}"
 
 
 
