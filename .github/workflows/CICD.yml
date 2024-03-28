@@ -75,13 +75,17 @@ jobs:
       #     echo '}' >> variables.tf
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          cd iac
+          terraform init
 
       - name: Terraform Plan
         run: |
+          cd iac
           terraform plan
       - name: Terraform Apply
         run: |
+          cd iac
           terraform apply -auto-approve
 
 
