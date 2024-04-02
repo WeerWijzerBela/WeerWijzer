@@ -48,7 +48,7 @@ jobs:
           ./stop.sh
       - name: Build Docker container
         run: |
-            docker build  --build-arg [DB_HOST=${{ secrets.DB_HOST }} , DB_NAME=${{ secrets.DB_NAME }} , DB_PORT=${{ secrets.DB_PORT }} , DB_USER=${{ secrets.DB_USER }} , DB_PASSWORD=${{ secrets.DB_PASSWORD }} , API_KEY=${{ secrets.API_KEY }}] -t weerwijzer-app:latest .
+            docker build  --build-arg [DB_HOST=${{ secrets.DB_HOST }},DB_NAME=${{ secrets.DB_NAME }},DB_PORT=${{ secrets.DB_PORT }},DB_USER=${{ secrets.DB_USER }},DB_PASSWORD=${{ secrets.DB_PASSWORD }},API_KEY=${{ secrets.API_KEY }}] -t weerwijzer-app:latest .
 
 
       - name: push the image to digital ocean container
