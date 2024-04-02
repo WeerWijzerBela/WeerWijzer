@@ -19,32 +19,23 @@ provider "digitalocean" {
     token = var.do_token
 }
 
-
-data "digitalocean_kubernetes_cluster" "primary" {
-  name = var.cluster_name
-}
-
-resource "local_file" "kubeconfig" {
-  depends_on = [var.cluster_id]
-  count      = var.write_kubeconfig ? 1 : 0
-  content    = data.digitalocean_kubernetes_cluster.primary.kube_config[0].raw_config
-  filename   = "${path.root}/kubeconfig"
-}
-
 provider "kubernetes" {
-  host             = data.digitalocean_kubernetes_cluster.primary.endpoint
-  token            = data.digitalocean_kubernetes_cluster.primary.kube_config[0].token
-  cluster_ca_certificate = base64decode(
-    data.digitalocean_kubernetes_cluster.primary.kube_config[0].cluster_ca_certificate
-  )
-}
+  host             = digitalocean_kubernetes_cluster.weerwijzer_cluster.endpoint
+  token            = digitalocean_kubernetes_cluster.weerwijzer_cluster.kube_config.0.token
+  cluster_ca_certificate = base64decode(digitalocean_kubernetes_cluster.weerwijzer_cluster.kube_config.0.cluster_ca_certificate)
 
-provider "helm" {
-  kubernetes {
-    host  = data.digitalocean_kubernetes_cluster.primary.endpoint
-    token = data.digitalocean_kubernetes_cluster.primary.kube_config[0].token
-    cluster_ca_certificate = base64decode(
-      data.digitalocean_kubernetes_cluster.primary.kube_config[0].cluster_ca_certificate
-    )
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command = "doctl"
+    args = ["kubernetes", "cluster", "kubeconfig", "exec-credential",
+    "--version=v1beta1", digitalocean_kubernetes_cluster.weerwijzer_cluster.id]
   }
 }
+
+# provider "helm" {
+#   kubernetes {
+#     host  = digitalocean_kubernetes_cluster.weerwijzer_cluster.endpoint
+#     token = digitalocean_kubernetes_cluster.weerwijzer_cluster.kube_config[0].token
+#     cluster_ca_certificate = base64decode(digitalocean_kubernetes_cluster.weerwijzer_cluster.kube_config[0].cluster_ca_certificate)
+#   }
+# }
