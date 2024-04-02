@@ -34,7 +34,7 @@ def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
         return 999
 
 
-def bereken_voorspellingen_uren(locatie):
+def bereken_voorspellingen_uren(locatie, API=API):
     try:
         url_meting = API + f"/metinguren/{locatie}?api_key={API_KEY}"
         response = requests.get(url_meting)
@@ -81,7 +81,7 @@ def bereken_voorspellingen_uren(locatie):
         sys.exit(1)
 
 
-def post_weer_data(locatie):
+def post_weer_data(locatie, API=API):
     APIEXT = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{locatie}/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json"
     try:
         response = requests.get(APIEXT)
@@ -146,7 +146,7 @@ def post_weer_data(locatie):
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Bereken voorspellingen
-        bereken_voorspellingen_uren(locatie)
+        bereken_voorspellingen_uren(locatie, API)
 
     except Exception as e:
         logging.error("[run] Er is een fout opgetreden: %s", e)
