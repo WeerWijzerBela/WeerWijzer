@@ -1,53 +1,109 @@
-resource "digitalocean_kubernetes_cluster" "terraform" {
-    name    = "terraform"
-    region  = "ams3"
-    version = "1.29.1-do.0"
-    node_pool {
-        name       = "worker-pool"
-        size       = "s-1vcpu-2gb"
-        auto_scale = true
-        min_nodes = 1
-        max_nodes = 3
+resource "digitalocean_kubernetes_cluster" "weerwijzer_cluster" {
+  name    = "weerwijzer-cluster"
+  region  = "ams3"  # Update to your preferred region
+  version = "latest" # Automatically selects the latest version
+  registry_integration = true
+
+  node_pool {
+    name       = var.droplet_name
+    size       = "s-2vcpu-2gb" # Adjust based on your needs
+    node_count = 1
+    auto_scale = true
+    min_nodes  = 1
+    max_nodes  = 3
+  }
+}
+
+
+
+
+resource "null_resource" "registry_credentials" {
+  # Triggers this resource to be recreated, reapplying the secret, whenever the cluster ID changes
+  triggers = {
+    cluster_id = digitalocean_kubernetes_cluster.weerwijzer_cluster.id
+  }
+
+  provisioner "local-exec" {
+    command = "doctl auth init --access-token ${var.do_token}"
+  }
+
+  provisioner "local-exec" {
+    command = "doctl registry kubernetes-manifest | kubectl apply -f -"
+  }
+
+  provisioner "local-exec" {
+    command = "doctl registry kubernetes-manifest | kubectl apply -f -"
+  }
+
+  depends_on = [
+    digitalocean_kubernetes_cluster.weerwijzer_cluster,
+  ]
+}
+
+resource "kubernetes_deployment" "weerwijzer_app" {
+  depends_on = [
+    null_resource.registry_credentials
+  ]
+  metadata {
+    name = "weerwijzer-app"
+  }
+
+  spec {
+    replicas = 2
+
+    selector {
+      match_labels = {
+        app = "weerwijzer-app"
+      }
     }
+
+    template {
+      metadata {
+        labels = {
+          app = "weerwijzer-app"
+        }
+      }
+
+
+      spec {
+        container {
+          name  = "weerwijzer-app"
+          image = var.app_image
+          port {
+            container_port = 80
+          }
+        }
+      }
+    }
+  }
 }
 
-resource "kubernetes_deployment" "weerwijzer" {
-	metadata {
-		name = "weerwijzer"
-		labels = {
-			test = "weerwijzer"
-		}
-		namespace = "weerwijzer"
-	}
-	spec {
-		replicas = 5
+resource "kubernetes_service" "weerwijzer_lb" {
+  metadata {
+    name = "weerwijzer-lb"
+  }
 
-		selector {
-			match_labels = {
-				test = "weerwijzer"
-			}
-		}
+  spec {
+    selector = {
+      app = "weerwijzer-app"
+    }
 
-		template {
-			metadata {
-				labels = {
-					test = "weerwijzer"
-				}
-			}
+    port {
+      port        = 80
+      target_port = 80
+    }
 
-			spec {
-				container {
-					image = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:latest"
-					image_pull_policy = "IfNotPresent"
-					name = "weerwijzer"
-					port {
-                        container_port = 80
-                    }
-				}
-			}
-
-		}
-	}
+    type = "LoadBalancer"
+  }
 }
 
+
+# resource "digitalocean_record" "app_dns" {
+#   depends_on = [ digitalocean_loadbalancer.public ]
+#   domain = var.domain
+#   type   = "A"
+#   name   = "@" # Root domain, use something else for subdomains
+#   value  = [kubernetes_service.weerwijzer_lb.ip]
+#   ttl    = 3600
+# }
 
