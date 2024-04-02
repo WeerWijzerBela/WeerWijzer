@@ -3,9 +3,9 @@ variable "do_token" {
   default = "dop_v1_a22987dfe71a1b7aab2010e2d6505de178cec725ddcd9b82c29a35f78f1919d9"
 }
 
-variable "pvt_key" {
+variable "github_token" {
   type = string
-  default = "ssh_key"
+  default = "ghp_1b2b3c4d5e6f7g8h9i0j"
 
 }
 
