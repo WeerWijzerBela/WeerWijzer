@@ -3,6 +3,12 @@ FROM python:3.9
 #copies everything to the working directory
 COPY . .
 COPY ./templates/pictures /templates/pictures
+ARG DB_HOST
+ARG DB_NAME
+ARG DB_PORT
+ARG DB_USER
+ARG DB_PASSWORD
+ARG API_KEY
 #copies the requirements.txt file to the working directory
 ADD requirements.txt .
 #sets the working directory
