@@ -14,9 +14,6 @@ resource "digitalocean_kubernetes_cluster" "weerwijzer_cluster" {
   }
 }
 
-
-
-
 resource "null_resource" "registry_credentials" {
   # Triggers this resource to be recreated, reapplying the secret, whenever the cluster ID changes
   triggers = {
@@ -31,9 +28,6 @@ resource "null_resource" "registry_credentials" {
     command = "doctl registry kubernetes-manifest | kubectl apply -f -"
   }
 
-  provisioner "local-exec" {
-    command = "doctl registry kubernetes-manifest | kubectl apply -f -"
-  }
 
   depends_on = [
     digitalocean_kubernetes_cluster.weerwijzer_cluster,

@@ -11,6 +11,8 @@ host_db = os.environ.get("DB_HOST")
 port = os.environ.get("DB_PORT")
 db = os.environ.get("DB_NAME")
 
+print(username, password, host_db, port, db)
+
 if None in (username, password, host_db, port, db):
     raise ValueError("One or more environment variables are not set.")
 
