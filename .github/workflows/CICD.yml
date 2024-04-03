@@ -48,7 +48,7 @@ jobs:
           ./stop.sh
       - name: Build Docker container
         run: |
-            docker build   -t weerwijzer-app:latest .
+            docker build   -t weerwijzer-app:v1.01 .
 
       - name: push the image to digital ocean container
         run: |
