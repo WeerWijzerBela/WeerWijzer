@@ -56,11 +56,11 @@ def bereken_voorspellingen_uren(locatie):
             "locatie": locatie,
             "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
-        url_voorspellingen = API + f'/voorspellingen?api_key={API_KEY}'
+        url_voorspellingen = f'/voorspellingen?api_key={API_KEY}'
         response_metingen = requests.post(url_voorspellingen, json=nieuwe_voorspelling)
         response_metingen.raise_for_status()  # Raise an exception for non-200 status codes
 
-        url_voorspellingen_uren = API + f'/voorspellinguren?api_key={API_KEY}'
+        url_voorspellingen_uren = f'/voorspellinguren?api_key={API_KEY}'
         batch_size = 193
         for i in range(0, len(zambrettiList), batch_size):
             batch_data = zambrettiList[i:i + batch_size]
