@@ -13,4 +13,4 @@ RUN pip install -r requirements.txt
 #exposes port 8000
 EXPOSE 8000
 #runs the app
-CMD ["uvicorn", "WeerWijzerAPI:app", "--host", "0.0.0.0",  "--port", "8000"]
+CMD ["uvicorn", "WeerWijzerAPI:app", "--host", "weerwijzer-belastingdienst.online",  "--port", "8000"]
