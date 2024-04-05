@@ -110,8 +110,8 @@ def index():
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
-@app.get("/metinguren/{locatie}", response_model=List[WeerMetingUren])
-def get_metingen(locatie: str, db: Session = Depends(get_db)):
+@app.get("/metinguren/{locatie}")
+def get_metingen(locatie: str, db: Session = Depends(get_db)) -> List[WeerMetingUren]:
     """Haal de meest recente meting op uit de database en converteer deze naar een lijst van WeerMeting objecten."""
     try:
         locatie_db = db.query(DBLocatie).filter(DBLocatie.locatie == locatie).first()
@@ -148,12 +148,12 @@ def get_metingen(locatie: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post("/metingen", response_model=WeerMeting)
+@app.post("/metingen")
 def create_meting(
     nieuwe_meting: WeerMeting,
     db: Session = Depends(get_db),
     key: str = Depends(verify_api_key),
-):
+) -> WeerMeting:
     """Voeg een nieuwe meting toe aan de database en retourneer een NieuweWeerMeting object."""
     try:
         locatie_db = (
@@ -178,12 +178,12 @@ def create_meting(
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post("/metinguren", response_model=List[WeerMetingUren])
+@app.post("/metinguren")
 def create_meting_uren_batch(
     nieuwe_metingen: List[WeerMetingUren],
     db: Session = Depends(get_db),
     key: str = Depends(verify_api_key),
-):
+) -> List[WeerMetingUren]:
     """Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten."""
     try:
         # Haal de maximale metingenId op
@@ -274,8 +274,8 @@ def delete_metingen(
 
 ########################################################################################################################
 # VOORSPELLING / VOORSPELLINGEN ENDPOINTS
-@app.get("/voorspellinguren/{locatie}", response_model=List[VoorspellingUren])
-def get_voorspellingen(locatie: str, db: Session = Depends(get_db)):
+@app.get("/voorspellinguren/{locatie}")
+def get_voorspellingen(locatie: str, db: Session = Depends(get_db)) -> List[VoorspellingUren]:
     """Haal de meest recente voorspelling op uit de database en converteer deze naar een lijst van VoorspellingUren objecten."""
     try:
         # Voer een JOIN-query uit om de benodigde informatie op te halen
@@ -319,12 +319,12 @@ def get_voorspellingen(locatie: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post("/voorspellingen", response_model=Voorspelling)
+@app.post("/voorspellingen")
 def create_voorspelling(
     nieuwe_voorspelling: Voorspelling,
     db: Session = Depends(get_db),
     key: str = Depends(verify_api_key),
-):
+) -> Voorspelling:
     """Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object."""
     try:
         locatie_db = (
@@ -349,12 +349,12 @@ def create_voorspelling(
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post("/voorspellinguren", response_model=List[VoorspellingUren])
+@app.post("/voorspellinguren")
 def create_voorspelling_uren_batch(
     nieuwe_voorspellingen: List[VoorspellingUren],
     db: Session = Depends(get_db),
     key: str = Depends(verify_api_key),
-):
+) -> List[VoorspellingUren]:
     """Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten."""
     try:
         # Haal de maximale voorspellingenId op
@@ -445,8 +445,8 @@ def delete_voorspellingen(
 
 ########################################################################################################################
 # LOCATIES ENDPOINTS
-@app.get("/locaties", response_model=List[Locatie])
-def get_locaties(db: Session = Depends(get_db)):
+@app.get("/locaties")
+def get_locaties(db: Session = Depends(get_db)) -> List[Locatie]:
     """Haal alle locaties op uit de database en converteer ze naar een lijst van Locatie objecten."""
     try:
         locaties = db.query(DBLocatie).all()
@@ -456,12 +456,12 @@ def get_locaties(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post("/locaties", response_model=Locatie)
+@app.post("/locaties")
 def create_locatie(
     nieuwe_locatie: Locatie,
     db: Session = Depends(get_db),
     key: str = Depends(verify_api_key),
-):
+) -> Locatie:
     """Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object."""
     try:
         locatie_db = DBLocatie(**nieuwe_locatie.dict())
@@ -510,18 +510,23 @@ def delete_locatie(
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
 @app.get('/images/{image}')
-def get_images(image: int):
+def get_images(image: int,db: Session = Depends(get_db)):
     '''Haal een specifieke afbeelding op.'''
+    return ' '
+    # try:
+    #     img = db.query(DBLocatie).all()
 
-    connection = db.connect_to_database()
-    try:
-        cursor = connection.cursor()
-        cursor.execute("SELECT image FROM images where imageId = %s;", (image,))
-        image = cursor.fetchone()
-        image_blob = image[0]
-        return FileResponse(image_blob, media_type="image/png")
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /locaties.", e)
-    finally:
-        connection.close()
+    # except SQLAlchemyError as e:
+    #     logging.error(f"[API] Er is een fout opgetreden bij get-request /locaties: {e}")
+    #     raise HTTPException(status_code=500, detail="Interne serverfout")
+    # try:
+    #     cursor = connection.cursor()
+    #     cursor.execute("SELECT image FROM images where imageId = %s;", (image,))
+    #     image = cursor.fetchone()
+    #     image_blob = image[0]
+    #     return FileResponse(image_blob, media_type="image/png")
+    # except Exception as e:
+    #     connection.close()
+    #     logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /locaties.", e)
+    # finally:
+    #     connection.close()
