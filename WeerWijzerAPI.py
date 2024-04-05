@@ -513,7 +513,6 @@ def delete_locatie(
 @app.get('/images/{image}')
 def get_images(image: int,db: Session = Depends(get_db)):
     '''Haal een specifieke afbeelding op.'''
-
     try:
         img = db.query(DBImage).get(image)
         if img:
@@ -525,3 +524,4 @@ def get_images(image: int,db: Session = Depends(get_db)):
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
+
