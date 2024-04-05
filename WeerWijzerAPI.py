@@ -516,7 +516,7 @@ def get_images(image: int,db: Session = Depends(get_db)):
 
     try:
         img = db.query(DBImage).get(image)
-        image_blob = img[0]
+        image_blob = img
         return FileResponse(image_blob, media_type="image/png")
 
     except SQLAlchemyError as e:

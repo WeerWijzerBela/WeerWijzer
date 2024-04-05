@@ -105,7 +105,6 @@ jobs:
             -var="do_token=${{secrets.DOCKER_TOKEN}}"
 
 
-
       ## Deploying to kubernetes cluster (nog doen: load balancer)
 #      - name: Update deployment file
 #        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/python-example:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
