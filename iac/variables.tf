@@ -8,6 +8,11 @@ variable "github_token" {
   default = "ghp_1b2b3c4d5e6f7g8h9i0j"
 
 }
+variable "top_level_domains" {
+  # description = "Top level domains to create records and pods for"
+  type    = list(string)
+  default = ["weerwijzer-belastingdienst.nl"]
+}
 
 variable "droplet_name" {
   description = "Name of the droplet"
