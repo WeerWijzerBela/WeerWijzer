@@ -69,10 +69,10 @@ jobs:
           chmod +x bash.sh
           ./bash.sh
 
-      # - name: Set up Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      #   with:
-      #     terraform_version: 1.0.0
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+           terraform_version: 1.0.0
       # - name: Set Terraform DigitalOcean token
       #   run: |
       #     echo 'variable "do_token" {' > variables.tf
@@ -82,19 +82,27 @@ jobs:
      # terraform apply -var="github_secrets={DB_HOST=your_secret_value}"
 
 
-      # - name: Terraform Init
-      #   run: |
-      #     cd iac
-      #     terraform init
+      - name: Terraform Init
+        run: |
+          cd iac
+          terraform init
 
-      # - name: Terraform Plan
-      #   run: |
-      #     cd iac
-      #     terraform plan
-      # - name: Terraform Apply
-      #   run: |
-      #     cd iac
-      #     terraform apply -auto-approve
+      - name: Terraform Plan
+        run: |
+           cd iac
+           terraform plan \
+            -var="API_KEY=${{secrets.API_KEY}}" \
+            -var="app_image_tag=1.06" \
+            -var="db_password=${{secrets.DB_PASSWORD}}" \
+            -var="do_token=${{secrets.DOCKER_TOKEN}}"
+      - name: Terraform Apply
+        run: |
+           cd iac
+           terraform apply -auto-approve \
+            -var="API_KEY=${{secrets.API_KEY}}" \
+            -var="app_image_tag=1.06" \
+            -var="db_password=${{secrets.DB_PASSWORD}}" \
+            -var="do_token=${{secrets.DOCKER_TOKEN}}"
 
 
 

@@ -1,7 +1,7 @@
 resource "digitalocean_kubernetes_cluster" "weerwijzer_cluster" {
   name    = "weerwijzer-cluster"
   region  = "ams3"  # Update to your preferred region
-  version = "latest" # Automatically selects the latest version
+  version = "1.29.1-do.0" # Update to your preferred version
   registry_integration = true
 
   node_pool {
@@ -11,33 +11,13 @@ resource "digitalocean_kubernetes_cluster" "weerwijzer_cluster" {
     auto_scale = true
     min_nodes  = 1
     max_nodes  = 3
+    tags = ["weerwijzer-node-lb"]
   }
 }
 
-resource "null_resource" "registry_credentials" {
-  # Triggers this resource to be recreated, reapplying the secret, whenever the cluster ID changes
-  triggers = {
-    cluster_id = digitalocean_kubernetes_cluster.weerwijzer_cluster.id
-  }
-
-  provisioner "local-exec" {
-    command = "doctl auth init --access-token ${var.do_token}"
-  }
-
-  provisioner "local-exec" {
-    command = "doctl registry kubernetes-manifest | kubectl apply -f -"
-  }
-
-
-  depends_on = [
-    digitalocean_kubernetes_cluster.weerwijzer_cluster,
-  ]
-}
 
 resource "kubernetes_deployment" "weerwijzer_app" {
-  depends_on = [
-    null_resource.registry_credentials
-  ]
+  depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster]
   metadata {
     name = "weerwijzer-app"
   }
@@ -58,13 +38,36 @@ resource "kubernetes_deployment" "weerwijzer_app" {
         }
       }
 
-
       spec {
         container {
           name  = "weerwijzer-app"
-          image = var.app_image
+          image = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:${var.app_image_tag}"
+          env {
+            name  = "DB_HOST"
+            value = "mysqldb-weerwijzer-do-user-15988447-0.c.db.ondigitalocean.com"
+          }
+          env {
+            name  = "DB_NAME"
+            value = "defaultdb"
+          }
+          env {
+            name  = "DB_PORT"
+            value = 25060
+          }
+          env {
+            name  = "DB_USER"
+            value = "doadmin"
+          }
+          env {
+            name  = "DB_PASSWORD"
+            value = var.db_password
+          }
+          env {
+            name  = "API_KEY"
+            value = var.API_KEY
+          }
           port {
-            container_port = 80
+            container_port = 8080
           }
         }
       }
@@ -72,32 +75,53 @@ resource "kubernetes_deployment" "weerwijzer_app" {
   }
 }
 
-resource "kubernetes_service" "weerwijzer_lb" {
-  metadata {
-    name = "weerwijzer-lb"
-  }
+resource "digitalocean_domain" "top_level_domains" {
+  depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster]
+  name     = var.domain
+}
 
+resource "digitalocean_record" "a_records" {
+  depends_on = [digitalocean_domain.top_level_domains]
+  domain   = var.domain
+  type     = "A"
+  ttl      = 60
+  name     = "@"
+  value = kubernetes_service.weerwijzer_app_service.status.0.load_balancer.0.ingress.0.ip
+}
+
+resource "digitalocean_record" "cname_redirects" {
+  depends_on = [digitalocean_domain.top_level_domains]
+  domain   = var.domain
+  type     = "CNAME"
+  ttl      = 60
+  name     = "www"
+  value    = "@"
+}
+
+resource "digitalocean_certificate" "cert" {
+  depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster]
+  name    = "cert-weerwijzer"
+  type    = "lets_encrypt"
+  domains = ["weerwijzer-belastingdienst.online"]
+}
+
+resource "kubernetes_service" "weerwijzer_app_service" {
+  depends_on = [ digitalocean_certificate.cert, kubernetes_deployment.weerwijzer_app]
+  metadata {
+    name = "weerwijzer-app-service"
+    annotations = {
+      "service.beta.kubernetes.io/do-loadbalancer-certificate-id" = digitalocean_certificate.cert.uuid
+    }
+  }
   spec {
     selector = {
       app = "weerwijzer-app"
     }
-
     port {
-      port        = 80
-      target_port = 80
+      port        = 443
+      target_port = 8080
     }
-
     type = "LoadBalancer"
   }
 }
-
-
-# resource "digitalocean_record" "app_dns" {
-#   depends_on = [ digitalocean_loadbalancer.public ]
-#   domain = var.domain
-#   type   = "A"
-#   name   = "@" # Root domain, use something else for subdomains
-#   value  = [kubernetes_service.weerwijzer_lb.ip]
-#   ttl    = 3600
-# }
 

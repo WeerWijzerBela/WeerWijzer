@@ -1,13 +1,9 @@
 variable "do_token" {
   type = string
-  default = "dop_v1_a22987dfe71a1b7aab2010e2d6505de178cec725ddcd9b82c29a35f78f1919d9"
+  description = "digital ocean token to login"
 }
 
-variable "github_token" {
-  type = string
-  default = "ghp_1b2b3c4d5e6f7g8h9i0j"
 
-}
 variable "top_level_domains" {
   # description = "Top level domains to create records and pods for"
   type    = list(string)
@@ -25,7 +21,13 @@ variable "domain" {
   default     = "weerwijzer-belastingdienst.online"
 }
 
-variable "app_image" {
-  description = "Docker image for the application"
-  default     = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.04"
+variable "app_image_tag" {
+  description = "Docker image tag for the application"
+#  default     = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.04"
+}
+variable "db_password" {
+  description = "Database password"
+}
+variable "API_KEY"{
+  description = "API key"
 }
