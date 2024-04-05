@@ -516,8 +516,11 @@ def get_images(image: int,db: Session = Depends(get_db)):
 
     try:
         img = db.query(DBImage).get(image)
-        image_blob = img
-        return FileResponse(image_blob, media_type="image/png")
+        if img:
+            image_blob = img.blob_data  # Stel dat blob_data de attribuutnaam is voor de afbeeldingsgegevens
+            return FileResponse(image_blob, media_type="image/png")
+        else:
+            raise HTTPException(status_code=404, detail="Afbeelding niet gevonden")
 
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
