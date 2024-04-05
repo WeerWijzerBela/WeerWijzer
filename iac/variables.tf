@@ -7,7 +7,7 @@ variable "do_token" {
 variable "top_level_domains" {
   # description = "Top level domains to create records and pods for"
   type    = list(string)
-  default = ["weerwijzer-belastingdienst.nl"]
+  default = ["weerwijzer-belastingdienst.online"]
 }
 
 variable "droplet_name" {
@@ -18,7 +18,7 @@ variable "droplet_name" {
 
 variable "domain" {
   description = "Domain name for the application"
-  default     = "weerwijzer-belastingdienst.nl"
+  default     = "weerwijzer-belastingdienst.online"
 }
 
 variable "app_image_tag" {

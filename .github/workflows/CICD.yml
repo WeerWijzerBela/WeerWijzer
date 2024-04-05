@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: 1.06
+  DOCKER_VERSION: 1.07
 
 
 jobs:
