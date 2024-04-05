@@ -153,6 +153,24 @@ def post_weer_data(locatie, API=API):
         sys.exit(1)
 
 
+def post_weer_data_locaties():
+    try:
+        url_locaties = API + "/locaties"
+        response = requests.get(url_locaties)
+        response.raise_for_status()  # Raise an exception for non-200 status codes
+        jsonData = response.json()
+        for locatie in jsonData:
+            try:
+                post_weer_data(locatie["locatie"])
+            except Exception as e:
+                logging.error("[run] Er is een fout opgetreden bij locatie: %s / %s", locatie["locatie"], e)
+                continue
+    except Exception as e:
+        logging.error("[run] Er is een fout opgetreden: %s", e)
+        sys.exit(1)
+
+
 if __name__ == "__main__":
-    # Call your function here
-    post_weer_data("Apeldoorn")
+    post_weer_data_locaties()
+    logging.info("[run] Weerdata is succesvol verwerkt.")
+    sys.exit(0)

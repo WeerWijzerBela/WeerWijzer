@@ -4,12 +4,12 @@ from pydantic import BaseModel
 from typing import List, Optional
 from sqlalchemy import func
 from logfiles.log import logging
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timedelta
 from contextlib import asynccontextmanager
 
-from DB import SessionLocal, engine, init_db, get_db
+from DB import init_db, get_db
 from DB import (
     Locatie as DBLocatie,
     Meting as DBMeting,
@@ -39,7 +39,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 
