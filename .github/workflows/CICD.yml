@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: :1.06
+  DOCKER_VERSION: 1.06
 
 
 jobs:
@@ -52,14 +52,14 @@ jobs:
           ./stop.sh
       - name: Build Docker container
         run: |
-            docker build   -t weerwijzer-app$DOCKER_VERSION .
+            docker build   -t weerwijzer-app:$DOCKER_VERSION .
 
 
       - name: push the image to digital ocean container
         run: |
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
-            docker tag weerwijzer-app$DOCKER_VERSION registry.digitalocean.com/container-weerwijzer/weerwijzer-app$DOCKER_VERSION
-            docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app$DOCKER_VERSION
+            docker tag weerwijzer-app:$DOCKER_VERSION registry.digitalocean.com/container-weerwijzer/weerwijzer-app:$DOCKER_VERSION
+            docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app:$DOCKER_VERSION
 #      - name: Run garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
