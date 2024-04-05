@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: 1.07
+  DOCKER_VERSION: 1.08
 
 
 jobs:
@@ -103,17 +103,3 @@ jobs:
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}"
-
-
-      ## Deploying to kubernetes cluster (nog doen: load balancer)
-#      - name: Update deployment file
-#        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/python-example:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
-#
-#      - name: Save DigitalOcean kubeconfig with short-lived credentials
-#        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
-#
-#      - name: Deploy to DigitalOcean Kubernetes
-#        run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yml
-#
-#      - name: Verify deployment
-#        run: kubectl rollout status deployment/python-example

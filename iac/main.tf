@@ -98,10 +98,10 @@ resource "digitalocean_record" "cname_redirects" {
 }
 
 resource "digitalocean_certificate" "cert" {
-  depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster]
+  depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster, digitalocean_domain.top_level_domains]
   name    = "cert-weerwijzer"
   type    = "lets_encrypt"
-  domains = ["weerwijzer-belastingdienst.online"]
+  domains = var.top_level_domains
 }
 
 resource "kubernetes_service" "weerwijzer_app_service" {
