@@ -7,6 +7,7 @@ from sqlalchemy import (
     ForeignKey,
     Boolean,
     Numeric,
+    BLOB,
     text,
 )
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
@@ -113,6 +114,12 @@ class zWaarden(Base):
     voorspellinguren = relationship(
         "VoorspellingUren", back_populates="zwaarde"
     )  # Voeg deze relatie toe
+
+class Image(Base):
+    __tablename__ = "images"
+
+    imageId = Column(Integer, primary_key=True, autoincrement=True)
+    image = Column(BLOB, nullable=False)
 
 
 def get_db():

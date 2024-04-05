@@ -19,6 +19,7 @@ from DB import (
     Voorspelling as DBVoorspelling,
     VoorspellingUren as DBVoorspellingUren,
     zWaarden as DBzWaarden,
+    Image as DBImage
 )
 
 import os
@@ -512,21 +513,12 @@ def delete_locatie(
 @app.get('/images/{image}')
 def get_images(image: int,db: Session = Depends(get_db)):
     '''Haal een specifieke afbeelding op.'''
-    return ' '
-    # try:
-    #     img = db.query(DBLocatie).all()
 
-    # except SQLAlchemyError as e:
-    #     logging.error(f"[API] Er is een fout opgetreden bij get-request /locaties: {e}")
-    #     raise HTTPException(status_code=500, detail="Interne serverfout")
-    # try:
-    #     cursor = connection.cursor()
-    #     cursor.execute("SELECT image FROM images where imageId = %s;", (image,))
-    #     image = cursor.fetchone()
-    #     image_blob = image[0]
-    #     return FileResponse(image_blob, media_type="image/png")
-    # except Exception as e:
-    #     connection.close()
-    #     logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /locaties.", e)
-    # finally:
-    #     connection.close()
+    try:
+        img = db.query(DBImage).get(image)
+        image_blob = img[0]
+        return FileResponse(image_blob, media_type="image/png")
+
+    except SQLAlchemyError as e:
+        logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
+        raise HTTPException(status_code=500, detail="Interne serverfout")
