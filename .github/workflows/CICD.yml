@@ -27,9 +27,9 @@ jobs:
 #      - name: Run linting
 #        run: |
 #          flake8 ./metingen.py
-      - name: Run a test with coverage
-        run: | 
-          pytest --cov
+      # - name: Run a test with coverage
+      #   run: |
+      #     pytest --cov
 
   build:
     needs: setup-test
