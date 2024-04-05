@@ -17,7 +17,7 @@ variable "droplet_name" {
 
 variable "domain" {
   description = "Domain name for the application"
-  default     = "weerwijzer-belastingdienst.nl"
+  default     = "weerwijzer-belastingdienst.online"
 }
 
 variable "app_image" {
