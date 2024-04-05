@@ -27,5 +27,5 @@ variable "domain" {
 
 variable "app_image" {
   description = "Docker image for the application"
-  default     = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:latest"
+  default     = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.03"
 }
