@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: :1.04
+  DOCKER_VERSION: :1.05
 
 
 jobs:
@@ -78,6 +78,8 @@ jobs:
       #     echo '  type    = string' >> variables.tf
       #     echo '  default = "${{secrets.DOCKER_TOKEN}}"' >> variables.tf
       #     echo '}' >> variables.tf
+     # terraform apply -var="github_secrets={DB_HOST=your_secret_value}"
+
 
       # - name: Terraform Init
       #   run: |
