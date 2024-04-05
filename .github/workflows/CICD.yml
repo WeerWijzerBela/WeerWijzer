@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: :1.05
+  DOCKER_VERSION: :1.06
 
 
 jobs:
@@ -92,7 +92,7 @@ jobs:
            cd iac
            terraform plan \
             -var="API_KEY=${{secrets.API_KEY}}" \
-            -var="app_image_tag=1.06" \
+            -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}"
       - name: Terraform Apply
@@ -100,7 +100,7 @@ jobs:
            cd iac
            terraform apply -auto-approve \
             -var="API_KEY=${{secrets.API_KEY}}" \
-            -var="app_image_tag=1.06" \
+            -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}"
 
