@@ -102,7 +102,7 @@ resource "digitalocean_certificate" "cert" {
   depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster]
   name    = "cert-weerwijzer"
   type    = "lets_encrypt"
-  domains = ["weerwijzer-belastingdienst.online"]
+  domains = ["weerwijzer-belastingdienst.nl"]
 }
 
 resource "kubernetes_service" "weerwijzer_app_service" {
