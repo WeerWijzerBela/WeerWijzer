@@ -15,7 +15,6 @@ resource "digitalocean_kubernetes_cluster" "weerwijzer_cluster" {
   }
 }
 
-
 resource "kubernetes_deployment" "weerwijzer_app" {
   depends_on = [digitalocean_kubernetes_cluster.weerwijzer_cluster]
   metadata {
