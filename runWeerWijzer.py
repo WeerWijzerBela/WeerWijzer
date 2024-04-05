@@ -1,22 +1,25 @@
-#!/usr/bin/env python3
 import requests
 from datetime import datetime, date, timedelta
 import sys
 from logfiles.log import logging
 import math as m
 import os
+import hashlib
+from dotenv import load_dotenv
 
+load_dotenv()
 
 API = "https://weerwijzer-belastingdienst.online"
+
 API_KEY = os.environ.get("API_KEY")
 
 
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
-    '''Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)'''
+    """Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)"""
     # zWind uitrekenen aan de hand van windrichting
-    if windrichting >= 135 and windrichting <= 225:
+    if 225 >= windrichting >= 135:
         zWind = 2
-    elif windrichting >= 315 or windrichting <= 45:
+    elif 45 >= windrichting >= 315:
         zWind = 0
     else:
         zWind = 1
@@ -31,9 +34,10 @@ def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     else:
         return 999
 
+
 def bereken_voorspellingen_uren(locatie):
     try:
-        url_meting = API + f'/metinguren/{locatie}?api_key={API_KEY}'
+        url_meting = API + f"/metinguren/{locatie}?api_key={API_KEY}"
         response = requests.get(url_meting)
         response.raise_for_status()  # Raise an exception for non-200 status codes
         jsonData = response.json()
@@ -44,36 +48,39 @@ def bereken_voorspellingen_uren(locatie):
                 continue
             huidige_meting = jsonData[i]
             vorige_meting = jsonData[1] if i == 0 else jsonData[i - 3]
-            zambretti_value = bereken_zambretti(huidige_meting['pressure'], vorige_meting['pressure'],
-                                                windrichting=huidige_meting['winddirection'])
-            zambrettiList.append({
-                "datetime": huidige_meting["datetime"],
-                "temperature": huidige_meting["temperature"],
-                "zWaarde": zambretti_value
-            })
+            zambretti_value = bereken_zambretti(
+                huidige_meting["pressure"],
+                vorige_meting["pressure"],
+                windrichting=huidige_meting["winddirection"],
+            )
+            zambrettiList.append(
+                {
+                    "datetime": huidige_meting["datetime"],
+                    "temperature": huidige_meting["temperature"],
+                    "zWaarde": zambretti_value,
+                }
+            )
 
         nieuwe_voorspelling = {
             "locatie": locatie,
-            "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         }
-        url_voorspellingen = API + f'/voorspellingen?api_key={API_KEY}'
+        url_voorspellingen = API + f"/voorspellingen?api_key={API_KEY}"
         response_metingen = requests.post(url_voorspellingen, json=nieuwe_voorspelling)
         response_metingen.raise_for_status()  # Raise an exception for non-200 status codes
 
-        url_voorspellingen_uren = API + f'/voorspellinguren?api_key={API_KEY}'
-        batch_size = 193
-        for i in range(0, len(zambrettiList), batch_size):
-            batch_data = zambrettiList[i:i + batch_size]
-            response_batch = requests.post(url_voorspellingen_uren, json=batch_data)
-            response_batch.raise_for_status()  # Raise an exception for non-200 status codes
+        url_voorspellingen_uren = API + f"/voorspellinguren?api_key={API_KEY}"
+        response_batch = requests.post(url_voorspellingen_uren, json=zambrettiList)
+        response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude voorspellinguren
-        url_delete = API + f'/voorspellingen/{locatie}?api_key={API_KEY}'
+        url_delete = API + f"/voorspellingen/{locatie}?api_key={API_KEY}"
         response_delete = requests.delete(url_delete)
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
     except Exception as e:
         logging.error("[run] Er is een fout opgetreden: %s", e)
         sys.exit(1)
+
 
 def post_weer_data(locatie):
     APIEXT = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{locatie}/next7days?unitGroup=metric&elements=datetime%2Ctemp%2Cwinddir%2Cpressure&include=hours%2Ccurrent&key=ZW8NCV6JP8ZUGX33D769DJ693&contentType=json"
@@ -84,43 +91,58 @@ def post_weer_data(locatie):
 
         nieuwe_meting_data_metingen = {
             "locatie": locatie,
-            "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         }
-        url_metingen = API + f'/metingen?api_key={API_KEY}'
-        response_metingen = requests.post(url_metingen, json=nieuwe_meting_data_metingen)
+        url_metingen = API + f"/metingen?api_key={API_KEY}"
+        response_metingen = requests.post(
+            url_metingen, json=nieuwe_meting_data_metingen
+        )
         response_metingen.raise_for_status()  # Raise an exception for non-200 status codes
 
-        nieuwe_metinguren = [{
-            "datetime": str(date.today()) + ' ' + jsonData['currentConditions']['datetime'],
-            "temperature": jsonData['currentConditions']['temp'],
-            "pressure": jsonData['currentConditions']['pressure'],
-            "winddirection": jsonData['currentConditions']['winddir']
-        }]
+        nieuwe_metinguren = [
+            {
+                "datetime": str(date.today())
+                + " "
+                + jsonData["currentConditions"]["datetime"],
+                "temperature": jsonData["currentConditions"]["temp"],
+                "pressure": jsonData["currentConditions"]["pressure"],
+                "winddirection": jsonData["currentConditions"]["winddir"],
+            }
+        ]
         for data in jsonData["days"]:
-            for i in data['hours']:
+            for i in data["hours"]:
                 i_datetime = f"{data['datetime']} {i['datetime']}"
-                if (i_datetime < (
-                        datetime.strptime(str(date.today()) + ' ' + jsonData['currentConditions']['datetime'],
-                                          '%Y-%m-%d %H:%M:%S').replace(minute=0, second=0,
-                                                                       microsecond=0) - timedelta(
-                    hours=3)).strftime('%Y-%m-%d %H:%M:%S')
-                        and i_datetime <= str(date.today()) + ' ' + jsonData['currentConditions']['datetime']):
+                if (
+                    i_datetime
+                    < (
+                        datetime.strptime(
+                            str(date.today())
+                            + " "
+                            + jsonData["currentConditions"]["datetime"],
+                            "%Y-%m-%d %H:%M:%S",
+                        ).replace(minute=0, second=0, microsecond=0)
+                        - timedelta(hours=3)
+                    ).strftime("%Y-%m-%d %H:%M:%S")
+                    and i_datetime
+                    <= str(date.today())
+                    + " "
+                    + jsonData["currentConditions"]["datetime"]
+                ):
                     continue
-                nieuwe_metinguren.append({
-                    "datetime": i_datetime,
-                    "temperature": i['temp'],
-                    "pressure": i['pressure'],
-                    "winddirection": i['winddir']
-                })
-        url_metinguren = API + f'/metinguren?api_key={API_KEY}'
-        batch_size = 190
-        for i in range(0, len(nieuwe_metinguren), batch_size):
-            batch_data = nieuwe_metinguren[i:i + batch_size]
-            response_batch = requests.post(url_metinguren, json=batch_data)
-            response_batch.raise_for_status()  # Raise an exception for non-200 status codes
+                nieuwe_metinguren.append(
+                    {
+                        "datetime": i_datetime,
+                        "temperature": i["temp"],
+                        "pressure": i["pressure"],
+                        "winddirection": i["winddir"],
+                    }
+                )
+        url_metinguren = API + f"/metinguren?api_key={API_KEY}"
+        response_batch = requests.post(url_metinguren, json=nieuwe_metinguren)
+        response_batch.raise_for_status()  # Raise an exception for non-200 status codes
 
         # Verwijder oude metingen
-        url_metingen = API + f'/metingen/{locatie}?api_key={API_KEY}'
+        url_metingen = API + f"/metingen/{locatie}?api_key={API_KEY}"
         response_delete = requests.delete(url_metingen)
         response_delete.raise_for_status()  # Raise an exception for non-200 status codes
 
@@ -131,8 +153,7 @@ def post_weer_data(locatie):
         logging.error("[run] Er is een fout opgetreden: %s", e)
         sys.exit(1)
 
+
 if __name__ == "__main__":
     # Call your function here
-    post_weer_data("Amsterdam")
     post_weer_data("Apeldoorn")
-    post_weer_data("Amersfoort")

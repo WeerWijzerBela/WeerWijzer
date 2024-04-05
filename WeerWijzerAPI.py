@@ -1,15 +1,128 @@
-from fastapi import FastAPI, HTTPException, Depends, Response
-from fastapi.responses import FileResponse
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
+from sqlalchemy import func, text
 from logfiles.log import logging
-import DB
+from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
+from datetime import datetime, timedelta
+
+from DB import SessionLocal, engine, Base
+from DB import (
+    DBLocaties,
+    DBMetingen,
+    DBMetingUren,
+    DBVoorspellingen,
+    DBVoorspellingUren,
+    DBzWaarden,
+)
+
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.environ.get("API_KEY")
 
 
-app = FastAPI()
+# command to start: uvicorn WeerWijzerAPI:app --reload
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+
+def init_db():
+    # Create all tables in the database
+    Base.metadata.create_all(bind=engine)
+
+    # seed_db()
+
+
+# def seed_db():
+#     print("Seeding DB")
+#     try:
+#         db = SessionLocal()
+#         if db.bind.url.drivername != "sqlite":
+#             db.execute(text("SET FOREIGN_KEY_CHECKS = 0;"))
+#         datumNu = datetime.now() - timedelta(hours=12)
+
+#         # Check if the tables are empty and seed data if they are
+#         if db.query(DBMetingen).count() == 0:
+#             metingen = [
+#                 DBMetingen(metingenId=1, locatieId=1, datetime=datumNu),
+#                 DBMetingen(metingenId=2, locatieId=2, datetime=datumNu),
+#             ]
+#             db.add_all(metingen)
+#         if db.query(DBMetingUren).count() == 0:
+#             metingUren = [
+#                 DBMetingUren(
+#                     metingUrenId=1,
+#                     metingenId=1,
+#                     datetime=datumNu,
+#                     temperature=12,
+#                     pressure=1008,
+#                     winddirection=180,
+#                 ),
+#                 DBMetingUren(
+#                     metingUrenId=2,
+#                     metingenId=2,
+#                     datetime=datumNu,
+#                     temperature=10,
+#                     pressure=1003,
+#                     winddirection=200,
+#                 ),
+#             ]
+#             db.add_all(metingUren)
+#         if db.query(DBLocaties).count() == 0:
+#             locaties = [
+#                 DBLocaties(locatieId=1, locatie="Apeldoorn"),
+#                 DBLocaties(locatieId=2, locatie="Amersfoort"),
+#             ]
+#             db.add_all(locaties)
+#         if db.query(DBVoorspellingen).count() == 0:
+#             voorspellingen = [
+#                 DBVoorspellingen(voorspellingenId=1, locatieId=1, datetime=datumNu),
+#                 DBVoorspellingen(voorspellingenId=2, locatieId=2, datetime=datumNu),
+#             ]
+#             db.add_all(voorspellingen)
+#         if db.query(DBVoorspellingUren).count() == 0:
+#             voorspellingUren = [
+#                 DBVoorspellingUren(
+#                     voorspellingUrenId=1,
+#                     voorspellingenId=1,
+#                     zWaarde=15,
+#                     datetime=datumNu,
+#                     temperature=12,
+#                 ),
+#                 DBVoorspellingUren(
+#                     voorspellingUrenId=2,
+#                     voorspellingenId=2,
+#                     zWaarde=15,
+#                     datetime=datumNu,
+#                     temperature=10,
+#                 ),
+#             ]
+#             db.add_all(voorspellingUren)
+#     except SQLAlchemyError as e:
+#         db.rollback()
+#         logging.error(f"Er is een fout opgetreden bij het seeden van de database: {e}")
+#         return e
+#     finally:
+#         db.commit()
+#         if db.bind.url.drivername != "sqlite":
+#             db.execute(text("SET FOREIGN_KEY_CHECKS = 1;"))
+#         db.close()
+
+
+app = FastAPI(lifespan=lifespan)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,35 +131,52 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
 class WeerMeting(BaseModel):
-    '''Klasse voor het aanmaken van een NieuweWeerMeting object.'''
+    """Klasse voor het aanmaken van een NieuweWeerMeting object."""
+
     locatie: str
-    datetime: str
+    datetime: datetime
+
 
 
 class WeerMetingUren(BaseModel):
-    '''Klasse voor het aanmaken van een WeerMeting object.'''
-    datetime: str
+    """Klasse voor het aanmaken van een WeerMeting object."""
+
+    # metingenId: int
+    datetime: datetime
     temperature: float
     pressure: float
     winddirection: float
 
 
 class Locatie(BaseModel):
-    '''Klasse voor het aanmaken van een Locatie object.'''
+    """Klasse voor het aanmaken van een Locatie object."""
+
     locatieId: int
     locatie: str
 
 
 class Voorspelling(BaseModel):
-    '''Klasse voor het aanmaken van een Verwachting object.'''
+    """Klasse voor het aanmaken van een Verwachting object."""
+
     locatie: str
-    datetime: str
+    datetime: datetime
 
 
 class VoorspellingUren(BaseModel):
-    '''Klasse voor het aanmaken van een VerwachtingUren object.'''
-    datetime: str
+    """Klasse voor het aanmaken van een VerwachtingUren object."""
+
+    # voorspellingenId: int
+    datetime: datetime
     temperature: float
     zWaarde: int
     beschrijving: Optional[str] = None
@@ -67,320 +197,385 @@ def index():
 # ALLE ENDPOINTS
 ########################################################################################################################
 # METINGEN / METINGUREN ENDPOINTS
-@app.get('/metinguren/{locatie}')
-def get_metingen(locatie: str) -> List[WeerMetingUren]:
-    '''Haal alle metingen op uit de database en converteer ze naar een lijst van WeerMeting objecten.'''
-    connection = DB.connect_to_database()
+@app.get("/metinguren/{locatie}", response_model=List[WeerMetingUren])
+def get_metingen(locatie: str, db: Session = Depends(get_db)):
+    """Haal de meest recente meting op uit de database en converteer deze naar een lijst van WeerMeting objecten."""
     try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            "SELECT mu.* FROM metinguren AS mu JOIN metingen AS m ON mu.metingenId = m.metingenId JOIN ( SELECT MAX(metingenId) AS max_metingenId FROM metingen AS m JOIN locaties AS l ON m.locatieId = l.locatieId WHERE l.locatie = %s) AS max_metingen ON m.metingenId = max_metingen.max_metingenId ORDER BY mu.metingUrenId ASC;",
-            (locatie,))
-        metingen = cursor.fetchall()
-        weermetingen = []
-        for meting in metingen:
-            meting['datetime'] = str(meting['datetime'])
-            weermetingen.append(WeerMetingUren(**meting))
-        return weermetingen
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request metinguren/{locatie}", e)
-    finally:
-        connection.close()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
+        if not locatie_db:
+            return {"detail": f"Locatie {locatie} bestaat niet in de database."}
 
-@app.post('/metingen')
-def create_meting(nieuwe_meting: WeerMeting, key: str = Depends(verify_api_key)) -> List[WeerMeting]:
-    '''Voeg een nieuwe meting toe aan de database en retourneer een NieuweWeerMeting object.'''
-    connection = DB.connect_to_database()
-    try:
-        cursor = connection.cursor()
-        cursor.execute(
-            "INSERT INTO metingen (locatieId, datetime) "
-            f"VALUES ((SELECT locatieId FROM locaties WHERE locatie = %s), %s)",
-            (nieuwe_meting.locatie, nieuwe_meting.datetime)
+        # Haal de meest recente meting op
+        recentste_meting = (
+            db.query(DBMetingen)
+            .filter(DBMetingen.locatieId == locatie_db.locatieId)
+            .order_by(DBMetingen.datetime.desc())
+            .first()
         )
-        connection.commit()
-        return {
-            **nieuwe_meting.dict()
-        }
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het toevoegen van een nieuwe meting, {nieuwe_meting.locatie}, {nieuwe_meting.datetime}", e)
-    finally:
-        if connection.is_connected():
-            connection.close()
-            raise HTTPException(status_code=201)
+        if not recentste_meting:
+            return {"detail": f"Geen metingen gevonden voor locatie {locatie}."}
+
+        # Haal de metinguren op die geassocieerd zijn met de meest recente meting
+        metinguren = (
+            db.query(DBMetingUren)
+            .filter(DBMetingUren.metingenId == recentste_meting.metingenId)
+            .all()
+        )
+        return metinguren
+    except SQLAlchemyError as e:
+        logging.error(
+            f"[API] Er is een fout opgetreden bij get-request metinguren/{locatie}: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post('/metinguren')
-def create_meting_uren_batch(nieuwe_metingen: List[WeerMetingUren], key: str = Depends(verify_api_key)) -> List[WeerMetingUren]:
-    '''Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten.'''
-    connection = DB.connect_to_database()
+@app.post("/metingen", response_model=WeerMeting)
+def create_meting(
+    nieuwe_meting: WeerMeting,
+    db: Session = Depends(get_db),
+    key: str = Depends(verify_api_key),
+):
+    """Voeg een nieuwe meting toe aan de database en retourneer een NieuweWeerMeting object."""
     try:
-        cursor = connection.cursor()
-        metingen_values = []
+        locatie_db = (
+            db.query(DBLocaties)
+            .filter(DBLocaties.locatie == nieuwe_meting.locatie)
+            .first()
+        )
+        if not locatie_db:
+            raise HTTPException(status_code=404, detail="Locatie niet gevonden")
+
+        meting_db = DBMetingen(
+            locatieId=locatie_db.locatieId, datetime=nieuwe_meting.datetime
+        )
+        db.add(meting_db)
+        db.commit()
+        return nieuwe_meting
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het toevoegen van een nieuwe meting: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
+
+
+@app.post("/metinguren", response_model=List[WeerMetingUren])
+def create_meting_uren_batch(
+    nieuwe_metingen: List[WeerMetingUren],
+    db: Session = Depends(get_db),
+    key: str = Depends(verify_api_key),
+):
+    """Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten."""
+    try:
+        # Haal de maximale metingenId op
+        max_metingen_id = db.query(func.max(DBMetingen.metingenId)).scalar()
+        if not max_metingen_id:
+            raise HTTPException(status_code=404, detail="Geen metingen gevonden")
+
         for meting in nieuwe_metingen:
-            metingen_values.append((
-                meting.datetime, meting.temperature, meting.pressure, meting.winddirection
-            ))
-        cursor.executemany(
-            "INSERT INTO metinguren (metingenId, datetime, temperature, pressure, winddirection) "
-            f"VALUES ((SELECT metingenId FROM metingen ORDER BY metingenId DESC LIMIT 1), %s, %s, %s, %s)",
-            metingen_values
+            meting_uren_db = DBMetingUren(
+                metingenId=max_metingen_id,
+                datetime=meting.datetime,
+                temperature=meting.temperature,
+                pressure=meting.pressure,
+                winddirection=meting.winddirection,
+            )
+            db.add(meting_uren_db)
+        db.commit()
+        return nieuwe_metingen
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het toevoegen van nieuwe metinguren: {e}"
         )
-        connection.commit()
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het toevoegen van nieuwe metinguren.", e)
-    finally:
-        if connection.is_connected():
-            connection.close()
-            raise HTTPException(status_code=201)
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
 @app.delete("/metingen/{locatie}")
-def delete_metingen(locatie: str, key: str = Depends(verify_api_key)):
-    '''Verwijder metingen en metinguren ouder dan 12 uur.'''
-    connection = DB.connect_to_database()
+def delete_metingen(
+    locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
+):
+    """Verwijder metingen en metinguren ouder dan 12 uur."""
     try:
-        cursor = connection.cursor()
-        connection.start_transaction()
-        cursor.execute("SELECT locatieId FROM locaties WHERE locatie = %s", (locatie,))
-        locatieId = cursor.fetchone()
-        locatieId = locatieId[0]
-        cursor.execute("SELECT COUNT(*) FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR AND locatieId = %s",
-                       (locatieId,))
-        count = cursor.fetchone()[0]
-        if count == 0:
-            logging.warning(f"[API] 200 ACCEPTED: 404: Er zijn geen metingen ouder dan 12 uur voor {locatie}.")
-            return {"detail": f"Er zijn geen metingen ouder dan 12 uur voor {locatie}."}
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
+        if not locatie_db:
+            raise HTTPException(status_code=404, detail="Locatie niet gevonden")
 
-        cursor.execute("SELECT metingenId FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR AND locatieId = %s",
-                       (locatieId,))
-        old_measurement_ids = cursor.fetchall()
-        for measurement_id_tuple in old_measurement_ids:
-            measurement_id = measurement_id_tuple[0]
-            cursor.execute("DELETE FROM metinguren WHERE metingenId = %s", (measurement_id,))
-        cursor.execute("DELETE FROM metingen WHERE datetime < NOW() - INTERVAL 12 HOUR AND locatieId = %s",
-                       (locatieId,))
-    except Exception as e:
-        connection.rollback()
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het delete-request van /metingen/{locatie}.", e)
-        raise HTTPException(status_code=500)
-    finally:
-        if connection.is_connected():
-            connection.commit()
-            connection.close()
+        # Zoek de metingen ouder dan 12 uur
+        cutoff_time = datetime.utcnow() - timedelta(hours=12)
+        metingen_ouder_dan_12_uur = (
+            db.query(DBMetingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie, DBMetingen.datetime < cutoff_time)
+            .all()
+        )
+
+        # Controleer of er meer dan één meting is
+        totaal_metingen = (
+            db.query(DBMetingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie)
+            .count()
+        )
+        if totaal_metingen <= 1:
+            return {
+                "detail": f"Er is slechts één / null meting voor locatie {locatie}. Deze wordt niet verwijderd."
+            }
+
+        # Verwijder de metingen en metinguren ouder dan 12 uur
+        for meting in metingen_ouder_dan_12_uur:
+            # Verwijder eerst de gerelateerde metinguren
+            for meting_uren in meting.metinguren:
+                db.delete(meting_uren)
+            db.delete(meting)
+        db.commit()
+
+        return {
+            "detail": f"Metingen ouder dan 12 uur voor locatie {locatie} zijn verwijderd."
+        }
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het delete-request /metingen/{locatie}: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
 ########################################################################################################################
 # VOORSPELLING / VOORSPELLINGEN ENDPOINTS
-@app.get('/voorspellinguren/{locatie}')
-def get_voorspellingen(locatie: str) -> List[VoorspellingUren]:
-    '''Haal alle metingen op uit de database en converteer ze naar een lijst van voorspellinguren objecten.'''
-    connection = DB.connect_to_database()
+@app.get("/voorspellinguren/{locatie}", response_model=List[VoorspellingUren])
+def get_voorspellingen(locatie: str, db: Session = Depends(get_db)):
+    """Haal de meest recente voorspelling op uit de database en converteer deze naar een lijst van VoorspellingUren objecten."""
     try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            "SELECT vu.*, z.beschrijving, CASE WHEN vu.temperature <= -5 THEN TRUE ELSE FALSE END AS sneeuw FROM voorspellinguren AS vu JOIN voorspellingen AS v ON vu.voorspellingenId = v.voorspellingenId JOIN (SELECT MAX(voorspellingenId) AS max_voorspellingenId FROM voorspellingen AS v JOIN locaties AS l ON v.locatieId = l.locatieId WHERE l.locatie = %s) AS max_voorspellingen ON v.voorspellingenId = max_voorspellingen.max_voorspellingenId JOIN zWaarden AS z ON vu.zWaarde = z.zWaarde ORDER BY vu.voorspellingUrenId ASC;",
-            (locatie,))
-        voorspellingen = cursor.fetchall()
-        weervoorspelling = []
-        for voorspelling in voorspellingen:
-            voorspelling['datetime'] = str(voorspelling['datetime'])
-            weervoorspelling.append(VoorspellingUren(**voorspelling))
-        return weervoorspelling
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /voorspellinguren/{locatie}.", e)
-    finally:
-        connection.close()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
+        if not locatie_db:
+            return {"detail": f"Locatie {locatie} bestaat niet in de database."}
 
-
-@app.post('/voorspellingen')
-def create_voorspelling(nieuwe_voorspelling: Voorspelling, key: str = Depends(verify_api_key)) -> Voorspelling:
-    '''Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object.'''
-    connection = DB.connect_to_database()
-    try:
-        cursor = connection.cursor()
-        cursor.execute(
-            "INSERT INTO voorspellingen (locatieId, datetime) "
-            f"VALUES ((SELECT locatieId FROM locaties WHERE locatie = %s), %s)",
-            (nieuwe_voorspelling.locatie, nieuwe_voorspelling.datetime)
+        # Haal de meest recente voorspelling op
+        recentste_voorspelling = (
+            db.query(DBVoorspellingen)
+            .filter(DBVoorspellingen.locatieId == locatie_db.locatieId)
+            .order_by(DBVoorspellingen.datetime.desc())
+            .first()
         )
-        connection.commit()
-        return {
-            **nieuwe_voorspelling.dict()
-        }
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het post-request /voorspellingen, {nieuwe_voorspelling.locatie}, {nieuwe_voorspelling.datetime}", e)
-    finally:
-        if connection.is_connected():
-            connection.close()
-            raise HTTPException(status_code=201)
+        if not recentste_voorspelling:
+            return {"detail": f"Geen voorspellingen gevonden voor locatie {locatie}."}
+
+        # Haal de voorspellinguren op die geassocieerd zijn met de meest recente voorspelling
+        voorspellinguren = (
+            db.query(DBVoorspellingUren)
+            .filter(
+                DBVoorspellingUren.voorspellingenId
+                == recentste_voorspelling.voorspellingenId
+            )
+            .all()
+        )
+
+        # Maak een nieuwe lijst van voorspellinguren
+        nieuwe_voorspellinguren = []
+        for voorspellinguur in voorspellinguren:
+            beschrijving = (
+                db.query(DBzWaarden.beschrijving)
+                .filter(DBzWaarden.zWaarde == voorspellinguur.zWaarde)
+                .scalar()
+            )
+            nieuwe_voorspellinguren.append(
+                {
+                    "datetime": voorspellinguur.datetime,
+                    "temperature": voorspellinguur.temperature,
+                    "zWaarde": voorspellinguur.zWaarde,
+                    "beschrijving": beschrijving,
+                    "sneeuw": True if voorspellinguur.temperature <= -5 else False,
+                }
+            )
+
+        return nieuwe_voorspellinguren
+    except SQLAlchemyError as e:
+        logging.error(
+            f"[API] Er is een fout opgetreden bij get-request voorspellinguren/{locatie}: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post('/voorspellinguren')
-def create_voorspelling_uren_batch(nieuwe_voorspellingen: List[VoorspellingUren], key: str = Depends(verify_api_key)) -> List[VoorspellingUren]:
-    '''Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten.'''
-    connection = DB.connect_to_database()
+@app.post("/voorspellingen", response_model=Voorspelling)
+def create_voorspelling(
+    nieuwe_voorspelling: Voorspelling,
+    db: Session = Depends(get_db),
+    key: str = Depends(verify_api_key),
+):
+    """Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object."""
     try:
-        cursor = connection.cursor()
-        voorspellingen_values = []
+        locatie_db = (
+            db.query(DBLocaties)
+            .filter(DBLocaties.locatie == nieuwe_voorspelling.locatie)
+            .first()
+        )
+        if not locatie_db:
+            raise HTTPException(status_code=404, detail="Locatie niet gevonden")
+
+        voorspelling_db = DBVoorspellingen(
+            locatieId=locatie_db.locatieId, datetime=nieuwe_voorspelling.datetime
+        )
+        db.add(voorspelling_db)
+        db.commit()
+        return nieuwe_voorspelling
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het post-request /voorspellingen: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
+
+
+@app.post("/voorspellinguren", response_model=List[VoorspellingUren])
+def create_voorspelling_uren_batch(
+    nieuwe_voorspellingen: List[VoorspellingUren],
+    db: Session = Depends(get_db),
+    key: str = Depends(verify_api_key),
+):
+    """Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten."""
+    try:
+        # Haal de maximale voorspellingenId op
+        max_voorspellingen_id = db.query(
+            func.max(DBVoorspellingen.voorspellingenId)
+        ).scalar()
+        if not max_voorspellingen_id:
+            raise HTTPException(status_code=404, detail="Geen voorspellingen gevonden")
+
         for voorspelling in nieuwe_voorspellingen:
-            voorspellingen_values.append((
-                voorspelling.datetime, voorspelling.temperature, voorspelling.zWaarde
-            ))
-        cursor.executemany(
-            "INSERT INTO voorspellinguren (voorspellingenId, datetime, temperature, zWaarde) "
-            f"VALUES ((SELECT voorspellingenId FROM voorspellingen ORDER BY voorspellingenId DESC LIMIT 1), %s, %s, %s)",
-            voorspellingen_values
+            voorspelling_uren_db = DBVoorspellingUren(
+                voorspellingenId=max_voorspellingen_id,
+                datetime=voorspelling.datetime,
+                temperature=voorspelling.temperature,
+                zWaarde=voorspelling.zWaarde,
+            )
+            db.add(voorspelling_uren_db)
+        db.commit()
+        return nieuwe_voorspellingen
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het post-request /voorspellinguren: {e}"
         )
-        connection.commit()
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het post-request /voorspellinguren.", e)
-    finally:
-        if connection.is_connected():
-            connection.close()
-            raise HTTPException(status_code=201)
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
 @app.delete("/voorspellingen/{locatie}")
-def delete_voorspellingen(locatie: str, key: str = Depends(verify_api_key)):
-    '''Verwijderen van voorspellingen en voorspellinguren behalve de meest recente.'''
-    connection = DB.connect_to_database()
+def delete_voorspellingen(
+    locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
+):
+    """Verwijderen van voorspellingen behalve de meest recente."""
     try:
-        cursor = connection.cursor()
-        connection.start_transaction()
-        cursor.execute("SELECT locatieId FROM locaties WHERE locatie = %s", (locatie,))
-        locatieId = cursor.fetchone()[0]
-        print(locatieId)
-        cursor.execute("SELECT COUNT(*) FROM voorspellingen WHERE locatieId = %s", (locatieId,))
-        count = cursor.fetchone()[0]
-        if count == 0:
-            logging.warning(f"[API] 200 ACCEPTED: 404: Er zijn geen voorspellingen voor {locatie}.")
-            return {"detail": f"Er zijn geen voorspellingen voor {locatie}."}
-        cursor.execute(
-            "SELECT voorspellingenId FROM voorspellingen WHERE locatieId = %s ORDER BY datetime DESC LIMIT 1",
-            (locatieId,))
-        latest_prediction_id = cursor.fetchone()[0]
-        cursor.execute("SELECT voorspellingenId FROM voorspellingen WHERE voorspellingenId != %s AND locatieId = %s",
-                       (latest_prediction_id, locatieId))
-        old_measurement_ids = cursor.fetchall()
-        for measurement_id_tuple in old_measurement_ids:
-            measurement_id = measurement_id_tuple[0]
-            cursor.execute("DELETE FROM voorspellinguren WHERE voorspellingenId = %s", (measurement_id,))
-        cursor.execute("DELETE FROM voorspellingen WHERE voorspellingenId != %s AND locatieId = %s",
-                       (latest_prediction_id, locatieId))
-    except Exception as e:
-        connection.rollback()
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het delete-request /voorspellingen/{locatie}.", e)
-        raise HTTPException(status_code=500)
-    finally:
-        if connection.is_connected():
-            connection.commit()
-            connection.close()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
+        if not locatie_db:
+            raise HTTPException(status_code=404, detail="Locatie niet gevonden")
+
+        # Zoek de meest recente voorspelling
+        meest_recente_voorspelling = (
+            db.query(DBVoorspellingen)
+            .join(DBLocaties)
+            .filter(DBLocaties.locatie == locatie)
+            .order_by(DBVoorspellingen.voorspellingenId.desc())
+            .first()
+        )
+
+        # Verwijder alle voorspellingen behalve de meest recente
+        voorspellingen_te_verwijderen = (
+            db.query(DBVoorspellingen)
+            .join(DBLocaties)
+            .filter(
+                DBLocaties.locatie == locatie,
+                DBVoorspellingen.voorspellingenId
+                != meest_recente_voorspelling.voorspellingenId,
+            )
+            .all()
+        )
+        for voorspelling in voorspellingen_te_verwijderen:
+            # Verwijder eerst de gerelateerde voorspellinguren
+            for voorspelling_uren in voorspelling.voorspellinguren:
+                db.delete(voorspelling_uren)
+            db.delete(voorspelling)
+        db.commit()
+
+        return {
+            "detail": f"Alle voorspellingen voor locatie {locatie} zijn verwijderd, behalve de meest recente."
+        }
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het delete-request /voorspellingen/{locatie}: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
 ########################################################################################################################
 # LOCATIES ENDPOINTS
-
-@app.get('/locaties')
-def get_locaties() -> List[Locatie]:
-    '''Haal alle locaties op uit de database en converteer ze naar een lijst van Locatie objecten.'''
-    connection = DB.connect_to_database()
+@app.get("/locaties", response_model=List[Locatie])
+def get_locaties(db: Session = Depends(get_db)):
+    """Haal alle locaties op uit de database en converteer ze naar een lijst van Locatie objecten."""
     try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM locaties ORDER BY locatie ASC;")
-        locaties = cursor.fetchall()
-        locatie = []
-        for loc in locaties:
-            locatie.append(Locatie(**loc))
-        return locatie
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij get-request /locaties.", e)
-    finally:
-        connection.close()
+        locaties = db.query(DBLocaties).all()
+        return locaties
+    except SQLAlchemyError as e:
+        logging.error(f"[API] Er is een fout opgetreden bij get-request /locaties: {e}")
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
-@app.post('/locaties')
-def create_locatie(nieuwe_locatie: Locatie, key: str = Depends(verify_api_key)) -> Locatie:
-    '''Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object.'''
-    connection = DB.connect_to_database()
+@app.post("/locaties", response_model=Locatie)
+def create_locatie(
+    nieuwe_locatie: Locatie,
+    db: Session = Depends(get_db),
+    key: str = Depends(verify_api_key),
+):
+    """Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object."""
     try:
-        cursor = connection.cursor()
-        cursor.execute(
-            "INSERT INTO locaties (locatie) "
-            "VALUES (%s)",
-            (nieuwe_locatie.locatie,)
+        locatie_db = DBLocaties(**nieuwe_locatie.dict())
+        db.add(locatie_db)
+        db.commit()
+        return nieuwe_locatie
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het post-request /locaties: {e}"
         )
-        connection.commit()
-        return {
-            **nieuwe_locatie.dict()
-        }
-    except Exception as e:
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het post-request /locaties, {nieuwe_locatie.locatie}.", e)
-    finally:
-        if connection.is_connected():
-            connection.close()
-            raise HTTPException(status_code=201)
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 
 @app.delete("/locaties/{locatie}")
-def delete_locatie(locatie: str, key: str = Depends(verify_api_key)):
-    '''Verwijder een locatie uit de database.'''
-    connection = DB.connect_to_database()
+def delete_locatie(
+    locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
+):
+    """Verwijder een locatie uit de database."""
     try:
-        cursor = connection.cursor()
-        connection.start_transaction()
-        cursor.execute("SELECT COUNT(*) FROM locaties WHERE locatie = %s", (locatie,))
-        locatie_count = cursor.fetchone()[0]
-        if locatie_count > 0:
-            cursor.execute(
-                "DELETE FROM metinguren WHERE metingenId IN (SELECT metingenId FROM metingen WHERE locatieId = (SELECT locatieId FROM locaties WHERE locatie = %s))",
-                (locatie,))
-            cursor.execute("DELETE FROM metingen WHERE locatieId = (SELECT locatieId FROM locaties WHERE locatie = %s)",
-                           (locatie,))
-            cursor.execute(
-                "DELETE FROM voorspellinguren WHERE voorspellingenId IN (SELECT voorspellingenId FROM voorspellingen WHERE locatieId = (SELECT locatieId FROM locaties WHERE locatie = %s))",
-                (locatie,))
-            cursor.execute(
-                "DELETE FROM voorspellingen WHERE locatieId = (SELECT locatieId FROM locaties WHERE locatie = %s)",
-                (locatie,))
-            cursor.execute("DELETE FROM locaties WHERE locatie = %s", (locatie,))
-            connection.commit()
-            return {"detail": f"Locatie {locatie} is verwijderd."}
-        else:
-            logging.warning(f"[API] 200 ACCEPTED: 404: Locatie {locatie} bestaat niet.")
-            return {"detail": f"Locatie {locatie} bestaat niet."}
-    except Exception as e:
-        connection.rollback()
-        connection.close()
-        logging.error(f"[API] %s: Er is een fout opgetreden bij het delete-request /locaties/{locatie}.", e)
-        raise HTTPException(status_code=500)
-    finally:
-        if connection.is_connected():
-            connection.commit()
-            connection.close()
+        locatie_db = db.query(DBLocaties).filter(DBLocaties.locatie == locatie).first()
+        if not locatie_db:
+            return {"detail": f"Locatie {locatie} bestaat niet in de database."}
 
-# app.mount("templates/pictures", StaticFiles(directory="templates/pictures"), name="images")
-# @app.get('/images/{image}')
-# def get_images(image: int):
-#     '''Haal alle images op.'''
-#
-#     return FileResponse("templates/pictures/%s.png",(image))
+        # Verwijder eerst de gerelateerde metingen, metinguren, voorspellingen en voorspellinguren
+        for meting in locatie_db.metingen:
+            for meting_uren in meting.metinguren:
+                db.delete(meting_uren)
+            db.delete(meting)
+        for voorspelling in locatie_db.voorspellingen:
+            for voorspelling_uren in voorspelling.voorspellinguren:
+                db.delete(voorspelling_uren)
+            db.delete(voorspelling)
+
+        db.delete(locatie_db)
+        db.commit()
+        return {"detail": f"Locatie {locatie} is verwijderd."}
+    except SQLAlchemyError as e:
+        db.rollback()
+        logging.error(
+            f"[API] Er is een fout opgetreden bij het delete-request /locaties/{locatie}: {e}"
+        )
+        raise HTTPException(status_code=500, detail="Interne serverfout")
 
 @app.get('/images/{image}')
 def get_images(image: int):
     '''Haal een specifieke afbeelding op.'''
 
-    connection = DB.connect_to_database()
+    connection = db.connect_to_database()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT image FROM images where imageId = %s;", (image,))

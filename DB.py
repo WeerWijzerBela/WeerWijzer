@@ -1,151 +1,108 @@
-# Description: This script establishes a connection to a MySQL database and performs the following operations:
-import mysql.connector as database
+from sqlalchemy import (
+    create_engine,
+    Column,
+    Integer,
+    String,
+    DateTime,
+    ForeignKey,
+    Boolean,
+    Numeric,
+)
+from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from datetime import datetime
 import os
-import dotenv
+from dotenv import load_dotenv
 
-dotenv.load_dotenv()
+load_dotenv()
+
+
 # Database connection parameters
-username = os.environ.get("DB_USER")
-password = os.environ.get("DB_PASSWORD")
-host_db = os.environ.get("DB_HOST")
-port = os.environ.get("DB_PORT")
-db = os.environ.get("DB_NAME")
+db_user = os.environ.get("DB_USER")
+db_password = os.environ.get("DB_PASSWORD")
+db_host = os.environ.get("DB_HOST")
+db_port = os.environ.get("DB_PORT")
+db_name = os.environ.get("DB_NAME")
 
-print(username, password, host_db, port, db)
+# Creating engine
+engine = create_engine(f"mysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
 
-if None in (username, password, host_db, port, db):
-    raise ValueError("One or more environment variables are not set.")
+# Creating a session
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
 
 
-config = {
-    'user': os.environ.get("DB_USER"),
-    'password': os.environ.get("DB_PASSWORD"),
-    'host': os.environ.get("DB_HOST"),
-    'port': os.environ.get("DB_PORT"),
-    'database': os.environ.get("DB_NAME"),
-}
+class DBLocaties(Base):
+    __tablename__ = "locaties"
 
-def connect_to_database():
-    """
-    Establishes a connection to the MySQL database.
-    """
-    try:
-        connection = database.connect(**config)
-        return connection
-    except database.Error as e:
-        print(f"Error connecting to MySQL database: {e}")
-        return None
+    locatieId = Column(Integer, primary_key=True, autoincrement=True)
+    locatie = Column(String(255), nullable=False)
 
-def create_table_locaties(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS Locaties (     
-        locatieId INT AUTO_INCREMENT PRIMARY KEY,     
-        locatie VARCHAR(255),
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'Locatie' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
+    metingen = relationship("Meting", back_populates="locatie")
+    voorspellingen = relationship(
+        "Voorspelling", back_populates="locatie"
+    )  # Voeg deze relatie toe
 
-def create_table_voorspellingen(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS voorspellingen (     
-        voorspellingId INT AUTO_INCREMENT PRIMARY KEY,     
-        locatieId INT,
-        datetime DATETIME,
-        currenttemp Decimal(5,2),
-        zWaarde INT,
-        FOREIGN KEY (locatieId) REFERENCES Locaties(locatieId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'voorspellingen' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
 
-def create_table_voorspellinguren(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS voorspellinguren (     
-        voorspellingUrenId INT AUTO_INCREMENT PRIMARY KEY,     
-        voorspellingId INT,
-        datetime DATETIME,
-        temperature Decimal(5,2),
-        zWaarde INT,
-        FOREIGN KEY (voorspellingId) REFERENCES voorspellingen(voorspellingId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'weervoorspellingen' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
+class DBMetingen(Base):
+    __tablename__ = "metingen"
 
-def create_table_metingen(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS metingen (     
-        metingenId INT AUTO_INCREMENT PRIMARY KEY,     
-        locatieId INT,
-        datetime DATETIME,
-        currenttemp Decimal(5,2),
-        pressure Decimal(5,2),
-        winddirection VARCHAR(255),
-        FOREIGN KEY (locatieId) REFERENCES Locaties(locatieId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'metingen' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
+    metingenId = Column(Integer, primary_key=True, autoincrement=True)
+    locatieId = Column(Integer, ForeignKey("locaties.locatieId"), nullable=False)
+    datetime = Column(DateTime, default=datetime.now)
 
-def create_table_metingenuren(cursor):
-    """
-    Creates a table if it doesn't exist in the database.
-    """
-    create_table_query = '''
-    CREATE TABLE IF NOT EXISTS metinguren (     
-        metingUrenId INT AUTO_INCREMENT PRIMARY KEY,     
-        metingenId INT,
-        datetime DATETIME,
-        Temperature Decimal(5,2),
-        pressure Decimal(5,2),
-        winddirection VARCHAR(255),
-        FOREIGN KEY (metingenId) REFERENCES metingen(metingenId)
-    );
-    '''
-    try:
-        cursor.execute(create_table_query)
-        print("Table 'metinguren' created successfully.")
-    except database.Error as e:
-        print(f"Error creating table: {e}")
+    locatie = relationship("Locatie", back_populates="metingen")
+    metinguren = relationship("MetingUren", back_populates="meting")
 
-def main():
-    connection = connect_to_database()
-    if connection:
-        try:
-            cursor = connection.cursor()
-            create_table_locaties(cursor)
-            create_table_voorspellingen(cursor)
-            create_table_metingen(cursor)
-            create_table_metingenuren(cursor)
-        finally:
-            cursor.close()
-            connection.close()
 
-if __name__ == "__main__":
-    main()
+class DBMetingUren(Base):
+    __tablename__ = "metinguren"
+
+    metingUrenId = Column(Integer, primary_key=True, autoincrement=True)
+    metingenId = Column(Integer, ForeignKey("metingen.metingenId"), nullable=False)
+    datetime = Column(DateTime)
+    temperature = Column(Numeric(5, 2))
+    pressure = Column(Numeric(5, 2))
+    winddirection = Column(String(255))
+
+    meting = relationship("Meting", back_populates="metinguren")
+
+
+class DBVoorspellingen(Base):
+    __tablename__ = "voorspellingen"
+
+    voorspellingenId = Column(Integer, primary_key=True, autoincrement=True)
+    locatieId = Column(Integer, ForeignKey("locaties.locatieId"), nullable=False)
+    datetime = Column(DateTime)
+
+    locatie = relationship(
+        "Locatie", back_populates="voorspellingen"
+    )  # Voeg deze relatie toe
+    voorspellinguren = relationship("VoorspellingUren", back_populates="voorspelling")
+
+
+class DBVoorspellingUren(Base):
+    __tablename__ = "voorspellinguren"
+
+    voorspellingUrenId = Column(Integer, primary_key=True, autoincrement=True)
+    voorspellingenId = Column(
+        Integer, ForeignKey("voorspellingen.voorspellingenId"), nullable=False
+    )
+    zWaarde = Column(Integer, ForeignKey("zwaarden.zWaarde"), nullable=False)
+    datetime = Column(DateTime)
+    temperature = Column(Numeric(5, 2))
+
+    voorspelling = relationship("Voorspelling", back_populates="voorspellinguren")
+    zwaarde = relationship(
+        "zWaarden", back_populates="voorspellinguren"
+    )  # Voeg deze relatie toe
+
+
+class DBzWaarden(Base):
+    __tablename__ = "zwaarden"
+
+    zWaarde = Column(Integer, primary_key=True)
+    beschrijving = Column(String(100), nullable=True)
+
+    voorspellinguren = relationship(
+        "VoorspellingUren", back_populates="zwaarde"
+    )  # Voeg deze relatie toe
