@@ -4,13 +4,11 @@ import sys
 from logfiles.log import logging
 import math as m
 import os
-import hashlib
 from dotenv import load_dotenv
 
 load_dotenv()
 
-API = "https://weerwijzer-belastingdienst.online"
-
+API = "https://weerwijzer-belastingdienst.nl"
 API_KEY = os.environ.get("API_KEY")
 
 

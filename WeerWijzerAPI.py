@@ -1,16 +1,16 @@
 from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
-from sqlalchemy import func, BLOB
+from sqlalchemy import func
 from logfiles.log import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timedelta
 from contextlib import asynccontextmanager
 import base64
+from runWeerWijzer import post_weer_data_locaties
 
 from DB import init_db, get_db
 from DB import (
@@ -534,3 +534,11 @@ def get_image(imageId: int, db: Session = Depends(get_db)):
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
+
+@app.get("/runWeerWijzer")
+def run_weer_wijzer(key: str = Depends(verify_api_key)):
+    try:
+        post_weer_data_locaties()
+        return {"message": "runWeerWijzer is succesvol uitgevoerd."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
