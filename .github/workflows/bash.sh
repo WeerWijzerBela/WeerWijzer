@@ -1,36 +1,25 @@
 #!/bin/bash
 
-#repositories=$(doctl registry repository list -o json | jq -r '.[].name')
-#
-#for repo in $repositories; do
-#    echo "Processing repository: $repo"
-#
-#    # List and sort tags for the repository, keeping the latest 2
-#    tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] | .manifest_digest ' | sort -r | tail -n +3 | cut -d ' ' -f2)
-#
-#    echo "Tags to delete: $tags_to_delete"
-#
-#    for tag in $tags_to_delete; do
-#        echo "Deleting manifest $tag from $repo"
-#        # Delete the tag
-#        doctl registry repository delete-manifest $repo $tag --force
-#    done
-#done
-
 repositories=$(doctl registry repository list -o json | jq -r '.[].name')
 
 for repo in $repositories; do
-    echo "Processing repository: $repo"
+   echo "Processing repository: $repo"
 
-    # List and sort tags for the repository, keeping the latest 2
-    tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] | .manifest_digest' | sort -r | tail -n +3)
+   # List and sort tags for the repository, keeping the latest 2
+   tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] |.tag +" " + .manifest_digest ' | sort -r | tail -n +3 )
 
-    echo "Digests to delete: $tags_to_delete"
+   echo "$tags_to_delete" | while read line; do
+       echo "Deleting manifest $line from $repo"
+       # Delete the tag
+       echo tag = $($line | cut -d ' ' -f1)
+       echo digest = $($line | | cut -d ' ' -f2)
 
-    for digest in $tags_to_delete; do
-        echo "Deleting manifest $digest from $repo"
-        # Delete the tag using the digest
-        doctl registry repository delete-manifest $repo --digest $digest --force
-    done
+       if [ ! -z "$digest" -a "$digest" != "null" ]; then
+            echo "Deleting tag: $tag, Digest: $digest"
+            doctl registry repository delete-manifest weerwijzer-app $digest
+        else
+            echo "Invalid digest for tag $tag, skipping..."
+        fi
+   done
 done
 
