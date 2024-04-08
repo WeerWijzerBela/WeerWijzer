@@ -5,8 +5,6 @@ terraform {
     region         = "ams3"
     endpoint       = "https://bucket-weerwijzer.ams3.digitaloceanspaces.com/"
     skip_region_validation = true
-    access_key = var.space_access_key
-    secret_key = var.space_secret_key
 
   }
   required_providers {
@@ -23,8 +21,7 @@ terraform {
 
 provider "digitalocean" {
     token = var.do_token
-    spaces_access_id  = var.space_access_key
-    spaces_secret_key = var.space_secret_key
+
 }
 
 provider "kubernetes" {
