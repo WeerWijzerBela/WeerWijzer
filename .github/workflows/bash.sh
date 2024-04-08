@@ -1,16 +1,14 @@
-#!/bin/bash
+repositories=$(doctl registry repository list -o json | jq -r '.[].name')
 
-active_gc_tasks=$(doctl registry garbage-collection list --format ID,Status --no-header | grep -c "Active")
-if [ "$active_gc_tasks" -eq 0 ]; then
-  echo "Er zijn geen actieve garbage collection-taken. Start de garbage collection."
-  run_gc=true
-else
-  echo "Er zijn nog actieve garbage collection-taken. Wacht tot deze zijn voltooid voordat je een nieuwe taak start."
-  run_gc=false
-fi
+for repo in $repositories; do
+    echo "Processing repository: $repo"
 
-if [ "$run_gc" = "true" ]; then
-    doctl registry garbage-collection start --exclude-unreferenced-blobs --force
+    # List and sort tags for the repository, keeping the latest 2
+    tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] | .Tag' | sort -r | tail -n +3)
 
-fi
-
+    for tag in $tags_to_delete; do
+        echo "Deleting tag $tag from $repo"
+        # Delete the tag
+        doctl registry repository delete-manifest $repo $tag
+    done
+done
