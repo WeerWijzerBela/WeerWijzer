@@ -144,7 +144,7 @@
 
 <script>
     // JavaScript om de weersvoorspelling op te halen en weer te geven
-    const apiUrl = '/';
+    const apiUrl = 'http://127.0.0.1:8000/';
     let currentDayIndex = 0;
 
     // Functie om de locaties op te halen en toe te voegen aan de dropdown
@@ -246,7 +246,7 @@
 
                 weerItem.innerHTML = `
                         <strong>${time}</strong>
-                        <img src="${apiurl} + ${imageFileName}" alt="Weerbeeld" title="${item.beschrijving}">
+                        <img src="${imageFileName}" alt="Weerbeeld" title="${item.beschrijving}">
                         <strong>${item.temperature}°C</strong>
                     `;
                 weatherForecastContainer.appendChild(weerItem);
