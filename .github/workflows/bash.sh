@@ -11,8 +11,8 @@ for repo in $repositories; do
    echo "$tags_to_delete" | while read line; do
        echo "Deleting manifest $line from $repo"
        # Delete the tag
-       echo tag = $($line | cut -d ' ' -f1)
-       echo digest = $($line | cut -d ' ' -f2)
+       tag=$($line | cut -d ' ' -f1)
+       digest=$($line | cut -d ' ' -f2)
 
        if [ ! -z "$digest" -a "$digest" != "null" ]; then
             echo "Deleting tag: $tag, Digest: $digest"
