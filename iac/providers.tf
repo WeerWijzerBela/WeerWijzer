@@ -3,7 +3,7 @@ terraform {
     bucket         = "bucket-weerwijzer"
     key            = "terraform.tfstate"
     region         = "ams3"
-    endpoint       = "https://ams3.digitaloceanspaces.com"
+    endpoint       = "https://bucket-weerwijzer.ams3.digitaloceanspaces.com"
     skip_region_validation = true
     secret_key = "MHcuVm9RUxVxbiAt6Dp3oItIg9zjMEM4+6aJY2EhwCA"
 
