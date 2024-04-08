@@ -8,8 +8,8 @@ on:
   #     - master
 env:
   DOCKER_VERSION: 1.0.23
-  access_key: DO00W4P3EJPJFXH6P2UD
-  secret_key: fELQYN7GEM1Kxd4LHTIK3hsYWs2Vg76xtVRfaaK09Zs
+  access_key: "DO00W4P3EJPJFXH6P2UD"
+  secret_key: "fELQYN7GEM1Kxd4LHTIK3hsYWs2Vg76xtVRfaaK09Zs"
 
 
 jobs:
