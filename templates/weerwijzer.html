@@ -144,7 +144,7 @@
 
 <script>
     // JavaScript om de weersvoorspelling op te halen en weer te geven
-    const apiUrl = '/';
+    const apiUrl = 'http://127.0.0.1:8000/';
     let currentDayIndex = 0;
 
     // Functie om de locaties op te halen en toe te voegen aan de dropdown
@@ -220,6 +220,7 @@
             }
 
             // Loop door de ontvangen data en voeg elk item toe aan de HTML
+
             currentDayForecasts.forEach(item => {
                 const weerItem = document.createElement('div');
                 weerItem.classList.add('weer-item');
@@ -227,19 +228,19 @@
 
                 let imageFileName;
                 if (item.zWaarde == 1 || item.zWaarde == 2 || item.zWaarde == 3 || item.zWaarde == 10 || item.zWaarde == 11 || item.zWaarde == 20 || item.zWaarde == 21 || item.zWaarde == 22) {
-                    imageFileName = `/images/1`;
+                    imageFileName = `pictures/1.png`;
                 } else if (item.zWaarde == 4 || item.zWaarde == 12 || item.zWaarde == 13 || item.zWaarde == 23 || item.zWaarde == 24) {
-                    imageFileName = `/images/2`;
+                    imageFileName = `pictures/2.png`;
                 } else if (item.sneeuw == true && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
-                    imageFileName = `/images/5`;
+                    imageFileName = `pictures/5.png`;
                 } else if (item.sneeuw == true && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
-                    imageFileName = `/images/6`;
+                    imageFileName = `pictures/6.png`;
                 } else if (item.sneeuw == false && (item.zWaarde == 5 || item.zWaarde == 6 || item.zWaarde == 7 || item.zWaarde == 8 || item.zWaarde == 9 || item.zWaarde == 14 || item.zWaarde == 15 || item.zWaarde == 16 || item.zWaarde == 17 || item.zWaarde == 18 || item.zWaarde == 25 || item.zWaarde == 26 || item.zWaarde == 27 || item.zWaarde == 28 || item.zWaarde == 29)) {
-                    imageFileName = `/images/3`;
+                    imageFileName = `pictures/3.png`;
                 } else if (item.sneeuw == false <= 5 && (item.zWaarde == 19 || item.zWaarde == 30 || item.zWaarde == 31 || item.zWaarde == 32)) {
-                    imageFileName = `/images/4`;
+                    imageFileName = `pictures/4.png`;
                 } else {
-                    imageFileName = `/images/7`;
+                    imageFileName = `pictures/999.png`;
                 }
 
 
