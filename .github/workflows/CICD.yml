@@ -113,8 +113,6 @@ jobs:
         run: |
            cd iac
            terraform plan \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
@@ -126,8 +124,6 @@ jobs:
         run: |
            cd iac
            terraform apply -auto-approve \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" 
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
