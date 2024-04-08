@@ -143,7 +143,8 @@ resource "kubernetes_service" "prometheus_lb" {
   }
   spec {
     selector = {
-      app = helm_release.kube_prometheus_stack.metadata.0.name
+      app.kubernetes.io/name = "grafana"
+      app.kubernetes.io/instance = "kube-prometheus-stack"
     }
     port {
       port        = 80
