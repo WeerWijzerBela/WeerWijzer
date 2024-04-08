@@ -85,7 +85,9 @@ jobs:
       - name: Terraform Init
         run: |
           cd iac
-          terraform init
+          terraform init \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
 
       - name: Terraform Plan
         run: |
@@ -94,7 +96,9 @@ jobs:
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
-            -var="do_token=${{secrets.DOCKER_TOKEN}}"
+            -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
 
       - name: Terraform Apply
         run: |
@@ -103,4 +107,6 @@ jobs:
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
-            -var="do_token=${{secrets.DOCKER_TOKEN}}"
+            -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
