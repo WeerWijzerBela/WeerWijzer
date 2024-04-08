@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: 1.0.27
+  DOCKER_VERSION: 1.0.28
   image_repository: container-weerwijzer
   buffer_size: 2
 
@@ -99,13 +99,12 @@ jobs:
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
 #      - name: Check for active garbage collection tasks
-#        run: |
-#          cd .github/workflows
-#          chmod +x bash.sh
-#          ./bash.sh
+#
       - name: Remove images older than the last n versions
-        shell: bash
-        run: ${{ github.action_path }}/bash.sh $image_repository $buffer_size
+        run: |
+              cd .github/workflows
+              chmod +x bash.sh
+              ./bash.sh
 
       - name: Terraform Init voor alle andere componenten
         run: |
