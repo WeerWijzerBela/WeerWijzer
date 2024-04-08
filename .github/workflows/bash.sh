@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #repositories=$(doctl registry repository list -o json | jq -r '.[].name')
 #
 #for repo in $repositories; do
@@ -14,9 +16,6 @@
 #        doctl registry repository delete-manifest $repo $tag --force
 #    done
 #done
-#!/bin/bash
-
-#!/bin/bash
 
 repositories=$(doctl registry repository list -o json | jq -r '.[].name')
 
