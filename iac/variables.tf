@@ -32,10 +32,4 @@ variable "API_KEY"{
   description = "API key"
 }
 
-variable "space_secret_key" {
-  description = "Database password"
-}
 
-variable "space_access_key" {
-  description = "Database password"
-}
