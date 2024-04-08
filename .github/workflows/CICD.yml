@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: 1.0.33
+  DOCKER_VERSION: 1.0.34
   image_repository: container-weerwijzer
   buffer_size: 2
 

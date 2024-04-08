@@ -20,3 +20,12 @@ for repo in $repositories; do
         fi
    done
 done
+
+active_gc_tasks=$(doctl registry garbage-collection get-active --no-header | wc -l)
+if [ "$active_gc_tasks" -eq 0 ]; then
+  echo "Er zijn geen actieve garbage collection-taken. Start de garbage collection."
+  doctl registry garbage-collection start --include-untagged-manifests --force
+else
+  echo "Er zijn nog actieve garbage collection-taken. Wacht tot deze zijn voltooid voordat je een nieuwe taak start."
+  run_gc=false
+fi
