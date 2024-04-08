@@ -7,7 +7,7 @@ on:
   #   branches:
   #     - master
 env:
-  DOCKER_VERSION: 1.0.30
+  DOCKER_VERSION: 1.0.27
   image_repository: container-weerwijzer
   buffer_size: 2
 
@@ -95,41 +95,57 @@ jobs:
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
             docker tag weerwijzer-app:$DOCKER_VERSION registry.digitalocean.com/container-weerwijzer/weerwijzer-app:$DOCKER_VERSION
             docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app:$DOCKER_VERSION
+
+            - name: Build Docker container
+            run: |
+                docker build   -t weerwijzer-app:$DOCKER_VERSION .
+
+
+      - name: push the image to digital ocean container
+        run: |
+                echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
+                docker tag weerwijzer-app:1.0.28 registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.0.28
+                docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.0.28
+      - name: push the image to digital ocean container
+        run: |
+              echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
+              docker tag weerwijzer-app:1.0.29 registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.0.29
+              docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.0.29
 #      - name: Run garbage collection
 #        run: |
 #          doctl registry garbage-collection start --include-untagged-manifests --force
 #      - name: Check for active garbage collection tasks
 #
-      - name: Remove images older than the last n versions
-        run: |
-              cd .github/workflows
-              chmod +x bash.sh
-              ./bash.sh
+      # - name: Remove images older than the last n versions
+      #   run: |
+      #         cd .github/workflows
+      #         chmod +x bash.sh
+      #         ./bash.sh
 
-      - name: Terraform Init voor alle andere componenten
-        run: |
-          cd iac
-          terraform init \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" 
+      # - name: Terraform Init voor alle andere componenten
+      #   run: |
+      #     cd iac
+      #     terraform init \
+      #       -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+      #       -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}"
 
-      - name: Terraform Plan voor alle andere componenten
-        run: |
-           cd iac
-           terraform plan \
-            -var="API_KEY=${{secrets.API_KEY}}" \
-            -var="app_image_tag=$DOCKER_VERSION" \
-            -var="db_password=${{secrets.DB_PASSWORD}}" \
-            -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+      # - name: Terraform Plan voor alle andere componenten
+      #   run: |
+      #      cd iac
+      #      terraform plan \
+      #       -var="API_KEY=${{secrets.API_KEY}}" \
+      #       -var="app_image_tag=$DOCKER_VERSION" \
+      #       -var="db_password=${{secrets.DB_PASSWORD}}" \
+      #       -var="do_token=${{secrets.DOCKER_TOKEN}}" \
             
 
 
-      - name: Terraform Apply voor alle andere componenten
-        run: |
-           cd iac
-           terraform apply -auto-approve \
-            -var="API_KEY=${{secrets.API_KEY}}" \
-            -var="app_image_tag=$DOCKER_VERSION" \
-            -var="db_password=${{secrets.DB_PASSWORD}}" \
-            -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+      # - name: Terraform Apply voor alle andere componenten
+      #   run: |
+      #      cd iac
+      #      terraform apply -auto-approve \
+      #       -var="API_KEY=${{secrets.API_KEY}}" \
+      #       -var="app_image_tag=$DOCKER_VERSION" \
+      #       -var="db_password=${{secrets.DB_PASSWORD}}" \
+      #       -var="do_token=${{secrets.DOCKER_TOKEN}}" \
             
