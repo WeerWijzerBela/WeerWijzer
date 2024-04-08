@@ -124,3 +124,36 @@ resource "kubernetes_service" "weerwijzer_app_service" {
   }
 }
 
+
+resource "helm_release" "prometheus" {
+  depends_on = [kubernetes_service.weerwijzer_app_service]
+  chart      = "kube-prometheus-stack"
+  name       = "prometheus"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  version    = "56.3.0"
+  values = [
+    file("values.yml")
+  ]
+  timeout = 2000
+
+  set {
+    name  = "podSecurityPolicy.enabled"
+    value = true
+  }
+
+  # You can provide a map of value using yamlencode. Don't forget to escape the last element after point in the name
+  set {
+    name = "server\\.resources"
+    value = yamlencode({
+      limits = {
+        cpu    = "200m"
+        memory = "50Mi"
+      }
+      requests = {
+        cpu    = "100m"
+        memory = "30Mi"
+      }
+    })
+  }
+}
+
