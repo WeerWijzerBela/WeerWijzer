@@ -12,7 +12,7 @@ for repo in $repositories; do
        echo "Deleting manifest $line from $repo"
        # Delete the tag
        echo tag = $($line | cut -d ' ' -f1)
-       echo digest = $($line | | cut -d ' ' -f2)
+       echo digest = $($line | cut -d ' ' -f2)
 
        if [ ! -z "$digest" -a "$digest" != "null" ]; then
             echo "Deleting tag: $tag, Digest: $digest"
