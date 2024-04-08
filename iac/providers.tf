@@ -7,6 +7,7 @@ terraform {
     skip_region_validation = true
     access_key = "DO00W4P3EJPJFXH6P2UD"
     secret_key = "fELQYN7GEM1Kxd4LHTIK3hsYWs2Vg76xtVRfaaK09Zs"
+    skip_credentials_validation = true
 
   }
   required_providers {
@@ -23,8 +24,7 @@ terraform {
 
 provider "digitalocean" {
     token = var.do_token
-    spaces_access_id  = var.space_access_key
-    spaces_secret_key = var.space_secret_key
+
 }
 
 provider "kubernetes" {
