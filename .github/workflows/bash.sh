@@ -10,6 +10,7 @@ else
 fi
 
 if [ "$run_gc" = "true" ]; then
-    doctl registry garbage-collection start --include-untagged-manifests --force
+    doctl registry garbage-collection start --exclude-unreferenced-blobs --force
+
 fi
 
