@@ -30,5 +30,5 @@ variable "do_token" {}
 variable "API_KEY" {}
 variable "app_image_tag" {}
 variable "db_password" {}
-variable "space_access_key" {}
-variable "space_secret_key" {}
+variable "access_key" {}
+variable "secret_key" {}
