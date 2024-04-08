@@ -55,9 +55,7 @@ jobs:
         run: |
           cd iac-container-db
           terraform init \
-#            -var="access_key=${{secrets.SPACE_ACCESS_KEY}}"\
-#            -var="secret_key=${{secrets.SPACE_SECRET_KEY}}"
-            -var="access_key=$access_key"
+            -var="access_key=$access_key"\
             -var="secret_key=$secret_key"
 
       - name: Terraform Plan voor container en database
