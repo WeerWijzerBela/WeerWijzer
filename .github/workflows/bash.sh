@@ -13,3 +13,4 @@ for repo in $repositories; do
         # Delete the tag
         doctl registry repository delete-manifest $repo $tag --force
     done
+done
