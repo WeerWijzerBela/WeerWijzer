@@ -62,24 +62,26 @@ jobs:
         run: |
           cd iac-container-db
           terraform plan \
+            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
+            
 
 
       - name: Terraform Apply voor container en database
         run: |
           cd iac-container-db
           terraform apply -auto-approve \
+            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
+            
 
 
       - name: Cancel garbage tasks
@@ -111,27 +113,29 @@ jobs:
           cd iac
           terraform init \
             -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
+            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" 
 
       - name: Terraform Plan voor alle andere componenten
         run: |
            cd iac
            terraform plan \
+            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
+            
 
 
       - name: Terraform Apply voor alle andere componenten
         run: |
            cd iac
            terraform apply -auto-approve \
+            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" 
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-            -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-            -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
+            
