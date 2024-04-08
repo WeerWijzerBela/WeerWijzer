@@ -7,7 +7,7 @@ terraform {
     skip_region_validation = true
     access_key = "DO00W4P3EJPJFXH6P2UD"
     secret_key = "fELQYN7GEM1Kxd4LHTIK3hsYWs2Vg76xtVRfaaK09Zs"
-    #skip_credentials_validation = true
+    skip_credentials_validation = true
 
   }
   required_providers {
