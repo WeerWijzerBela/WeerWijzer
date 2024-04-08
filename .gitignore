@@ -2,6 +2,4 @@
 */__pycache__
 __pycache__
 .vscode
-.terraform*
-iac/terraform.tfstate.backup
-iac/terraform.tfstate
+
