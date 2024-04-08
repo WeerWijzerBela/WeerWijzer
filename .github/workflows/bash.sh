@@ -4,7 +4,7 @@ for repo in $repositories; do
     echo "Processing repository: $repo"
 
     # List and sort tags for the repository, keeping the latest 2
-    tags_to_delete=$(doctl registry repository list-tags weerwijzer-app -o json | jq -r '.[] | .manifest_digest ' | sort -r | tail -n +3)
+    tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] | .manifest_digest ' | sort -r | tail -n +3 | cut -d ' ' -f2)
 
     echo "Tags to delete: $tags_to_delete"
 
