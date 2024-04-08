@@ -1,4 +1,13 @@
 terraform {
+  backend "s3" {
+    bucket         = "bucket-weerwijzer"
+    key            = "terraform.tfstate"
+    region         = "ams3"
+    endpoint       = "https://ams3.digitaloceanspaces.com"
+    skip_region_validation = true
+    skip_credentials_validation = true
+    skip_get_ec2_platforms = true
+  }
   required_providers {
     digitalocean = {
       source = "digitalocean/digitalocean"
