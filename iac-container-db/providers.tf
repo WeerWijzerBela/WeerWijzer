@@ -29,7 +29,3 @@ variable "API_KEY" {}
 variable "app_image_tag" {}
 variable "db_password" {}
 
-provider "grafana" {
-  url  = "https://weerwijzer.grafana.net/"
-  auth = "glsa_q2eh9n9kXHsOM5Okas0NkNMwCz6ZTOHl_33c4c34a"
-}

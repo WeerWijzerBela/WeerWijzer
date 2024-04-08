@@ -17,6 +17,10 @@ terraform {
       source = "hashicorp/kubernetes"
       version = ">= 2.7.0"
     }
+    grafana = {
+      source  = "grafana/grafana"
+      version = "~> 2.15.0"  # Vervang x.y.z door de gewenste versie
+    }
   }
 }
 
@@ -46,4 +50,8 @@ provider "helm" {
       digitalocean_kubernetes_cluster.weerwijzer_cluster.kube_config.0.cluster_ca_certificate
     )
   }
+}
+provider "grafana" {
+  url  = "https://weerwijzer.grafana.net/"
+  auth = "glsa_q2eh9n9kXHsOM5Okas0NkNMwCz6ZTOHl_33c4c34a"
 }
