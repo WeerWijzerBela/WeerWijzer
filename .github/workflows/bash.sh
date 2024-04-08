@@ -6,20 +6,17 @@ for repo in $repositories; do
    echo "Processing repository: $repo"
 
    # List and sort tags for the repository, keeping the latest 2
-   tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] |.tag +" " + .manifest_digest ' | sort -r | tail -n +3 )
+   tags_to_delete=$(doctl registry repository list-tags $repo -o json | jq -r '.[] | .tag +" " + .digest' | sort -r | tail -n +3 )
 
    echo "$tags_to_delete" | while read line; do
-       echo "Deleting manifest $line from $repo"
-       # Delete the tag
-       tag=$($line | cut -d ' ' -f1)
-       digest=$($line | cut -d ' ' -f2)
+       tag=$(echo "$line" | cut -d ' ' -f1)
+       digest=$(echo "$line" | cut -d ' ' -f2)
 
        if [ ! -z "$digest" -a "$digest" != "null" ]; then
             echo "Deleting tag: $tag, Digest: $digest"
-            doctl registry repository delete-manifest weerwijzer-app $digest
+            doctl registry repository delete-manifest $repo $digest --force
         else
             echo "Invalid digest for tag $tag, skipping..."
         fi
    done
 done
-
