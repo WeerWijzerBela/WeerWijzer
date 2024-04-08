@@ -45,6 +45,31 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DOCKER_TOKEN }}
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+      - name: Terraform Init voor container en database
+        run: |
+          cd iac-container-db
+          terraform init \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
+
+      - name: Terraform Plan voor container en database
+        run: |
+          cd iac-container-db
+          terraform plan \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
+
+      - name: Terraform Apply voor container en database
+        run: |
+          cd iac-container-db
+          terraform apply -auto-approve \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
+
       - name: Cancel garbage tasks
         run: |
           cd .github/workflows
@@ -69,26 +94,17 @@ jobs:
           chmod +x bash.sh
           ./bash.sh
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-           terraform_version: 1.0.0
-      # - name: Set Terraform DigitalOcean token
-      #   run: |
-      #     echo 'variable "do_token" {' > variables.tf
-      #     echo '  type    = string' >> variables.tf
-      #     echo '  default = "${{secrets.DOCKER_TOKEN}}"' >> variables.tf
-      #     echo '}' >> variables.tf
-     # terraform apply -var="github_secrets={DB_HOST=your_secret_value}"
 
-      - name: Terraform Init
+
+
+      - name: Terraform Init voor alle andere componenten
         run: |
           cd iac
           terraform init \
             -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
             -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
 
-      - name: Terraform Plan
+      - name: Terraform Plan voor alle andere componenten
         run: |
            cd iac
            terraform plan \
@@ -99,7 +115,7 @@ jobs:
             -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
             -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
 
-      - name: Terraform Apply
+      - name: Terraform Apply voor alle andere componenten
         run: |
            cd iac
            terraform apply -auto-approve \
