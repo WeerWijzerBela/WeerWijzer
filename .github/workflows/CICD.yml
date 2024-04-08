@@ -53,7 +53,7 @@ jobs:
         run: |
           cd iac-container-db
           terraform init \
-            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}" \
+            -var="space_access_key=${{secrets.SPACE_ACCESS_KEY}}"
             -var="space_secret_key=${{secrets.SPACE_SECRET_KEY}}"
 
       - name: Terraform Plan voor container en database
@@ -101,9 +101,6 @@ jobs:
           cd .github/workflows
           chmod +x bash.sh
           ./bash.sh
-
-
-
 
       - name: Terraform Init voor alle andere componenten
         run: |
