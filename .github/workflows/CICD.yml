@@ -105,7 +105,7 @@ jobs:
 #          ./bash.sh
       - name: Remove images older than the last n versions
         shell: bash
-        run: ${{ github.action_path }}/remove_images.sh $image_repository $buffer_size
+        run: ${{ github.action_path }}/bash.sh $image_repository $buffer_size
 
       - name: Terraform Init voor alle andere componenten
         run: |
