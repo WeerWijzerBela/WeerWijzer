@@ -9,6 +9,6 @@ for repo in $repositories; do
     for tag in $tags_to_delete; do
         echo "Deleting tag $tag from $repo"
         # Delete the tag
-        doctl registry repository delete-manifest $repo $tag
+        doctl registry repository delete-manifest $repo $tag --force
     done
 done
