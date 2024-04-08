@@ -1,15 +1,16 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
-from sqlalchemy import func
+from sqlalchemy import func, BLOB
 from logfiles.log import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timedelta
 from contextlib import asynccontextmanager
+import base64
 
 from DB import init_db, get_db
 from DB import (
@@ -54,7 +55,6 @@ class WeerMeting(BaseModel):
     datetime: datetime
 
 
-
 class WeerMetingUren(BaseModel):
     """Klasse voor het aanmaken van een WeerMeting object."""
 
@@ -97,16 +97,25 @@ class zWaarden(BaseModel):
     beschrijving: str
 
 
+class Image(BaseModel):
+    """Klasse voor het aanmaken van een Image object."""
+
+    imageId: int
+    image: bytes
+
+
 def verify_api_key(api_key: str = None):
     if api_key is None or api_key != API_KEY:
         logging.warning("[API] 403: Request met een ongeldige API-sleutel.")
         raise HTTPException(status_code=403, detail="Ongeldige API-sleutel")
     return True
 
+
 @app.get('/')
 def index():
     # Print de html pagina
     return FileResponse("templates/weerwijzer.html")
+
 
 # ALLE ENDPOINTS
 ########################################################################################################################
@@ -151,9 +160,9 @@ def get_metingen(locatie: str, db: Session = Depends(get_db)) -> List[WeerMeting
 
 @app.post("/metingen")
 def create_meting(
-    nieuwe_meting: WeerMeting,
-    db: Session = Depends(get_db),
-    key: str = Depends(verify_api_key),
+        nieuwe_meting: WeerMeting,
+        db: Session = Depends(get_db),
+        key: str = Depends(verify_api_key),
 ) -> WeerMeting:
     """Voeg een nieuwe meting toe aan de database en retourneer een NieuweWeerMeting object."""
     try:
@@ -181,9 +190,9 @@ def create_meting(
 
 @app.post("/metinguren")
 def create_meting_uren_batch(
-    nieuwe_metingen: List[WeerMetingUren],
-    db: Session = Depends(get_db),
-    key: str = Depends(verify_api_key),
+        nieuwe_metingen: List[WeerMetingUren],
+        db: Session = Depends(get_db),
+        key: str = Depends(verify_api_key),
 ) -> List[WeerMetingUren]:
     """Voeg nieuwe metingen toe aan de database en retourneer een lijst met NieuweWeerMetingUren objecten."""
     try:
@@ -219,7 +228,7 @@ def create_meting_uren_batch(
 # METINGEN DELETE-ENDPOINT
 @app.delete("/metingen/{locatie}")
 def delete_metingen(
-    locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
+        locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
 ):
     """Verwijder metingen en metinguren ouder dan 12 uur."""
     try:
@@ -322,9 +331,9 @@ def get_voorspellingen(locatie: str, db: Session = Depends(get_db)) -> List[Voor
 
 @app.post("/voorspellingen")
 def create_voorspelling(
-    nieuwe_voorspelling: Voorspelling,
-    db: Session = Depends(get_db),
-    key: str = Depends(verify_api_key),
+        nieuwe_voorspelling: Voorspelling,
+        db: Session = Depends(get_db),
+        key: str = Depends(verify_api_key),
 ) -> Voorspelling:
     """Voeg een nieuwe voorspelling toe aan de database en retourneer een NieuweVoorspelling object."""
     try:
@@ -352,9 +361,9 @@ def create_voorspelling(
 
 @app.post("/voorspellinguren")
 def create_voorspelling_uren_batch(
-    nieuwe_voorspellingen: List[VoorspellingUren],
-    db: Session = Depends(get_db),
-    key: str = Depends(verify_api_key),
+        nieuwe_voorspellingen: List[VoorspellingUren],
+        db: Session = Depends(get_db),
+        key: str = Depends(verify_api_key),
 ) -> List[VoorspellingUren]:
     """Voeg nieuwe voorspellingen toe aan de database en retourneer een lijst met NieuweVoorspellingUren objecten."""
     try:
@@ -392,7 +401,7 @@ def create_voorspelling_uren_batch(
 
 @app.delete("/voorspellingen/{locatie}")
 def delete_voorspellingen(
-    locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
+        locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
 ):
     """Verwijderen van voorspellingen behalve de meest recente."""
     try:
@@ -459,9 +468,9 @@ def get_locaties(db: Session = Depends(get_db)) -> List[Locatie]:
 
 @app.post("/locaties")
 def create_locatie(
-    nieuwe_locatie: Locatie,
-    db: Session = Depends(get_db),
-    key: str = Depends(verify_api_key),
+        nieuwe_locatie: Locatie,
+        db: Session = Depends(get_db),
+        key: str = Depends(verify_api_key),
 ) -> Locatie:
     """Voeg een nieuwe locatie toe aan de database en retourneer een Locatie object."""
     try:
@@ -479,7 +488,7 @@ def create_locatie(
 
 @app.delete("/locaties/{locatie}")
 def delete_locatie(
-    locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
+        locatie: str, db: Session = Depends(get_db), key: str = Depends(verify_api_key)
 ):
     """Verwijder een locatie uit de database."""
     try:
@@ -510,18 +519,18 @@ def delete_locatie(
         )
         raise HTTPException(status_code=500, detail="Interne serverfout")
 
-@app.get('/images/{image}')
-def get_images(image: int,db: Session = Depends(get_db)):
+
+@app.get('/images/{imageId}')
+def get_image(imageId: int, db: Session = Depends(get_db)):
     '''Haal een specifieke afbeelding op.'''
     try:
-        img = db.query(DBImage).get(image)
+        img = db.query(DBImage).filter(DBImage.imageId == imageId).first()
         if img:
-            image_blob = img["image"][0].blob_data  # Stel dat blob_data de attribuutnaam is voor de afbeeldingsgegevens
-            return FileResponse(image_blob, media_type="image/png")
+            image = base64.b64decode(img.image)  # Base64 decoderen
+            return Response(content=image, media_type="image/png")
         else:
             raise HTTPException(status_code=404, detail="Afbeelding niet gevonden")
 
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
-
