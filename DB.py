@@ -310,7 +310,7 @@ def seed_db(TestingDB=False):
                     if image_name.isdigit():
                         with open(f"{image_directory}/{image}", "rb") as file:
                             image_data = file.read()
-                            image_base64 = base64.b64encode(image_data).decode("utf-8")
+                            image_base64 = base64.b64encode(image_data)
                             db.add(Image(imageId=int(image_name), image=image_base64))
                             db.commit()
     except SQLAlchemyError as e:
