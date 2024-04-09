@@ -305,13 +305,14 @@ def seed_db(TestingDB=False):
         if db.query(Image).count() != 0:
             image_directory = "templates/pictures"
             for image in os.listdir(image_directory):
-                            with open(f"{image_directory}/{image}", "rb") as file:
-                                if image.endswith(".png"):
-                                    with open(f"{image_directory}/{image}", "rb") as file:
-                                        image_data = file.read()
-                                        image_base64 = base64.b64encode(image_data).decode("utf-8")
-                                        db.add(Image(image=image_base64))
-                                        db.commit()
+                if image.endswith(".png"):
+                    image_name = os.path.splitext(image)[0]
+                    if image_name.isdigit():
+                        with open(f"{image_directory}/{image}", "rb") as file:
+                            image_data = file.read()
+                            image_base64 = base64.b64encode(image_data).decode("utf-8")
+                            db.add(Image(imageId=image_name, image=image_base64))
+                            db.commit()
     except SQLAlchemyError as e:
         db.rollback()
         logging.error(f"Er is een fout opgetreden bij het seeden van de database: {e}")
