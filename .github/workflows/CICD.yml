@@ -26,12 +26,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-#      - name: Run linting
-#        run: |
-#          flake8 ./metingen.py
-      # - name: Run a test with coverage
-      #   run: |
-      #     pytest --cov
+      - name: Run a test with coverage
+        run: |
+          pytest --cov
 
   build:
     needs: setup-test
@@ -39,18 +36,22 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DOCKER_TOKEN }}
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+
       - name: Terraform Init voor container en database
         run: |
           cd iac-container-db
@@ -67,8 +68,6 @@ jobs:
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
             
-
-
       - name: Terraform Apply voor container en database
         run: |
           cd iac-container-db
@@ -77,29 +76,23 @@ jobs:
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-            
-
 
       - name: Cancel garbage tasks
         run: |
           cd .github/workflows
           chmod +x stop.sh
           ./stop.sh
+
       - name: Build Docker container
         run: |
             docker build   -t weerwijzer-app:$DOCKER_VERSION .
-
 
       - name: push the image to digital ocean container
         run: |
             echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.digitalocean.com
             docker tag weerwijzer-app:$DOCKER_VERSION registry.digitalocean.com/container-weerwijzer/weerwijzer-app:$DOCKER_VERSION
             docker image push registry.digitalocean.com/container-weerwijzer/weerwijzer-app:$DOCKER_VERSION
-#      - name: Run garbage collection
-#        run: |
-#          doctl registry garbage-collection start --include-untagged-manifests --force
-#      - name: Check for active garbage collection tasks
-#
+
       - name: Remove images older than the last n versions
         run: |
               cd .github/workflows
@@ -121,8 +114,6 @@ jobs:
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-            
-
 
       - name: Terraform Apply voor alle andere componenten
         run: |
