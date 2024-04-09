@@ -26,10 +26,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run a test with coverage
+      - name: Run the DB test
+        run: |
+          pytest --cov=test_DB test_DB.py
+      - name: Run the API test
         run: |
           pytest --cov=test_API test_API.py
-
+      - name: Run de weerWijzer test
+        run: |
+          pytest --cov=test_runWeerWijzer test_runWeerWijzer.py
 
   build:
     needs: setup-test
@@ -55,14 +60,14 @@ jobs:
 
       - name: Terraform Init voor container en database
         run: |
-          cd iac-container-db
+          cd iac-container
           terraform init \
             -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
             -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
 
       - name: Terraform Plan voor container en database
         run: |
-          cd iac-container-db
+          cd iac-container
           terraform plan \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
@@ -71,7 +76,7 @@ jobs:
             
       - name: Terraform Apply voor container en database
         run: |
-          cd iac-container-db
+          cd iac-container
           terraform apply -auto-approve \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
