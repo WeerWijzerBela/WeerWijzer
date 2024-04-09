@@ -10,7 +10,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timedelta
 from contextlib import asynccontextmanager
 import base64
-from runWeerWijzer import post_weer_data_locaties
 
 from DB import init_db, get_db
 from DB import (
@@ -530,15 +529,6 @@ def get_image(imageId: int, db: Session = Depends(get_db)):
             return Response(content=image, media_type="image/png")
         else:
             raise HTTPException(status_code=404, detail="Afbeelding niet gevonden")
-
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
-
-@app.get("/runWeerWijzer")
-def run_weer_wijzer(key: str = Depends(verify_api_key)):
-    try:
-        post_weer_data_locaties()
-        return {"message": "runWeerWijzer is succesvol uitgevoerd."}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))

@@ -31,7 +31,6 @@ def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     else:
         return 999
 
-
 def bereken_voorspellingen_uren(locatie, API=API):
     try:
         url_meting = API + f"/metinguren/{locatie}?api_key={API_KEY}"
@@ -160,6 +159,7 @@ def post_weer_data_locaties():
         for locatie in jsonData:
             try:
                 post_weer_data(locatie["locatie"])
+                logging.info("[run] Weerdata voor locatie %s is succesvol verwerkt.", locatie["locatie"])
             except Exception as e:
                 logging.error("[run] Er is een fout opgetreden bij locatie: %s / %s", locatie["locatie"], e)
                 continue
@@ -170,5 +170,5 @@ def post_weer_data_locaties():
 
 if __name__ == "__main__":
     post_weer_data_locaties()
-    logging.info("[run] Weerdata is succesvol verwerkt.")
+    logging.info("[run] Alle weerdata is succesvol verwerkt.")
     sys.exit(0)
