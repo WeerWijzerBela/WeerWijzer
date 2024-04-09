@@ -8,5 +8,5 @@ def test_get_db():
 
 
 def test_init_db():
-    Base.metadata.drop_all(bind=engine)
+    #Base.metadata.drop_all(bind=engine)
     assert init_db() is None
