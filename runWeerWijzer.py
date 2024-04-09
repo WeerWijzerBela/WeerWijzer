@@ -11,7 +11,6 @@ load_dotenv()
 API = "https://weerwijzer-belastingdienst.nl"
 API_KEY = os.environ.get("API_KEY")
 
-
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     """Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)"""
     # zWind uitrekenen aan de hand van windrichting
