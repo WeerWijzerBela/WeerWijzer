@@ -1,9 +1,8 @@
 name: CICD Pipeline
 on:
-  workflow_run:
-    workflows: [Scheduled Pipeline]
-    types:
-      - completed
+  push:
+    branches: 
+     - master
 jobs:
   build:
     runs-on: ubuntu-latest
