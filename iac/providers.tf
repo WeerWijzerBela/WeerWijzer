@@ -19,7 +19,7 @@ terraform {
     }
     grafana = {
       source  = "grafana/grafana"
-      version = "~> 2.15.0"  # Vervang x.y.z door de gewenste versie
+      version = "1.34.0"
     }
   }
 }

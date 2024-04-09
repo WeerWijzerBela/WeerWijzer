@@ -28,7 +28,8 @@ jobs:
           pip install -r requirements.txt
       - name: Run a test with coverage
         run: |
-          pytest --cov
+          pytest --cov=test_API test_API.py
+
 
   build:
     needs: setup-test
