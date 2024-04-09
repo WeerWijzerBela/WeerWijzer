@@ -124,46 +124,33 @@ resource "kubernetes_service" "weerwijzer_app_service" {
   }
 }
 
-#resource "helm_release" "kube_prometheus_stack" {
-#  depends_on = [kubernetes_deployment.weerwijzer_app]
-#  name       = "kube-prometheus-stack"
-#  repository = "https://prometheus-community.github.io/helm-charts"
-#  chart      = "kube-prometheus-stack"
-#
-#  set {
-#    name  = "grafana.enabled"
-#    value = "true"
-#  }
-#}
+resource "helm_release" "kube_prometheus_stack" {
+  depends_on = [kubernetes_deployment.weerwijzer_app]
+  name       = "kube-prometheus-stack"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
 
-#resource "kubernetes_service" "prometheus_lb" {
-#  depends_on = [ helm_release.kube_prometheus_stack ]
-#  metadata {
-#    name = "prometheus-grafana-lb"
-#  }
-#  spec {
-#    selector = {
-#      "app.kubernetes.io/name" = "grafana"
-#      "app.kubernetes.io/instance" = "kube-prometheus-stack"
-#    }
-#    port {
-#      port        = 80
-#      target_port = 3000
-#    }
-#    type = "LoadBalancer"
-#  }
-#}
+  set {
+    name  = "grafana.enabled"
+    value = "true"
+  }
+}
 
+resource "kubernetes_service" "prometheus_lb" {
+  depends_on = [ helm_release.kube_prometheus_stack ]
+  metadata {
+    name = "prometheus-grafana-lb"
+  }
+  spec {
+    selector = {
+      "app.kubernetes.io/name" = "grafana"
+      "app.kubernetes.io/instance" = "kube-prometheus-stack"
+    }
+    port {
+      port        = 80
+      target_port = 3000
+    }
+    type = "LoadBalancer"
+  }
+}
 
- resource "grafana_folder" "test" {
-   title = "My Folder"
-   uid   = "my-folder-uid"
- }
-
- resource "grafana_dashboard" "test" {
-   folder = grafana_folder.test.uid
-   config_json = jsonencode({
-     "title" : "My Dashboard",
-     "uid" : "my-dashboard-uid"
-   })
- }
