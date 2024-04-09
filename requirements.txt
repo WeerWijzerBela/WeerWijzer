@@ -9,4 +9,5 @@ Requests==2.31.0
 SQLAlchemy==2.0.25
 mysqlclient==2.2.4
 httpx==0.27.0
-logtail==0.2.6
+logtail
+logtail-python
