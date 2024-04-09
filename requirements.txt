@@ -2,7 +2,6 @@ mysql-connector-python
 python-dotenv
 uvicorn
 fastapi[all]
-flake8
 pytest-cov
 pydantic==2.6.4
 pytest==7.4.4

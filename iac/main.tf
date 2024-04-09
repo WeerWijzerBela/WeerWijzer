@@ -7,10 +7,7 @@ resource "digitalocean_kubernetes_cluster" "weerwijzer_cluster" {
   node_pool {
     name       = var.droplet_name
     size       = "s-2vcpu-2gb" # Adjust based on your needs
-    node_count = 1
-    auto_scale = true
-    min_nodes  = 1
-    max_nodes  = 3
+    node_count = 3
     tags = ["weerwijzer-node-lb"]
   }
 }
@@ -22,7 +19,7 @@ resource "kubernetes_deployment" "weerwijzer_app" {
   }
 
   spec {
-    replicas = 2
+    replicas = 5
 
     selector {
       match_labels = {
