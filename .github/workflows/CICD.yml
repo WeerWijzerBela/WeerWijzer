@@ -2,13 +2,14 @@ name: CICD Pipeline
 on:
   push:
     branches:
-      - feature/terraform
-  # pull_request:
-  #   branches:
-  #     - master
+     branches: 
+     - master
+  pull_request:
+    branches:
+      - master
 env:
   DOCKER_VERSION: 1.0.39
-
+  
 jobs:
   setup-test:
     runs-on: ubuntu-latest
