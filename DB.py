@@ -17,6 +17,7 @@ from datetime import datetime, timedelta
 import csv
 import os
 import random
+import base64
 from dotenv import load_dotenv
 from runWeerWijzer import bereken_zambretti
 
@@ -301,6 +302,16 @@ def seed_db(TestingDB=False):
                     )
                 db.add_all(voorspellingUren)
                 db.commit()
+        # if db.query(Image).count() == 0:
+            image_directory = "templates/pictures"
+            for image in os.listdir(image_directory):
+                            with open(f"{image_directory}/{image}", "rb") as file:
+                                if image.endswith(".png"):
+                                    with open(f"{image_directory}/{image}", "rb") as file:
+                                        image_data = file.read()
+                                        image_base64 = base64.b64encode(image_data).decode("utf-8")
+                                        db.add(Image(image=image_base64))
+                                        db.commit()
     except SQLAlchemyError as e:
         db.rollback()
         logging.error(f"Er is een fout opgetreden bij het seeden van de database: {e}")
