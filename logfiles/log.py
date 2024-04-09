@@ -17,6 +17,6 @@ logging.basicConfig(
 # Logtail configuratie
 handler = LogtailHandler(source_token="26NkjQezsymTKrzueVAB9aV8")
 logging = logging.getLogger(__name__)
-logging.setLevel(logging.DEBUG)
+logging.setLevel(logging.INFO)
 logging.handlers = []
 logging.addHandler(handler)
