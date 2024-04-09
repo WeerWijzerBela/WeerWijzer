@@ -2,8 +2,7 @@ name: CICD Pipeline
 on:
   push:
     branches:
-     branches: 
-     - master
+      - master
   pull_request:
     branches:
       - master

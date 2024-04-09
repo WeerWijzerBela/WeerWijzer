@@ -2,9 +2,6 @@ name: Scheduled Pipeline
 on:
    schedule:
      - cron: '*/10 * * * *'
-   push:
-    branches:
-      - feature/terraform
 jobs:
   build:
     runs-on: ubuntu-latest
