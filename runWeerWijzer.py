@@ -11,6 +11,7 @@ load_dotenv()
 API = "https://weerwijzer-belastingdienst.nl"
 API_KEY = os.environ.get("API_KEY")
 
+
 def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
     """Luchtdruk en vorigeluchtdruk in mbar // Temperatuur in graden Celsius // Windrichting in graden (0-360)"""
     # zWind uitrekenen aan de hand van windrichting
@@ -30,6 +31,7 @@ def bereken_zambretti(luchtdruk, vorige_luchtdruk, windrichting):
         return m.floor(144 - 0.13 * luchtdruk + zWind)
     else:
         return 999
+
 
 def bereken_voorspellingen_uren(locatie, API=API):
     try:
@@ -98,8 +100,8 @@ def post_weer_data(locatie, API=API):
         nieuwe_metinguren = [
             {
                 "datetime": str(date.today())
-                + " "
-                + jsonData["currentConditions"]["datetime"],
+                            + " "
+                            + jsonData["currentConditions"]["datetime"],
                 "temperature": jsonData["currentConditions"]["temp"],
                 "pressure": jsonData["currentConditions"]["pressure"],
                 "winddirection": jsonData["currentConditions"]["winddir"],
@@ -109,8 +111,8 @@ def post_weer_data(locatie, API=API):
             for i in data["hours"]:
                 i_datetime = f"{data['datetime']} {i['datetime']}"
                 if (
-                    i_datetime
-                    < (
+                        i_datetime
+                        < (
                         datetime.strptime(
                             str(date.today())
                             + " "
@@ -118,11 +120,11 @@ def post_weer_data(locatie, API=API):
                             "%Y-%m-%d %H:%M:%S",
                         ).replace(minute=0, second=0, microsecond=0)
                         - timedelta(hours=3)
-                    ).strftime("%Y-%m-%d %H:%M:%S")
-                    and i_datetime
-                    <= str(date.today())
-                    + " "
-                    + jsonData["currentConditions"]["datetime"]
+                ).strftime("%Y-%m-%d %H:%M:%S")
+                        and i_datetime
+                        <= str(date.today())
+                        + " "
+                        + jsonData["currentConditions"]["datetime"]
                 ):
                     continue
                 nieuwe_metinguren.append(
@@ -169,6 +171,10 @@ def post_weer_data_locaties():
 
 
 if __name__ == "__main__":
-    post_weer_data_locaties()
-    logging.info("[run] Alle weerdata is succesvol verwerkt.")
-    sys.exit(0)
+    try:
+        logging.info("[run] De applicatie is gestart.")
+        post_weer_data_locaties()
+        logging.info("[run] Alle weerdata is verwerkt.")
+    except Exception as e:
+        logging.error("[run] Er is een fout opgetreden: %s", e)
+        sys.exit(1)
