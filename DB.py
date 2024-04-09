@@ -302,7 +302,7 @@ def seed_db(TestingDB=False):
                     )
                 db.add_all(voorspellingUren)
                 db.commit()
-        # if db.query(Image).count() == 0:
+        if db.query(Image).count() != 0:
             image_directory = "templates/pictures"
             for image in os.listdir(image_directory):
                             with open(f"{image_directory}/{image}", "rb") as file:
