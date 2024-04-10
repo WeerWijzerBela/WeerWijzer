@@ -20,16 +20,28 @@ variable "domain" {
   description = "Domain name for the application"
   default     = "weerwijzer-belastingdienst.nl"
 }
+variable "API_KEY" {
+  description = "API key"
+}
 
 variable "app_image_tag" {
   description = "Docker image tag for the application"
-#  default     = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.04"
 }
 variable "db_password" {
   description = "Database password"
 }
-variable "API_KEY"{
-  description = "API key"
-}
 
+
+variable "db_user" {
+  description = "Database user"
+}
+variable "db_host" {
+  description = "Database host"
+}
+variable "db_name" {
+  description = "Database name"
+}
+variable "db_port" {
+  description = "Database port"
+}
 
