@@ -58,10 +58,6 @@ resource "kubernetes_deployment" "weerwijzer_app" {
             name  = "DB_PASSWORD"
             value = var.db_password
           }
-          env {
-            name  = "API_KEY"
-            value = var.API_KEY
-          }
           port {
             container_port = 8080
           }

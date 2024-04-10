@@ -28,7 +28,7 @@ resource "github_actions_secret" "db_name" {
 resource "github_actions_secret" "db_password" {
   repository       = data.github_repository.repo.name
   secret_name      = "DB_PASSWORD_2"
-  encrypted_value  = digitalocean_database_cluster.db-cluster.password
+  plaintext_value  = digitalocean_database_cluster.db-cluster.password
 }
 
 resource "github_actions_secret" "db_host" {
