@@ -30,21 +30,27 @@ jobs:
             cd iac-container
             terraform init \
               -backend-config="access_key=${{secrets.SPACE_ACCESS_KEY}}" \
-              -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" \
-
-        - name: Terraform Plan voor container en database
-          run: |
-            cd iac-container
+              -backend-config="secret_key=${{secrets.SPACE_SECRET_KEY}}" 
             terraform plan \
               -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-              -var="github_token=${{secrets.GH_TOKEN}}" \
-
-        - name: Terraform Apply voor container en database
-          run: |
-            cd iac-container
+              -var="github_token=${{secrets.GH_TOKEN}}" 
             terraform apply -auto-approve \
               -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-              -var="github_token=${{secrets.GH_TOKEN}}" \   
+              -var="github_token=${{secrets.GH_TOKEN}}"  
+
+#        - name: Terraform Plan voor container en database
+#          run: |
+#            cd iac-container
+#            terraform plan \
+#              -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+#              -var="github_token=${{secrets.GH_TOKEN}}" \
+#
+#        - name: Terraform Apply voor container en database
+#          run: |
+#            cd iac-container
+#            terraform apply -auto-approve \
+#              -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+#              -var="github_token=${{secrets.GH_TOKEN}}" \
 
   test:
     needs: build
