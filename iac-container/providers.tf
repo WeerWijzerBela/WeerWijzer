@@ -26,6 +26,7 @@ provider "digitalocean" {
 }
 provider "github" {
   token = var.github_token
+  owner  = "WeerWijzerBela"
 }
 
 variable "do_token" {}
