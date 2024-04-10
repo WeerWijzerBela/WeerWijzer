@@ -44,7 +44,7 @@ class Locatie(Base):
     __tablename__ = "locaties"
 
     locatieId = Column(Integer, primary_key=True, autoincrement=True)
-    locatie = Column(String(255), nullable=False)
+    locatie = Column(String(255), nullable=False, unique=True)
 
     metingen = relationship("Meting", back_populates="locatie")
     voorspellingen = relationship(

@@ -25,7 +25,7 @@ jobs:
           with:
             terraform_version: 1.0.0
 
-        - name: Terraform Init voor container en database
+        - name: Terraform voor container en database
           run: |
             cd iac-container
             terraform init \
@@ -37,20 +37,6 @@ jobs:
             terraform apply -auto-approve \
               -var="do_token=${{secrets.DOCKER_TOKEN}}" \
               -var="github_token=${{secrets.GH_TOKEN}}"  
-
-#        - name: Terraform Plan voor container en database
-#          run: |
-#            cd iac-container
-#            terraform plan \
-#              -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-#              -var="github_token=${{secrets.GH_TOKEN}}" \
-#
-#        - name: Terraform Apply voor container en database
-#          run: |
-#            cd iac-container
-#            terraform apply -auto-approve \
-#              -var="do_token=${{secrets.DOCKER_TOKEN}}" \
-#              -var="github_token=${{secrets.GH_TOKEN}}" \
 
   test:
     needs: build
