@@ -30,7 +30,7 @@ resource "github_actions_organization_secret" "database_user_2" {
 resource "github_actions_organization_secret" "database_password_2" {
   depends_on = [digitalocean_database_cluster.db-cluster]
   secret_name             = "DB_PASSWORD_2"
-  visibility              = "selected"
-  encrypted_value         = digitalocean_database_cluster.db-cluster.password
+  visibility              = "private"
+  plaintext_value         = digitalocean_database_cluster.db-cluster.password
   selected_repository_ids = [data.github_repository.repo.repo_id]
 }
