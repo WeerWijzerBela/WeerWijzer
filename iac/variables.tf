@@ -32,4 +32,16 @@ variable "API_KEY"{
   description = "API key"
 }
 
+variable "db_user" {
+  description = "Database user"
+}
+variable "db_host" {
+  description = "Database host"
+}
+variable "db_name" {
+  description = "Database name"
+}
+variable "db_port" {
+  description = "Database port"
+}
 

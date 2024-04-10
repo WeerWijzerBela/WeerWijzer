@@ -40,19 +40,19 @@ resource "kubernetes_deployment" "weerwijzer_app" {
           image = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:${var.app_image_tag}"
           env {
             name  = "DB_HOST"
-            value = "mysqldb-weerwijzer-do-user-15988447-0.c.db.ondigitalocean.com"
+            value = var.db_host
           }
           env {
             name  = "DB_NAME"
-            value = "defaultdb"
+            value = var.db_name
           }
           env {
             name  = "DB_PORT"
-            value = 25060
+            value = var.db_port
           }
           env {
             name  = "DB_USER"
-            value = "doadmin"
+            value = var.db_user
           }
           env {
             name  = "DB_PASSWORD"
