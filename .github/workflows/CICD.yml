@@ -2,7 +2,7 @@ name: CICD Pipeline
 on:
   push:
     branches:
-      - feature/terraform
+      - master
   pull_request:
     branches:
       - master

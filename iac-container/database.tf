@@ -7,13 +7,6 @@ resource "digitalocean_database_cluster" "db-cluster" {
   node_count = 1
 }
 
-resource "digitalocean_database_db" "database-mysql" {
-  depends_on = [digitalocean_database_cluster.db-cluster]
-  cluster_id = digitalocean_database_cluster.db-cluster.id
-  name       = "database-weerwijzer"
-}
-
-
 data "github_repository" "repo" {
   depends_on = [digitalocean_database_cluster.db-cluster]
   full_name = "WeerWijzerBela/WeerWijzer"
