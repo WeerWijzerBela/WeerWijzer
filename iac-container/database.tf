@@ -34,3 +34,18 @@ resource "github_actions_organization_secret" "database_password_2" {
   plaintext_value         = digitalocean_database_cluster.db-cluster.password
   # selected_repository_ids = [data.github_repository.repo.repo_id]
 }
+data "github_actions_public_key" "example_public_key" {
+  repository = "WeerWijzerBela/WeerWijzer"
+}
+
+resource "github_actions_secret" "db_name" {
+  repository       = data.github_repository.repo.name
+  secret_name      = "DB_NAME_2"
+  plaintext_value  = digitalocean_database_cluster.db-cluster.name
+}
+
+#resource "github_actions_secret" "example_secret" {
+#  repository       = data.github_repository.repo.name
+#  secret_name      = "example_secret_name"
+#  encrypted_value  = var.some_encrypted_secret_string
+#}
