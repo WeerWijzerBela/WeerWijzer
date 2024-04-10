@@ -34,16 +34,3 @@ resource "github_actions_organization_secret" "database_password_2" {
   plaintext_value         = digitalocean_database_cluster.db-cluster.password
   # selected_repository_ids = [data.github_repository.repo.repo_id]
 }
-resource "github_repository_environment" "repo_environment" {
-  depends_on = [data.github_repository.repo]
-  repository       = data.github_repository.repo.name
-  environment      = "example_environment"
-}
-
-resource "github_actions_environment_secret" "test_secret" {
-  depends_on = [data.github_repository.repo]
-  repository       = data.github_repository.repo.name
-  environment      = github_repository_environment.repo_environment.environment
-  secret_name      = "test_secret_name"
-  plaintext_value  = "%s"
-}
