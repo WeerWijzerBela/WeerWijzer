@@ -20,7 +20,7 @@ data "github_repository" "repo" {
 }
 
 resource "github_actions_organization_secret" "database_user_2" {
-  depends_on = [digitalocean_database_cluster.db-cluster]
+  depends_on = [data.github_repository.repo]
   secret_name             = "DB_USER_2"
   visibility              = "selected"
   plaintext_value         = digitalocean_database_cluster.db-cluster.user
@@ -28,7 +28,7 @@ resource "github_actions_organization_secret" "database_user_2" {
 }
 
 resource "github_actions_organization_secret" "database_password_2" {
-  depends_on = [digitalocean_database_cluster.db-cluster]
+  depends_on = [data.github_repository.repo]
   secret_name             = "DB_PASSWORD_2"
   visibility              = "private"
   plaintext_value         = digitalocean_database_cluster.db-cluster.password
