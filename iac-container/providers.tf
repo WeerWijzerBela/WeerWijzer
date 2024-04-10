@@ -24,8 +24,13 @@ provider "digitalocean" {
     token = var.do_token
 
 }
+provider "github" {
+  token = var.github_token
+}
+
 variable "do_token" {}
 variable "API_KEY" {}
 variable "app_image_tag" {}
 variable "db_password" {}
+variable "github_token" {}
 

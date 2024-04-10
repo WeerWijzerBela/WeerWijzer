@@ -70,6 +70,7 @@ jobs:
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+            -var="github_token=${{secrets.GH_TOKEN}}" \
             
       - name: Terraform Apply voor container en database
         run: |
@@ -79,6 +80,7 @@ jobs:
             -var="app_image_tag=$DOCKER_VERSION" \
             -var="db_password=${{secrets.DB_PASSWORD}}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
+            -var="github_token=${{secrets.GH_TOKEN}}" \
 
       - name: Cancel garbage tasks
         run: |
