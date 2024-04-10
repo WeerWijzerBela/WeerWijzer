@@ -20,6 +20,9 @@ variable "domain" {
   description = "Domain name for the application"
   default     = "weerwijzer-belastingdienst.nl"
 }
+variable "API_KEY" {
+  description = "API key"
+}
 
 variable "app_image_tag" {
   description = "Docker image tag for the application"
