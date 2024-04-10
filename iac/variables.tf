@@ -23,14 +23,11 @@ variable "domain" {
 
 variable "app_image_tag" {
   description = "Docker image tag for the application"
-#  default     = "registry.digitalocean.com/container-weerwijzer/weerwijzer-app:1.04"
 }
 variable "db_password" {
   description = "Database password"
 }
-variable "API_KEY"{
-  description = "API key"
-}
+
 
 variable "db_user" {
   description = "Database user"
