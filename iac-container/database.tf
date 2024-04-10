@@ -17,14 +17,14 @@ resource "digitalocean_database_db" "database-mysql" {
 #data "github_repository" "repo" {
 #  full_name = "WeerWijzerBela/WeerWijzer"
 #}
-resource "github_actions_secret" "example_secret" {
+resource "github_actions_secret" "database_user_2" {
   depends_on = [digitalocean_database_cluster.db-cluster]
   repository       = "WeerWijzerBela/WeerWijzer"
   secret_name      = "DB_USER_2"
   plaintext_value  = digitalocean_database_cluster.db-cluster.user
 }
 
-resource "github_actions_secret" "example_secret" {
+resource "github_actions_secret" "database_password_2" {
   depends_on = [digitalocean_database_cluster.db-cluster]
   repository       = "example_repository"
   secret_name      = "DB_PASSWORD_2"
