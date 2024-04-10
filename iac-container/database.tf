@@ -34,9 +34,9 @@ resource "github_actions_organization_secret" "database_password_2" {
   plaintext_value         = digitalocean_database_cluster.db-cluster.password
   # selected_repository_ids = [data.github_repository.repo.repo_id]
 }
-data "github_actions_public_key" "example_public_key" {
-  repository = "WeerWijzerBela/WeerWijzer"
-}
+#data "github_actions_public_key" "example_public_key" {
+#  repository = "WeerWijzerBela/WeerWijzer"
+#}
 
 resource "github_actions_secret" "db_name" {
   repository       = data.github_repository.repo.name
