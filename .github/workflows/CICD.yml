@@ -54,31 +54,31 @@ jobs:
               pip install -r requirements.txt
         - name: Run the DB test
           env:
-            DB_HOST: ${{ secrets.DB_HOST_2 }}
-            DB_NAME: ${{ secrets.DB_NAME_2 }}
-            DB_PORT: ${{ secrets.DB_PORT_2 }}
-            DB_USER: ${{ secrets.DB_USER_2 }}
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD_2 }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             API_KEY: ${{ secrets.API_KEY }}
           run: |
               pytest --cov=test_DB test_DB.py
         - name: Run the API test
           env:
-            DB_HOST: ${{ secrets.DB_HOST_2 }}
-            DB_NAME: ${{ secrets.DB_NAME_2 }}
-            DB_PORT: ${{ secrets.DB_PORT_2 }}
-            DB_USER: ${{ secrets.DB_USER_2 }}
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD_2 }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             API_KEY: ${{ secrets.API_KEY }}
           run: |
               pytest --cov=test_API test_API.py
         - name: Run de weerWijzer test
           env:
-            DB_HOST: ${{ secrets.DB_HOST_2 }}
-            DB_NAME: ${{ secrets.DB_NAME_2 }}
-            DB_PORT: ${{ secrets.DB_PORT_2 }}
-            DB_USER: ${{ secrets.DB_USER_2 }}
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD_2 }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             API_KEY: ${{ secrets.API_KEY }}
           run: |
               pytest --cov=test_runWeerWijzer test_runWeerWijzer.py
@@ -139,11 +139,11 @@ jobs:
            terraform plan \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
-            -var="db_password=${{secrets.DB_PASSWORD_2}}" \
-            -var="db_user=${{secrets.DB_USER_2}}" \
-            -var="db_host=${{secrets.DB_HOST_2}}" \
-            -var="db_name=${{secrets.DB_NAME_2}}" \
-            -var="db_port=${{secrets.DB_PORT_2}}" \
+            -var="db_password=${{secrets.DB_PASSWORD }}" \
+            -var="db_user=${{secrets.DB_USER }}" \
+            -var="db_host=${{secrets.DB_HOST }}" \
+            -var="db_name=${{secrets.DB_NAME }}" \
+            -var="db_port=${{secrets.DB_PORT }}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
 
       - name: Terraform Apply voor alle andere componenten
@@ -152,10 +152,10 @@ jobs:
            terraform apply -auto-approve \
             -var="API_KEY=${{secrets.API_KEY}}" \
             -var="app_image_tag=$DOCKER_VERSION" \
-            -var="db_password=${{secrets.DB_PASSWORD_2}}" \
-            -var="db_user=${{secrets.DB_USER_2}}" \
-            -var="db_host=${{secrets.DB_HOST_2}}" \
-            -var="db_name=${{secrets.DB_NAME_2}}" \
-            -var="db_port=${{secrets.DB_PORT_2}}" \
+            -var="db_password=${{secrets.DB_PASSWORD }}" \
+            -var="db_user=${{secrets.DB_USER }}" \
+            -var="db_host=${{secrets.DB_HOST }}" \
+            -var="db_name=${{secrets.DB_NAME }}" \
+            -var="db_port=${{secrets.DB_PORT }}" \
             -var="do_token=${{secrets.DOCKER_TOKEN}}" \
             
