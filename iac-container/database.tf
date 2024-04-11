@@ -14,29 +14,29 @@ data "github_repository" "repo" {
 
 resource "github_actions_secret" "db_name" {
   repository       = data.github_repository.repo.name
-  secret_name      = "DB_NAME_2"
+  secret_name      = "DB_NAME"
   plaintext_value  = "defaultdb"
 }
 
 resource "github_actions_secret" "db_password" {
   repository       = data.github_repository.repo.name
-  secret_name      = "DB_PASSWORD_2"
+  secret_name      = "DB_PASSWORD"
   plaintext_value  = digitalocean_database_cluster.db-cluster.password
 }
 
 resource "github_actions_secret" "db_host" {
   repository       = data.github_repository.repo.name
-  secret_name      = "DB_HOST_2"
+  secret_name      = "DB_HOST"
   plaintext_value  = digitalocean_database_cluster.db-cluster.host
 }
 resource "github_actions_secret" "db_port" {
   repository       = data.github_repository.repo.name
-  secret_name      = "DB_PORT_2"
+  secret_name      = "DB_PORT"
   plaintext_value  = digitalocean_database_cluster.db-cluster.port
 }
 resource "github_actions_secret" "db_user" {
   repository       = data.github_repository.repo.name
-  secret_name      = "DB_USER_2"
+  secret_name      = "DB_USER"
   plaintext_value  = digitalocean_database_cluster.db-cluster.user
 }
 
