@@ -532,3 +532,8 @@ def get_image(imageId: int, db: Session = Depends(get_db)):
     except SQLAlchemyError as e:
         logging.error(f"[API] Er is een fout opgetreden bij get-request /images: {e}")
         raise HTTPException(status_code=500, detail="Interne serverfout")
+
+###Test Endpoint
+@app.get('/test')
+def test():
+    return {"message": "API is online"}
